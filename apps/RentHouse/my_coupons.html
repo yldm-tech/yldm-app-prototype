@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的优惠券 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序导航栏 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 84px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px;
+        }
+
+        /* 状态筛选栏 */
+        .filter-tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .filter-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+        }
+
+        .filter-tab.active {
+            color: #fff;
+            background-color: #1989fa;
+        }
+
+        /* 优惠券卡片 */
+        .coupon-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .coupon-card::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f7f7f7;
+            transform: translateY(-50%);
+        }
+
+        .coupon-card::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f7f7f7;
+            transform: translateY(-50%);
+        }
+
+        .coupon-content {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px dashed #e5e5e5;
+        }
+
+        .coupon-left {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .coupon-amount {
+            color: #ff5a5f;
+            margin-bottom: 8px;
+        }
+
+        .coupon-price {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .coupon-unit {
+            font-size: 14px;
+            margin-left: 2px;
+        }
+
+        .coupon-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .coupon-desc {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .coupon-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-left: 15px;
+            border-left: 1px dashed #e5e5e5;
+            min-width: 100px;
+        }
+
+        .coupon-status {
+            font-size: 14px;
+            color: #1989fa;
+            margin-bottom: 8px;
+        }
+
+        .coupon-btn {
+            padding: 6px 12px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        .coupon-btn.disabled {
+            background-color: #ccc;
+        }
+
+        .coupon-footer {
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coupon-time {
+            display: flex;
+            align-items: center;
+        }
+
+        .coupon-time i {
+            margin-right: 4px;
+        }
+
+        .coupon-rules {
+            color: #1989fa;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-button {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* 优惠券状态样式 */
+        .coupon-card.expired .coupon-amount,
+        .coupon-card.expired .coupon-status {
+            color: #999;
+        }
+
+        .coupon-card.used .coupon-amount,
+        .coupon-card.used .coupon-status {
+            color: #52c41a;
+        }
+
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">我的优惠券</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 状态筛选栏 -->
+        <div class="filter-tabs">
+            <div class="filter-tab active">可使用</div>
+            <div class="filter-tab">已使用</div>
+            <div class="filter-tab">已过期</div>
+        </div>
+
+        <!-- 优惠券列表 -->
+        <div class="coupon-list">
+            <!-- 优惠券1 -->
+            <div class="coupon-card">
+                <div class="coupon-content">
+                    <div class="coupon-left">
+                        <div class="coupon-amount">
+                            <span class="coupon-price">1000</span>
+                            <span class="coupon-unit">元</span>
+                        </div>
+                        <div class="coupon-title">新人专享租金券</div>
+                        <div class="coupon-desc">满12000元可用</div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-status">未使用</div>
+                        <div class="coupon-btn">立即使用</div>
+                    </div>
+                </div>
+                <div class="coupon-footer">
+                    <div class="coupon-time">
+                        <i class="far fa-clock"></i>
+                        <span>有效期至：2023-12-31</span>
+                    </div>
+                    <div class="coupon-rules">使用规则</div>
+                </div>
+            </div>
+
+            <!-- 优惠券2 -->
+            <div class="coupon-card">
+                <div class="coupon-content">
+                    <div class="coupon-left">
+                        <div class="coupon-amount">
+                            <span class="coupon-price">500</span>
+                            <span class="coupon-unit">元</span>
+                        </div>
+                        <div class="coupon-title">618租房节优惠券</div>
+                        <div class="coupon-desc">满6000元可用</div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-status">未使用</div>
+                        <div class="coupon-btn">立即使用</div>
+                    </div>
+                </div>
+                <div class="coupon-footer">
+                    <div class="coupon-time">
+                        <i class="far fa-clock"></i>
+                        <span>有效期至：2023-06-30</span>
+                    </div>
+                    <div class="coupon-rules">使用规则</div>
+                </div>
+            </div>
+
+            <!-- 已使用优惠券 -->
+            <div class="coupon-card used">
+                <div class="coupon-content">
+                    <div class="coupon-left">
+                        <div class="coupon-amount">
+                            <span class="coupon-price">300</span>
+                            <span class="coupon-unit">元</span>
+                        </div>
+                        <div class="coupon-title">签约优惠券</div>
+                        <div class="coupon-desc">满3000元可用</div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-status">已使用</div>
+                        <div class="coupon-btn disabled">已使用</div>
+                    </div>
+                </div>
+                <div class="coupon-footer">
+                    <div class="coupon-time">
+                        <i class="far fa-clock"></i>
+                        <span>使用时间：2023-05-20</span>
+                    </div>
+                    <div class="coupon-rules">使用规则</div>
+                </div>
+            </div>
+
+            <!-- 已过期优惠券 -->
+            <div class="coupon-card expired">
+                <div class="coupon-content">
+                    <div class="coupon-left">
+                        <div class="coupon-amount">
+                            <span class="coupon-price">200</span>
+                            <span class="coupon-unit">元</span>
+                        </div>
+                        <div class="coupon-title">五一特惠券</div>
+                        <div class="coupon-desc">满2000元可用</div>
+                    </div>
+                    <div class="coupon-right">
+                        <div class="coupon-status">已过期</div>
+                        <div class="coupon-btn disabled">已过期</div>
+                    </div>
+                </div>
+                <div class="coupon-footer">
+                    <div class="coupon-time">
+                        <i class="far fa-clock"></i>
+                        <span>已过期</span>
+                    </div>
+                    <div class="coupon-rules">使用规则</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="fas fa-ticket-alt"></i>
+            <div class="empty-state-text">暂无优惠券</div>
+            <div class="empty-state-button">去领券</div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script>
+        // 状态筛选切换
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // 这里可以添加筛选逻辑
+            });
+        });
+
+        // 优惠券使用按钮点击事件
+        const couponButtons = document.querySelectorAll('.coupon-btn:not(.disabled)');
+        couponButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const couponCard = button.closest('.coupon-card');
+                const amount = couponCard.querySelector('.coupon-price').textContent;
+                const title = couponCard.querySelector('.coupon-title').textContent;
+                // 这里添加使用优惠券的逻辑
+                console.log('使用优惠券：', title, amount + '元');
+            });
+        });
+
+        // 使用规则点击事件
+        const ruleButtons = document.querySelectorAll('.coupon-rules');
+        ruleButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const couponCard = button.closest('.coupon-card');
+                const title = couponCard.querySelector('.coupon-title').textContent;
+                // 这里添加查看规则的逻辑
+                console.log('查看优惠券规则：', title);
+            });
+        });
+
+        // 优惠券卡片点击事件
+        const couponCards = document.querySelectorAll('.coupon-card');
+        couponCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.coupon-title').textContent;
+                // 这里添加查看优惠券详情的逻辑
+                console.log('查看优惠券详情：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 首页</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content" style="padding-top: 124px; padding-bottom: 90px;">
+      <!-- 应用头部 -->
+      <div class="app-header">
+        <h1 style="font-size: 24px; font-weight: 700; color: var(--primary-color);">
+          <span class="emoji-decoration">🌸</span> 悦灵辞书
+        </h1>
+        <div style="display: flex; gap: 8px;">
+          <button class="icon-button">
+            <i class="fas fa-bell"></i>
+          </button>
+          <button class="icon-button">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 搜索栏 -->
+      <div class="search-bar" style="margin-top: 8px;">
+        <i class="fas fa-search" style="color: var(--light-text);"></i>
+        <input type="text" placeholder="输入日语单词或句子~" />
+        <button class="icon-button primary">
+          <i class="fas fa-microphone"></i>
+        </button>
+      </div>
+
+      <!-- 功能快捷方式 -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 16px 28px 16px;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(255, 107, 158, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+            <i class="fas fa-graduation-cap" style="color: var(--primary-color); font-size: 18px;"></i>
+          </div>
+          <span style="font-size: 12px; color: var(--text-color);">每日学习</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(161, 119, 255, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+            <i class="fas fa-certificate" style="color: var(--secondary-color); font-size: 18px;"></i>
+          </div>
+          <span style="font-size: 12px; color: var(--text-color);">能力测验</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(255, 209, 102, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+            <i class="fas fa-list-ul" style="color: var(--accent-color); font-size: 18px;"></i>
+          </div>
+          <span style="font-size: 12px; color: var(--text-color);">词汇分类</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(78, 205, 196, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+            <i class="fas fa-heart" style="color: var(--success-color); font-size: 18px;"></i>
+          </div>
+          <span style="font-size: 12px; color: var(--text-color);">我的收藏</span>
+        </div>
+      </div>
+
+      <!-- AI查词推荐 -->
+      <div class="card" style="display: flex; align-items: center; margin: 0 16px 20px 16px;">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <span class="ai-chip"><i class="fas fa-robot"></i> AI</span>
+            <span style="font-weight: 600; margin-left: 8px;">AI 小灵助手</span>
+          </div>
+          <p style="font-size: 14px; color: var(--light-text);">
+            找不到想要的词语？试试我的 AI 查词功能吧！(≧▽≦)
+          </p>
+        </div>
+        <button class="button-secondary" style="white-space: nowrap; padding: 8px 16px; font-size: 14px;">
+          AI 查词
+        </button>
+      </div>
+
+      <!-- 学习进度横幅 -->
+      <div class="card" style="margin: 0 16px 24px 16px; background-color: var(--primary-color); color: white; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -15px; right: -15px; width: 80px; height: 80px; background-color: rgba(255,255,255,0.1); border-radius: 40px;"></div>
+        <div style="position: absolute; bottom: -20px; left: -20px; width: 100px; height: 100px; background-color: rgba(255,255,255,0.05); border-radius: 50px;"></div>
+
+        <div style="position: relative; z-index: 1;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="font-weight: 600; margin: 0;">今日学习目标</h3>
+            <span style="font-size: 14px; opacity: 0.9;">8/10 单词</span>
+          </div>
+
+          <div style="height: 8px; background-color: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin-bottom: 8px;">
+            <div style="height: 100%; width: 80%; background-color: white; border-radius: 4px;"></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; font-size: 12px;">
+            <div>已学习: 8 个单词</div>
+            <div>剩余: 2 个单词</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 最近搜索 -->
+      <h2 class="section-title" style="margin: 32px 0 16px 16px;">最近搜索 <span class="kawaii-text">ʕ•ᴥ•ʔ</span></h2>
+      <div style="padding: 0 16px;">
+        <div class="word-card" style="margin-bottom: 14px;">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">桜 (さくら)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">樱花, 樱桃树</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">名词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="favorite-button">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card" style="margin-bottom: 14px;">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">可愛い (かわいい)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">可爱的, 漂亮的</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">形容词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="favorite-button active">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card" style="margin-bottom: 14px;">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">頑張る (がんばる)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">努力, 加油</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">动词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="favorite-button">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 学习推荐 -->
+      <div style="margin: 32px 0 32px 0; padding: 0 16px;">
+        <div class="card" style="background-color: rgba(161, 119, 255, 0.05); border: 1px solid rgba(161, 119, 255, 0.2);">
+          <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <span class="ai-chip"><i class="fas fa-robot"></i> AI</span>
+            <span style="font-weight: 600; margin-left: 8px;">为你推荐</span>
+          </div>
+          <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+            根据你的学习习惯，今天推荐学习以下词汇分类：
+          </p>
+          <div style="display: flex; overflow-x: auto; gap: 10px; padding: 4px 0;">
+            <div style="flex: 0 0 auto; background-color: white; border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.05); min-width: 140px;">
+              <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">动漫用语</div>
+              <div style="font-size: 12px; color: var(--light-text);">35个常用词</div>
+            </div>
+            <div style="flex: 0 0 auto; background-color: white; border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.05); min-width: 140px;">
+              <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">旅游会话</div>
+              <div style="font-size: 12px; color: var(--light-text);">42个实用句</div>
+            </div>
+            <div style="flex: 0 0 auto; background-color: white; border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.05); min-width: 140px;">
+              <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">N5核心词</div>
+              <div style="font-size: 12px; color: var(--light-text);">78个必学词</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item active">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-book"></i>
+        <span>词典</span>
+      </div>
+      <div class="tab-item">
+        <div style="position: relative;">
+          <i class="fas fa-robot"></i>
+          <span class="badge">新</span>
+        </div>
+        <span>AI助手</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-chart-line"></i>
+        <span>学习</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

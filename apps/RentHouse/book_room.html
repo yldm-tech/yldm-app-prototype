@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预约看房 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 65px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        
+        /* 底部确认按钮 */
+        .confirm-bar {
+            height: 65px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .confirm-button {
+            flex: 1;
+            height: 45px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 22.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* 预约表单样式 */
+        .form-section {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+        
+        .form-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-title i {
+            color: #1989fa;
+            margin-right: 5px;
+        }
+        
+        .form-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .form-item:last-child {
+            border-bottom: none;
+        }
+        
+        .form-label {
+            width: 90px;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .form-input {
+            flex: 1;
+            border: none;
+            font-size: 15px;
+            color: #333;
+            outline: none;
+            background-color: transparent;
+        }
+        
+        .form-input::placeholder {
+            color: #999;
+        }
+        
+        .form-arrow {
+            color: #ccc;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        
+        .form-switch {
+            width: 40px;
+            height: 22px;
+            background-color: #e6e6e6;
+            border-radius: 11px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        
+        .form-switch.active {
+            background-color: #1989fa;
+        }
+        
+        .switch-button {
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: left 0.3s;
+        }
+        
+        .form-switch.active .switch-button {
+            left: 20px;
+        }
+        
+        .property-card {
+            display: flex;
+            margin-bottom: 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .property-image {
+            width: 90px;
+            height: 90px;
+            flex-shrink: 0;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-info {
+            flex: 1;
+            padding: 10px;
+        }
+        
+        .property-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .property-location {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .property-location i {
+            font-size: 12px;
+            margin-right: 2px;
+        }
+        
+        .property-price {
+            color: #ff5a5f;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .property-price span {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .form-calendar {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .calendar-day {
+            width: 14.28%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        
+        .calendar-day-header {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .calendar-day.disabled {
+            color: #ccc;
+        }
+        
+        .calendar-day.available {
+            color: #333;
+        }
+        
+        .calendar-day.selected {
+            color: #fff;
+            background-color: #1989fa;
+            border-radius: 50%;
+        }
+        
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .time-slot {
+            width: calc(33.33% - 10px);
+            margin: 0 5px 10px 5px;
+            padding: 10px 0;
+            text-align: center;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .time-slot.available {
+            color: #333;
+        }
+        
+        .time-slot.disabled {
+            color: #ccc;
+            background-color: #f5f5f5;
+        }
+        
+        .time-slot.selected {
+            color: #fff;
+            background-color: #1989fa;
+            border-color: #1989fa;
+        }
+        
+        .form-tip {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        
+        .agreement {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .agreement-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        
+        .agreement-checkbox.checked {
+            background-color: #1989fa;
+            border-color: #1989fa;
+        }
+        
+        .agreement-text {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .agreement-link {
+            color: #1989fa;
+        }
+        
+        /* 调整五个标签的样式 */
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">预约看房</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 房源信息 -->
+        <div class="form-section">
+            <div class="form-title">
+                <i class="fas fa-home"></i> 房源信息
+            </div>
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="房源图片">
+                </div>
+                <div class="property-info">
+                    <div class="property-title">阳光城市花园 精装修两居室 南北通透</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 朝阳区·望京
+                    </div>
+                    <div class="property-price">4500<span>/月</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 预约信息 -->
+        <div class="form-section">
+            <div class="form-title">
+                <i class="fas fa-calendar-alt"></i> 预约信息
+            </div>
+            <div class="form-item">
+                <div class="form-label">预约日期</div>
+                <input type="text" class="form-input" placeholder="请选择日期" value="2023-06-15" readonly>
+                <div class="form-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            
+            <!-- 日历选择器 -->
+            <div class="form-calendar">
+                <div class="calendar-day calendar-day-header">日</div>
+                <div class="calendar-day calendar-day-header">一</div>
+                <div class="calendar-day calendar-day-header">二</div>
+                <div class="calendar-day calendar-day-header">三</div>
+                <div class="calendar-day calendar-day-header">四</div>
+                <div class="calendar-day calendar-day-header">五</div>
+                <div class="calendar-day calendar-day-header">六</div>
+                
+                <div class="calendar-day disabled">28</div>
+                <div class="calendar-day disabled">29</div>
+                <div class="calendar-day disabled">30</div>
+                <div class="calendar-day disabled">31</div>
+                <div class="calendar-day available">1</div>
+                <div class="calendar-day available">2</div>
+                <div class="calendar-day available">3</div>
+                
+                <div class="calendar-day available">4</div>
+                <div class="calendar-day available">5</div>
+                <div class="calendar-day available">6</div>
+                <div class="calendar-day available">7</div>
+                <div class="calendar-day available">8</div>
+                <div class="calendar-day available">9</div>
+                <div class="calendar-day available">10</div>
+                
+                <div class="calendar-day available">11</div>
+                <div class="calendar-day available">12</div>
+                <div class="calendar-day available">13</div>
+                <div class="calendar-day available">14</div>
+                <div class="calendar-day selected">15</div>
+                <div class="calendar-day available">16</div>
+                <div class="calendar-day available">17</div>
+                
+                <div class="calendar-day available">18</div>
+                <div class="calendar-day available">19</div>
+                <div class="calendar-day available">20</div>
+                <div class="calendar-day available">21</div>
+                <div class="calendar-day available">22</div>
+                <div class="calendar-day available">23</div>
+                <div class="calendar-day available">24</div>
+            </div>
+            
+            <div class="form-item">
+                <div class="form-label">预约时段</div>
+                <input type="text" class="form-input" placeholder="请选择时段" value="10:00-11:00" readonly>
+                <div class="form-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            
+            <!-- 时段选择器 -->
+            <div class="time-slots">
+                <div class="time-slot disabled">09:00-10:00</div>
+                <div class="time-slot selected">10:00-11:00</div>
+                <div class="time-slot available">11:00-12:00</div>
+                <div class="time-slot available">13:00-14:00</div>
+                <div class="time-slot available">14:00-15:00</div>
+                <div class="time-slot available">15:00-16:00</div>
+                <div class="time-slot disabled">16:00-17:00</div>
+                <div class="time-slot available">17:00-18:00</div>
+                <div class="time-slot available">18:00-19:00</div>
+            </div>
+            
+            <div class="form-tip">
+                * 预约看房时间仅供参考，实际看房时间可能会根据房源状态有所调整。
+            </div>
+        </div>
+        
+        <!-- 联系人信息 -->
+        <div class="form-section">
+            <div class="form-title">
+                <i class="fas fa-user"></i> 联系人信息
+            </div>
+            <div class="form-item">
+                <div class="form-label">姓名</div>
+                <input type="text" class="form-input" placeholder="请输入您的姓名" value="张先生">
+            </div>
+            <div class="form-item">
+                <div class="form-label">手机号码</div>
+                <input type="tel" class="form-input" placeholder="请输入您的手机号码" value="188****1234">
+            </div>
+            </div>
+            <div class="form-tip">
+                * 开启提醒后，您将在预约当天收到短信提醒。
+            </div>
+        </div>
+        
+        <!-- 备注信息 -->
+        <div class="form-section">
+            <div class="form-title">
+                <i class="fas fa-pen"></i> 备注信息
+            </div>
+            <div class="form-item" style="align-items: flex-start;">
+                <div class="form-label" style="padding-top: 6px;">备注</div>
+                <textarea class="form-input" placeholder="请输入备注信息（选填）" rows="4" style="resize: none;"></textarea>
+            </div>
+        </div>
+        
+        <!-- 用户协议 -->
+        <div class="form-section">
+            <div class="agreement">
+                <div class="agreement-checkbox checked" id="agreement-checkbox">
+                    <i class="fas fa-check fa-sm"></i>
+                </div>
+                <div class="agreement-text">
+                    我已阅读并同意 <span class="agreement-link">《预约看房服务协议》</span> 和 <span class="agreement-link">《隐私政策》</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部确认按钮 -->
+    <div class="confirm-bar">
+        <div class="confirm-button">提交预约</div>
+    </div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item active">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+    
+    <script>
+        // 开关按钮交互
+        const reminderSwitch = document.getElementById('reminder-switch');
+        reminderSwitch.addEventListener('click', () => {
+            reminderSwitch.classList.toggle('active');
+        });
+        
+        // 协议复选框交互
+        const agreementCheckbox = document.getElementById('agreement-checkbox');
+        agreementCheckbox.addEventListener('click', () => {
+            agreementCheckbox.classList.toggle('checked');
+        });
+        
+        // 日期选择交互
+        const calendarDays = document.querySelectorAll('.calendar-day.available');
+        calendarDays.forEach(day => {
+            day.addEventListener('click', () => {
+                // 移除之前的选中状态
+                document.querySelector('.calendar-day.selected')?.classList.remove('selected');
+                // 添加新的选中状态
+                day.classList.add('selected');
+                // 更新日期输入框
+                document.querySelector('input[placeholder="请选择日期"]').value = `2023-06-${day.textContent.padStart(2, '0')}`;
+            });
+        });
+        
+        // 时段选择交互
+        const timeSlots = document.querySelectorAll('.time-slot.available');
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                // 移除之前的选中状态
+                document.querySelector('.time-slot.selected')?.classList.remove('selected');
+                // 添加新的选中状态
+                slot.classList.add('selected');
+                // 更新时段输入框
+                document.querySelector('input[placeholder="请选择时段"]').value = slot.textContent;
+            });
+        });
+    </script>
+</body>
+</html> 

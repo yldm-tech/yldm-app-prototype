@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - AI查词</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content page-transition" style="padding-top: 124px; padding-bottom: 160px;">
+      <!-- 导航头部 -->
+      <div class="ai-chat-header">
+        <button class="back-button">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div style="font-weight: 600;">AI 小灵助手</div>
+        <button class="icon-button" style="position: absolute; right: 16px;">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+
+      <!-- 聊天内容 -->
+      <div style="padding: 8px 0;">
+        <!-- AI欢迎消息 -->
+        <div class="ai-assistant-bubble">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <div style="width: 36px; height: 36px; background-color: var(--secondary-color); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+              <i class="fas fa-robot" style="color: white;"></i>
+            </div>
+            <div>
+              <div style="font-weight: 600;">AI 小灵助手</div>
+              <div style="font-size: 12px; color: var(--light-text);">总是在这里帮助你 ✨</div>
+            </div>
+          </div>
+          <p style="margin-top: 12px; line-height: 1.6;">
+            こんにちは！我是你的 AI 小灵助手~有什么日语单词、短语或者句子需要我帮忙查询的吗？(≧▽≦)
+          </p>
+          <p style="margin-top: 8px; line-height: 1.6;">
+            你可以：
+          </p>
+          <ul style="padding-left: 20px; margin-top: 8px; font-size: 14px;">
+            <li>询问任何日语单词的详细意思</li>
+            <li>了解单词的文化背景和用法</li>
+            <li>请我解释日语语法和短语</li>
+            <li>分析日语句子的结构</li>
+          </ul>
+        </div>
+
+        <!-- 用户查询 -->
+        <div class="user-query-bubble">
+          <p style="margin: 0; line-height: 1.6;">
+            请帮我解释一下「一期一会」的含义和文化背景
+          </p>
+        </div>
+
+        <!-- 加载动画 -->
+        <div class="ai-loading">
+          <div class="ai-loading-dot"></div>
+          <div class="ai-loading-dot"></div>
+          <div class="ai-loading-dot"></div>
+        </div>
+
+        <!-- AI回答 -->
+        <div class="ai-assistant-bubble">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <div style="width: 36px; height: 36px; background-color: var(--secondary-color); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+              <i class="fas fa-robot" style="color: white;"></i>
+            </div>
+            <div>
+              <div style="font-weight: 600;">AI 小灵助手</div>
+              <div style="font-size: 12px; color: var(--light-text);">刚刚回答</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px;">
+            <h3 style="font-weight: 600; font-size: 18px;">「一期一会」(いちごいちえ)</h3>
+            <div style="margin: 8px 0; color: var(--secondary-color); font-size: 14px;">
+              [ichigo ichie]
+            </div>
+
+            <h4 style="font-weight: 600; margin-top: 16px; margin-bottom: 8px;">词义解释：</h4>
+            <p style="line-height: 1.6; font-size: 15px;">
+              「一期一会」字面意思是"一生一次的相遇"，表达人生中的每一次相遇都是独一无二的，应当珍惜当下的每一刻。这个概念源自于茶道精神，提醒人们即使是同样的人在同样的茶室，也不会有完全相同的两次体验。
+            </p>
+
+            <h4 style="font-weight: 600; margin-top: 16px; margin-bottom: 8px;">文化背景：</h4>
+            <p style="line-height: 1.6; font-size: 15px;">
+              这个词语最初来源于日本茶道文化，由茶道大师千利休推广。在茶道中，主人与客人相聚的时间被视为独特而不可重复的。后来，这个概念扩展到日本文化的各个方面，成为日本人生活哲学的重要部分，体现了对当下的珍视和对缘分的尊重。
+            </p>
+
+            <h4 style="font-weight: 600; margin-top: 16px; margin-bottom: 8px;">例句：</h4>
+            <div class="example-text" style="margin-top: 8px;">
+              人生は一期一会だから、大切な人との時間を大事にしましょう。<br>
+              <span style="color: var(--text-color);">人生就是一期一会，所以要珍惜与重要的人在一起的时间。</span>
+            </div>
+
+            <h4 style="font-weight: 600; margin-top: 16px; margin-bottom: 8px;">现代用法：</h4>
+            <p style="line-height: 1.6; font-size: 15px;">
+              在现代日本，「一期一会」常被用在社交媒体、旅行博客中，形容珍贵的相遇和体验。这个概念也被引入到现代商业和设计中，例如一些限定产品或体验会使用这个词来表达其独特性和稀有性。
+            </p>
+
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.05);">
+              <div style="font-size: 14px; color: var(--light-text);">
+                希望这个解释对你有帮助！你还想了解更多关于这个词的什么内容吗？(◕‿◕✿)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 用户新查询 -->
+        <div class="user-query-bubble">
+          <p style="margin: 0; line-height: 1.6;">
+            这个词常见于动漫中吗？
+          </p>
+        </div>
+
+        <!-- AI回答 -->
+        <div class="ai-assistant-bubble">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <div style="width: 36px; height: 36px; background-color: var(--secondary-color); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+              <i class="fas fa-robot" style="color: white;"></i>
+            </div>
+            <div>
+              <div style="font-weight: 600;">AI 小灵助手</div>
+              <div style="font-size: 12px; color: var(--light-text);">刚刚回答</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; line-height: 1.6; font-size: 15px;">
+            <p>
+              是的呢！「一期一会」在动漫和日本流行文化中确实经常出现(●ˇ∀ˇ●)
+            </p>
+
+            <p style="margin-top: 12px;">
+              在很多以日本传统文化为背景的动漫中，这个概念被明确提及或者作为故事主题：
+            </p>
+
+            <ul style="padding-left: 20px; margin-top: 8px;">
+              <li>《夏目友人帐》中多次体现珍惜与妖怪相遇的理念</li>
+              <li>《茶道少女》直接探讨了茶道和一期一会的哲学</li>
+              <li>《秒速5厘米》表现了短暂相遇的美好与惋惜</li>
+              <li>《你的名字》中男女主角的相遇也反映了这种思想</li>
+            </ul>
+
+            <p style="margin-top: 12px;">
+              在日本动漫和游戏的配乐中，也有以「一期一会」为名的音乐作品，表达相同的情感。
+            </p>
+
+            <p style="margin-top: 12px;">
+              这个概念之所以在动漫中流行，是因为它完美契合了很多动漫故事中"命运般的相遇"和"珍惜当下"的主题，特别是在青春恋爱题材的作品中更为常见呢~ ᕙ(⇀‸↼‶)ᕗ
+            </p>
+
+            <div style="margin-top: 16px; padding-top: 12px; border-top: 1px dashed rgba(161, 119, 255, 0.3);">
+              <button class="button-secondary" style="width: 100%; padding: 10px; font-size: 14px; margin-bottom: 8px;">
+                <i class="fas fa-save"></i> 保存到词汇本
+              </button>
+              <button style="width: 100%; padding: 10px; border: 1px solid var(--secondary-color); background: transparent; color: var(--secondary-color); border-radius: 24px; font-size: 14px;">
+                <i class="fas fa-share-alt"></i> 分享解释
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 输入区域 -->
+    <div class="ai-input-container">
+      <input type="text" class="ai-input" placeholder="输入你想要了解的日语词汇或短语~" />
+      <button class="send-button">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-book"></i>
+        <span>词典</span>
+      </div>
+      <div class="tab-item active">
+        <div style="position: relative;">
+          <i class="fas fa-robot"></i>
+          <span class="badge">新</span>
+        </div>
+        <span>AI助手</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-chart-line"></i>
+        <span>学习</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

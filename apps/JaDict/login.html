@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 登录</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root {
+      --primary-color: #A177FF;
+      --secondary-color: #FF69B4;
+      --text-color: #2C3E50;
+      --light-text: #94A3B8;
+      --bg-gradient: linear-gradient(135deg, #F8FAFF 0%, #F0F4FF 100%);
+    }
+
+    body {
+      background: var(--bg-gradient);
+    }
+
+    .app-content {
+      padding: 24px;
+      max-width: 100%;
+      box-sizing: border-box;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-container {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(161, 119, 255, 0.15);
+    }
+
+    .logo-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 60px;
+    }
+
+    .login-button {
+      width: 100%;
+      height: 52px;
+      border-radius: 26px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    }
+
+    .login-button:active {
+      transform: translateY(1px);
+    }
+
+    .login-button i {
+      font-size: 22px;
+      margin-right: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-section {
+      padding: 0 20px;
+      margin-top: auto;
+      margin-bottom: 40px;
+    }
+
+    .button-container {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content">
+      <!-- Logo和欢迎语 -->
+      <div class="welcome-section">
+        <div class="logo-container">
+          <i class="fas fa-book-open" style="font-size: 48px; color: white; position: relative; z-index: 1;"></i>
+        </div>
+        <h1 style="font-size: 28px; font-weight: 600; color: var(--text-color); margin-bottom: 12px;">
+          欢迎来到悦灵辞书
+        </h1>
+        <p style="color: var(--light-text); font-size: 16px;">
+          让日语学习更有趣 (◕‿◕✿)
+        </p>
+      </div>
+
+      <!-- 登录区域 -->
+      <div class="login-section">
+        <div class="button-container">
+          <!-- LINE登录 -->
+          <button class="login-button" style="background: #00B900; color: white; box-shadow: 0 8px 16px rgba(0,185,0,0.15);">
+            <i class="fab fa-line"></i>
+            用LINE登录
+          </button>
+
+          <!-- 苹果登录 -->
+          <button class="login-button" style="background: #000; color: white; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+            <i class="fab fa-apple"></i>
+            用Apple登录
+          </button>
+
+          <!-- Google登录 -->
+          <button class="login-button" style="background: white; color: #333; border: 1px solid #E2E8F0; box-shadow: 0 8px 16px rgba(0,0,0,0.05);">
+            <i class="fab fa-google" style="color: #4285F4;"></i>
+            用Google登录
+          </button>
+
+          <!-- 微信登录 -->
+          <button class="login-button" style="background: #07C160; color: white; box-shadow: 0 8px 16px rgba(7,193,96,0.15);">
+            <i class="fab fa-weixin"></i>
+            用微信登录
+          </button>
+        </div>
+
+        <!-- 用户协议 -->
+        <div style="text-align: center; margin-top: 24px;">
+          <p style="color: var(--light-text); font-size: 13px; line-height: 1.5;">
+            登录即表示同意
+            <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">《用户协议》</a>
+            和
+            <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">《隐私政策》</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

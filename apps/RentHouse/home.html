@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        
+        /* 底部导航栏 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+        
+        /* 首页特定样式 */
+        .search-bar {
+            background-color: #f2f2f2;
+            margin: 10px;
+            border-radius: 20px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar i {
+            color: #999;
+            margin-right: 10px;
+        }
+        
+        .search-placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .banner {
+            height: 150px;
+            border-radius: 12px;
+            margin: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .banner-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 15px;
+            font-weight: 500;
+        }
+        
+        .category-icons {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 10px;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 12px;
+        }
+        
+        .category-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f0f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            color: #1989fa;
+        }
+        
+        .category-name {
+            font-size: 12px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 15px 10px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-more {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .property-card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 0 10px 15px;
+        }
+        
+        .property-image {
+            height: 180px;
+            position: relative;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(25, 137, 250, 0.8);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .property-info {
+            padding: 12px;
+        }
+        
+        .property-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .property-location {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .property-location i {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+        
+        .property-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        
+        .property-tag-item {
+            font-size: 12px;
+            color: #1989fa;
+            background-color: #f0f7ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .property-price {
+            color: #ff5a5f;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .property-price span {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 10px;
+            scrollbar-width: none; /* 隐藏滚动条 */
+            -ms-overflow-style: none; /* 隐藏滚动条 */
+        }
+        
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none; /* 隐藏滚动条 */
+        }
+        
+        .horizontal-card {
+            flex: 0 0 auto;
+            width: 140px;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        
+        .horizontal-image {
+            height: 100px;
+        }
+        
+        .horizontal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .horizontal-info {
+            padding: 8px;
+        }
+        
+        .horizontal-title {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .horizontal-price {
+            font-size: 13px;
+            color: #ff5a5f;
+        }
+        
+        /* 轮播图样式 */
+        .swiper {
+            width: 100%;
+            height: 180px;
+            margin-top: 10px;
+        }
+        
+        .swiper-slide {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background-color: #fff !important;
+        }
+        
+        /* 优惠券样式 */
+        .coupon-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .coupon-card {
+            display: inline-block;
+            width: 280px;
+            height: 90px;
+            margin-right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4f4f 100%);
+            border-radius: 8px;
+            position: relative;
+            color: white;
+            padding: 12px;
+        }
+        
+        .coupon-card::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: #f7f7f7;
+            border-radius: 50%;
+        }
+        
+        .coupon-card::before {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: #f7f7f7;
+            border-radius: 50%;
+        }
+        
+        .coupon-amount {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .coupon-desc {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .coupon-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        /* 资讯卡片样式 */
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 0 10px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            flex: 1;
+        }
+        
+        .news-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .news-meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* 推荐空间样式 */
+        .space-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 0 10px;
+        }
+        
+        .space-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .space-image {
+            height: 120px;
+            position: relative;
+        }
+        
+        .space-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .space-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(25, 137, 250, 0.8);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .space-info {
+            padding: 10px;
+        }
+        
+        .space-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .space-price {
+            color: #ff4f4f;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .space-price small {
+            font-size: 12px;
+            font-weight: normal;
+        }
+        
+        .space-tags {
+            margin-top: 4px;
+            display: flex;
+            gap: 4px;
+        }
+        
+        .space-feature {
+            font-size: 10px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">智慧租房</div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        
+        <!-- 轮播广告 -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" alt="广告1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00" alt="广告2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750" alt="广告3">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <!-- 功能分类 -->
+        <div class="category-icons">
+            <div class="category-icon">
+                <div class="icon-circle">
+                    <i class="fas fa-building"></i>
+                </div>
+                <span class="category-name">找空间</span>
+            </div>
+            <div class="category-icon">
+                <div class="icon-circle">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="category-name">看房源</span>
+            </div>
+            <div class="category-icon">
+                <div class="icon-circle">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <span class="category-name">预约</span>
+            </div>
+            <div class="category-icon">
+                <div class="icon-circle">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <span class="category-name">物业</span>
+            </div>
+        </div>
+        
+        <!-- 优惠券展示 -->
+        <div class="section-title">
+            <span>优惠福利</span>
+            <span class="section-more">查看更多 <i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="coupon-scroll">
+            <div class="coupon-card">
+                <div class="coupon-amount">¥100</div>
+                <div class="coupon-desc">新人专享优惠券</div>
+                <div class="coupon-btn">立即领取</div>
+            </div>
+            <div class="coupon-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="coupon-amount">¥50</div>
+                <div class="coupon-desc">工位预定优惠</div>
+                <div class="coupon-btn">立即领取</div>
+            </div>
+            <div class="coupon-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <div class="coupon-amount">¥200</div>
+                <div class="coupon-desc">会议室预订优惠</div>
+                <div class="coupon-btn">立即领取</div>
+            </div>
+        </div>
+        
+        <!-- 最新资讯 -->
+        <div class="section-title">
+            <span>最新资讯</span>
+            <span class="section-more">更多 <i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" alt="资讯图片" class="news-image">
+            <div class="news-content">
+                <div class="news-title">2024年租房新政策解读：这些补贴政策你知道吗？</div>
+                <div class="news-meta">
+                    <span>官方资讯</span>
+                    <span>2024-03-15</span>
+                </div>
+            </div>
+        </div>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00" alt="资讯图片" class="news-image">
+            <div class="news-content">
+                <div class="news-title">租房避坑指南：签约前必看的10个注意事项</div>
+                <div class="news-meta">
+                    <span>租房攻略</span>
+                    <span>2024-03-14</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐空间 -->
+        <div class="section-title">
+            <span>推荐空间</span>
+            <span class="section-more">更多 <i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="space-grid">
+            <div class="space-card">
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" alt="空间图片">
+                    <div class="space-tag">特惠</div>
+                </div>
+                <div class="space-info">
+                    <div class="space-title">创意工位 A区</div>
+                    <div class="space-price">¥1,200<small>/月</small></div>
+                    <div class="space-tags">
+                        <span class="space-feature">独立工位</span>
+                        <span class="space-feature">24h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="space-card">
+                <div class="space-image">
+                    <img src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3" alt="空间图片">
+                    <div class="space-tag">新上</div>
+                </div>
+                <div class="space-info">
+                    <div class="space-title">阳光会议室</div>
+                    <div class="space-price">¥200<small>/小时</small></div>
+                    <div class="space-tags">
+                        <span class="space-feature">20人</span>
+                        <span class="space-feature">投影</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item active">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // 初始化轮播图
+        new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+
+        // 底部导航切换
+        document.querySelectorAll('.tab-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // 优惠券领取
+        document.querySelectorAll('.coupon-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const amount = btn.parentElement.querySelector('.coupon-amount').textContent;
+                alert(`领取${amount}优惠券成功！`);
+            });
+        });
+
+        // 资讯点击
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.news-title').textContent;
+                console.log('查看资讯：', title);
+            });
+        });
+
+        // 空间点击
+        document.querySelectorAll('.space-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.space-title').textContent;
+                console.log('查看空间：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

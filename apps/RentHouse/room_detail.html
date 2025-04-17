@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房间详情 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 84px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        
+        /* 轮播图样式 */
+        .swiper {
+            width: 100%;
+            height: 250px;
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background-color: #fff !important;
+        }
+        
+        /* 房源信息样式 */
+        .info-section {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+        
+        .property-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .property-price {
+            color: #ff5a5f;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .property-price span {
+            font-size: 14px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .property-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        
+        .property-tag {
+            font-size: 12px;
+            color: #1989fa;
+            background-color: #f0f7ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            color: #1989fa;
+            margin-right: 5px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            color: #999;
+            font-size: 14px;
+            width: 80px;
+        }
+        
+        .info-value {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        /* 房间设施样式 */
+        .facility-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 10px 0;
+        }
+        
+        .facility-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .facility-item i {
+            font-size: 24px;
+            color: #1989fa;
+            margin-bottom: 5px;
+        }
+        
+        /* 房东信息样式 */
+        .landlord-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .landlord-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .landlord-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .landlord-title {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* 底部操作栏 */
+        .action-bar {
+            height: 60px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 50px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+        
+        .action-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .action-icon i {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        
+        .action-icon.active {
+            color: #ff5a5f;
+        }
+        
+        .action-button {
+            flex: 1;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .action-primary {
+            background-color: #1989fa;
+            color: #fff;
+        }
+        
+        .action-secondary {
+            background-color: #ff5a5f;
+            color: #fff;
+        }
+
+        /* 调整五个标签的样式 */
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+
+        /* 底部标签栏 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 房间图片轮播 -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="客厅">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="卧室">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858" alt="厨房">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd" alt="卫生间">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <!-- 基本信息 -->
+        <div class="info-section">
+            <div class="property-title">阳光城市花园 精装修两居室 南北通透</div>
+            <div class="property-price">4500<span>/月</span></div>
+            <div class="property-tags">
+                <div class="property-tag">整租</div>
+                <div class="property-tag">两室一厅</div>
+                <div class="property-tag">75m²</div>
+                <div class="property-tag">南北通透</div>
+                <div class="property-tag">精装修</div>
+            </div>
+        </div>
+        
+        <!-- 房源信息 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i> 房源信息
+            </div>
+            <div class="info-item">
+                <div class="info-label">房型</div>
+                <div class="info-value">2室1厅1卫</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">面积</div>
+                <div class="info-value">75平米</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">楼层</div>
+                <div class="info-value">8/18层</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">朝向</div>
+                <div class="info-value">南北通透</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">装修</div>
+                <div class="info-value">精装修</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">入住</div>
+                <div class="info-value">随时入住</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">付款</div>
+                <div class="info-value">押一付三</div>
+            </div>
+        </div>
+        
+        <!-- 配套设施 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-couch"></i> 配套设施
+            </div>
+            <div class="facility-list">
+                <div class="facility-item">
+                    <i class="fas fa-bed"></i>
+                    <span>床</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-tv"></i>
+                    <span>电视</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-wind"></i>
+                    <span>空调</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-shower"></i>
+                    <span>热水器</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-tshirt"></i>
+                    <span>洗衣机</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-refrigerator"></i>
+                    <span>冰箱</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>宽带</span>
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-couch"></i>
+                    <span>沙发</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 房源描述 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-file-alt"></i> 房源描述
+            </div>
+            <div class="description">
+                <p>【房源亮点】</p>
+                <p>1. 精装修两居室，家具家电齐全，拎包入住</p>
+                <p>2. 南北通透，采光充足，通风良好</p>
+                <p>3. 小区环境优美，24小时安保，居住安全</p>
+                <p>【周边配套】</p>
+                <p>- 交通：地铁14号线望京站步行7分钟</p>
+                <p>- 商超：永辉超市、物美、沃尔玛</p>
+                <p>- 教育：实验小学、第二中学</p>
+                <p>- 医疗：社区医院、妇幼保健院</p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item active">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+        <div class="action-icon" id="favoriteBtn">
+            <i class="far fa-heart"></i>
+            <span>收藏</span>
+        </div>
+        <div class="action-icon">
+            <i class="fas fa-share-alt"></i>
+            <span>分享</span>
+        </div>
+        <div class="action-button action-secondary">预约看房</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // 初始化轮播图
+        new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+
+        // 收藏功能
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        let isFavorited = false;
+
+        favoriteBtn.addEventListener('click', () => {
+            isFavorited = !isFavorited;
+            if (isFavorited) {
+                favoriteBtn.querySelector('i').classList.remove('far');
+                favoriteBtn.querySelector('i').classList.add('fas');
+                favoriteBtn.classList.add('active');
+                alert('收藏成功！');
+            } else {
+                favoriteBtn.querySelector('i').classList.remove('fas');
+                favoriteBtn.querySelector('i').classList.add('far');
+                favoriteBtn.classList.remove('active');
+                alert('已取消收藏');
+            }
+        });
+
+        // 联系房东
+        document.querySelector('.action-primary').addEventListener('click', () => {
+            console.log('联系房东');
+        });
+
+        // 预约看房
+        document.querySelector('.action-secondary').addEventListener('click', () => {
+            console.log('预约看房');
+        });
+
+        // 分享
+        document.querySelector('.action-icon:nth-child(2)').addEventListener('click', () => {
+            console.log('分享房源');
+        });
+    </script>
+</body>
+</html> 

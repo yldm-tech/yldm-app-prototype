@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息列表 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-4 fixed top-0 left-0 right-0 z-10">
+        <div class="flex items-center justify-between">
+            <h1 class="text-lg font-semibold">消息</h1>
+            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100">
+                <i class="fas fa-edit text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="fixed top-14 left-0 right-0 px-4 py-2 bg-white border-b border-gray-100">
+        <div class="relative">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            <input type="search" placeholder="搜索" class="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-full text-sm">
+        </div>
+    </div>
+
+    <!-- 消息列表 -->
+    <div class="mt-28 px-4">
+        <!-- 置顶消息 -->
+        <div class="bg-white rounded-xl p-4 mb-3 shadow-sm">
+            <div class="flex items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="w-12 h-12 rounded-full" alt="头像">
+                    <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div class="ml-3 flex-1">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-medium">护士长张主任</h3>
+                        <span class="text-xs text-gray-400">置顶</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">下周的排班表已经发布，请查看确认</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 普通消息 -->
+        <div class="space-y-3">
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex items-center">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" class="w-12 h-12 rounded-full" alt="头像">
+                        <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-gray-300 rounded-full border-2 border-white"></div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-medium">李护士</h3>
+                            <span class="text-xs text-gray-400">10:30</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">好的，我明天可以和你换班</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex items-center">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" class="w-12 h-12 rounded-full" alt="头像">
+                        <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-medium">王医生</h3>
+                            <span class="text-xs text-gray-400">昨天</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">请帮忙查看一下17号病人的护理记录</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex items-center">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+                            团队
+                        </div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-medium">儿科护理群</h3>
+                            <span class="text-xs text-gray-400">昨天</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">[图片] 张护士：这是新的交接班表格式</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+        <div class="flex justify-around">
+            <a href="index.html" class="flex flex-col items-center">
+                <i class="fas fa-home text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">首页</span>
+            </a>
+            <a href="schedule.html" class="flex flex-col items-center">
+                <i class="fas fa-calendar text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">排班</span>
+            </a>
+            <a href="#" class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center -mt-6">
+                    <i class="fas fa-plus text-white text-xl"></i>
+                </div>
+            </a>
+            <a href="message-list.html" class="flex flex-col items-center">
+                <i class="fas fa-comment text-pink-500 text-xl"></i>
+                <span class="text-xs mt-1 text-pink-500">消息</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center">
+                <i class="fas fa-user text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助中心 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-4 fixed top-0 left-0 right-0 z-10">
+        <div class="flex items-center">
+            <a href="profile.html" class="mr-4">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </a>
+            <h1 class="text-lg font-semibold flex-1">帮助中心</h1>
+        </div>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="fixed top-14 left-0 right-0 px-4 py-2 bg-white border-b border-gray-100">
+        <div class="relative">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            <input type="search" placeholder="搜索问题" 
+                   class="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-full text-sm">
+        </div>
+    </div>
+
+    <!-- 帮助内容 -->
+    <div class="mt-28 px-4">
+        <!-- 常见问题分类 -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="bg-white rounded-xl p-4 text-center">
+                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-calendar-alt text-pink-500 text-xl"></i>
+                </div>
+                <h3 class="text-sm font-medium">排班相关</h3>
+                <p class="text-xs text-gray-500 mt-1">8个问题</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-exchange-alt text-purple-500 text-xl"></i>
+                </div>
+                <h3 class="text-sm font-medium">调班申请</h3>
+                <p class="text-xs text-gray-500 mt-1">6个问题</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-user-clock text-blue-500 text-xl"></i>
+                </div>
+                <h3 class="text-sm font-medium">考勤管理</h3>
+                <p class="text-xs text-gray-500 mt-1">5个问题</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-cog text-green-500 text-xl"></i>
+                </div>
+                <h3 class="text-sm font-medium">系统设置</h3>
+                <p class="text-xs text-gray-500 mt-1">4个问题</p>
+            </div>
+        </div>
+
+        <!-- 热门问题 -->
+        <div class="mb-6">
+            <h2 class="text-lg font-medium mb-4">热门问题</h2>
+            <div class="space-y-3">
+                <div class="bg-white rounded-xl p-4">
+                    <h3 class="text-sm font-medium mb-2">如何申请调班？</h3>
+                    <p class="text-sm text-gray-600">点击首页"调班"按钮，选择需要调换的班次和同事，填写原因后提交申请即可。</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-xs text-gray-400">更新于：2024-03-10</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4">
+                    <h3 class="text-sm font-medium mb-2">如何查看我的排班表？</h3>
+                    <p class="text-sm text-gray-600">在首页点击"排班表"，可以查看当月的排班情况，支持按周、月视图切换。</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-xs text-gray-400">更新于：2024-03-08</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4">
+                    <h3 class="text-sm font-medium mb-2">忘记密码怎么办？</h3>
+                    <p class="text-sm text-gray-600">在登录页面点击"忘记密码"，通过手机号验证后可以重置密码。</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-xs text-gray-400">更新于：2024-03-05</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用指南 -->
+        <div class="mb-6">
+            <h2 class="text-lg font-medium mb-4">使用指南</h2>
+            <div class="bg-white rounded-xl overflow-hidden">
+                <a href="#" class="flex items-center p-4 border-b">
+                    <i class="fas fa-book-open text-pink-500 mr-3"></i>
+                    <span class="text-sm flex-1">新手入门指南</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </a>
+                <a href="#" class="flex items-center p-4 border-b">
+                    <i class="fas fa-video text-pink-500 mr-3"></i>
+                    <span class="text-sm flex-1">视频教程</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </a>
+                <a href="#" class="flex items-center p-4">
+                    <i class="fas fa-file-alt text-pink-500 mr-3"></i>
+                    <span class="text-sm flex-1">功能说明文档</span>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 联系客服 -->
+        <div class="mb-6">
+            <div class="bg-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-headset text-pink-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium">在线客服</h3>
+                            <p class="text-xs text-gray-500">工作时间：周一至周五 9:00-18:00</p>
+                        </div>
+                    </div>
+                    <button class="px-4 py-1.5 bg-pink-500 text-white rounded-full text-sm">
+                        联系客服
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工时统计 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#ec4899 85%, #fce7f3 0);
+            position: relative;
+        }
+        .progress-ring::before {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            top: 15px;
+            left: 15px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-6">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-semibold">工时统计</h1>
+            <button class="p-2 rounded-full hover:bg-gray-100">
+                <i class="fas fa-calendar-alt text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 本月概览 -->
+    <div class="p-6">
+        <div class="bg-white rounded-3xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold mb-6">
+                <span class="mr-2">📊</span>本月概览
+            </h3>
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex flex-col items-center">
+                    <div class="progress-ring mb-4 flex items-center justify-center">
+                        <div class="relative z-10 text-center">
+                            <div class="text-2xl font-bold text-pink-500">85%</div>
+                            <div class="text-xs text-gray-500">完成进度</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600">标准工时：168小时</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-pink-50 p-4 rounded-2xl">
+                        <div class="text-xl font-bold text-pink-500">127</div>
+                        <div class="text-xs text-gray-500">已完成工时</div>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-2xl">
+                        <div class="text-xl font-bold text-purple-500">41</div>
+                        <div class="text-xs text-gray-500">剩余工时</div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl">
+                        <div class="text-xl font-bold text-blue-500">12</div>
+                        <div class="text-xs text-gray-500">夜班次数</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-2xl">
+                        <div class="text-xl font-bold text-green-500">5</div>
+                        <div class="text-xs text-gray-500">调休天数</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 班次分布 -->
+        <div class="bg-white rounded-3xl p-6 mt-6 shadow-sm">
+            <h3 class="text-lg font-semibold mb-4">
+                <span class="mr-2">🌈</span>班次分布
+            </h3>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-sun text-pink-500"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">早班</span>
+                            <span class="text-sm text-gray-500">10次</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-cloud-sun text-purple-500"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">中班</span>
+                            <span class="text-sm text-gray-500">8次</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-moon text-blue-500"></i>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">夜班</span>
+                            <span class="text-sm text-gray-500">4次</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日工时记录 -->
+        <div class="bg-white rounded-3xl p-6 mt-6 shadow-sm">
+            <h3 class="text-lg font-semibold mb-4">
+                <span class="mr-2">📝</span>工时记录
+            </h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <div>
+                        <div class="text-sm font-medium">3月10日 周日</div>
+                        <div class="text-xs text-gray-500">早班 07:00-15:00</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-pink-500">8小时</div>
+                        <div class="text-xs text-gray-500">已打卡</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <div>
+                        <div class="text-sm font-medium">3月9日 周六</div>
+                        <div class="text-xs text-gray-500">中班 15:00-23:00</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-pink-500">8小时</div>
+                        <div class="text-xs text-gray-500">已打卡</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <div>
+                        <div class="text-sm font-medium">3月8日 周五</div>
+                        <div class="text-xs text-gray-500">夜班 23:00-07:00</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-pink-500">8小时</div>
+                        <div class="text-xs text-gray-500">已打卡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+        <div class="flex justify-around">
+            <button class="flex flex-col items-center">
+                <i class="fas fa-home text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">首页</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-calendar text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">排班</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center -mt-6">
+                    <i class="fas fa-plus text-white text-xl"></i>
+                </div>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-clock text-pink-500 text-xl"></i>
+                <span class="text-xs mt-1 text-pink-500">统计</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-user text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">我的</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html> 

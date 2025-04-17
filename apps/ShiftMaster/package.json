@@ -1,0 +1,20 @@
+{
+  "name": "shiftmaster-prototype",
+  "version": "1.0.0",
+  "description": "排班管理系统应用原型",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s .",
+    "build": "echo 'No build step needed'"
+  },
+  "keywords": [
+    "scheduling",
+    "shift-management",
+    "prototype"
+  ],
+  "author": "YLDM Team",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+} 

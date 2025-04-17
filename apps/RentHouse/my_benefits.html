@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的福利 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序导航栏 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 84px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px;
+        }
+
+        /* 会员卡片 */
+        .member-card {
+            background: linear-gradient(135deg, #1989fa, #1989fa 30%, #40a9ff);
+            border-radius: 12px;
+            padding: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .member-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .member-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .member-level {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .member-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .member-points {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .points-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .member-btn {
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        /* 福利分类 */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f7ff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            color: #1989fa;
+            font-size: 20px;
+        }
+
+        .benefit-name {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 福利卡片 */
+        .benefit-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .benefit-header {
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .benefit-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .benefit-desc {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .benefit-content {
+            padding: 15px;
+        }
+
+        .benefit-list {
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px;
+        }
+
+        .benefit-box {
+            flex-shrink: 0;
+            width: 120px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .benefit-image {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .benefit-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .benefit-label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .benefit-price {
+            font-size: 14px;
+            color: #ff5a5f;
+            margin-top: 4px;
+        }
+
+        .benefit-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            background-color: #fff7e6;
+            color: #ffa940;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-button {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* 底部标签栏 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">我的福利</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 会员卡片 -->
+        <div class="member-card">
+            <div class="member-header">
+                <div class="member-title">租房会员</div>
+                <div class="member-level">黄金会员</div>
+            </div>
+            <div class="member-info">
+                <div>
+                    <div class="member-points">2,580</div>
+                    <div class="points-label">可用积分</div>
+                </div>
+                <div class="member-btn">查看特权</div>
+            </div>
+        </div>
+
+        <!-- 福利分类 -->
+        <div class="benefit-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="benefit-name">每日福利</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="benefit-name">积分商城</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="benefit-name">优惠券</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="benefit-name">会员特权</div>
+            </div>
+        </div>
+
+        <!-- 限时福利 -->
+        <div class="benefit-card">
+            <div class="benefit-header">
+                <div class="benefit-title">限时福利</div>
+                <div class="benefit-desc">每日10点更新，限量抢购</div>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-list">
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">家政保洁券</div>
+                        <div class="benefit-price">￥29.9</div>
+                        <div class="benefit-tag">限量50张</div>
+                    </div>
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">搬家服务券</div>
+                        <div class="benefit-price">￥99</div>
+                        <div class="benefit-tag">限量30张</div>
+                    </div>
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">家电维修券</div>
+                        <div class="benefit-price">￥49.9</div>
+                        <div class="benefit-tag">限量40张</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 积分兑换 -->
+        <div class="benefit-card">
+            <div class="benefit-header">
+                <div class="benefit-title">积分兑换</div>
+                <div class="benefit-desc">好物推荐，积分换购</div>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-list">
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">电影票兑换券</div>
+                        <div class="benefit-price">1000积分</div>
+                        <div class="benefit-tag">超值兑换</div>
+                    </div>
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">星巴克券</div>
+                        <div class="benefit-price">2000积分</div>
+                        <div class="benefit-tag">热门兑换</div>
+                    </div>
+                    <div class="benefit-box">
+                        <div class="benefit-image">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a" alt="福利图片">
+                        </div>
+                        <div class="benefit-label">超市购物券</div>
+                        <div class="benefit-price">1500积分</div>
+                        <div class="benefit-tag">限时兑换</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="fas fa-gift"></i>
+            <div class="empty-state-text">暂无可用福利</div>
+            <div class="empty-state-button">去赚积分</div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script>
+        // 会员卡点击事件
+        document.querySelector('.member-card').addEventListener('click', () => {
+            // 这里添加查看会员详情的逻辑
+            console.log('查看会员详情');
+        });
+
+        // 福利分类点击事件
+        const benefitItems = document.querySelectorAll('.benefit-item');
+        benefitItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const name = item.querySelector('.benefit-name').textContent;
+                // 这里添加跳转到对应分类的逻辑
+                console.log('查看福利分类：', name);
+            });
+        });
+
+        // 福利项点击事件
+        const benefitBoxes = document.querySelectorAll('.benefit-box');
+        benefitBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const label = box.querySelector('.benefit-label').textContent;
+                // 这里添加查看福利详情的逻辑
+                console.log('查看福利详情：', label);
+            });
+        });
+
+        // 会员特权按钮点击事件
+        document.querySelector('.member-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            // 这里添加查看会员特权的逻辑
+            console.log('查看会员特权');
+        });
+    </script>
+</body>
+</html> 

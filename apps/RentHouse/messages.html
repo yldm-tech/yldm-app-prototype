@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>消息 - 房屋租赁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* iOS状态栏样式 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ios-status-bar h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 内容区域样式 */
+        .content {
+            margin-top: 44px;
+            height: calc(100vh - 44px - 50px);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* 消息列表样式 */
+        .message-list {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #fff;
+            display: block;
+        }
+
+        .chat-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+        }
+
+        /* 消息列表项样式 */
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .message-item:active {
+            background-color: #f0f0f0;
+        }
+
+        .message-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-right: 15px;
+            background-color: #e1e1e1;
+        }
+
+        .message-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .message-preview {
+            font-size: 14px;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .unread-badge {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            background-color: #ff5a5f;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 18px;
+            margin-left: 5px;
+        }
+
+        /* 聊天界面样式 */
+        .chat-header {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+        }
+
+        .back-button {
+            font-size: 24px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .chat-title {
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f7f7f7;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .message-time-small {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+            margin-bottom: 8px;
+        }
+
+        .message-sent {
+            background-color: #0084ff;
+            color: white;
+            border-top-right-radius: 5px;
+            margin-left: auto;
+        }
+
+        .message-received {
+            background-color: #e5e5ea;
+            color: #333;
+            border-top-left-radius: 5px;
+            margin-right: auto;
+        }
+
+        .chat-input-container {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .send-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: #ff5a5f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 100%;
+            text-decoration: none;
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: #ff5a5f;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+        }
+
+        /* 消息日期分隔线 */
+        .date-divider {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .date-divider span {
+            font-size: 12px;
+            color: #999;
+            background-color: #f7f7f7;
+            padding: 0 10px;
+        }
+
+        .date-divider::before {
+            content: "";
+            display: block;
+            height: 1px;
+            background-color: #e0e0e0;
+            position: relative;
+            top: 9px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar">
+        <h1>消息</h1>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="content">
+        <!-- 消息列表 -->
+        <div class="message-list" id="messageList">
+            <div class="message-item" onclick="openChat('landlord123', '张女士 (房东)', 'assets/avatar1.jpg')">
+                <div class="message-avatar">
+                    <img src="https://via.placeholder.com/50" alt="房东头像">
+                </div>
+                <div class="message-content">
+                    <div class="message-name">
+                        <span>张女士 (房东)</span>
+                        <span class="message-time">昨天</span>
+                    </div>
+                    <div class="message-preview">您好，关于您询问的公寓，空调已经修好了...</div>
+                </div>
+            </div>
+
+            <div class="message-item" onclick="openChat('agent456', '王先生 (中介)', 'assets/avatar2.jpg')">
+                <div class="message-avatar">
+                    <img src="https://via.placeholder.com/50" alt="中介头像">
+                </div>
+                <div class="message-content">
+                    <div class="message-name">
+                        <span>王先生 (中介)</span>
+                        <span class="message-time">3天前</span>
+                    </div>
+                    <div class="message-preview">您预约的看房时间已确认，周六下午2点</div>
+                </div>
+            </div>
+
+            <div class="message-item" onclick="openChat('landlord789', '李先生 (房东)', 'assets/avatar3.jpg')">
+                <div class="message-avatar">
+                    <img src="https://via.placeholder.com/50" alt="房东头像">
+                </div>
+                <div class="message-content">
+                    <div class="message-name">
+                        <span>李先生 (房东)</span>
+                        <span class="message-time">上周</span>
+                    </div>
+                    <div class="message-preview">感谢您的咨询，这个公寓确实可以接受宠物</div>
+                </div>
+            </div>
+
+            <div class="message-item" onclick="openChat('agent101', '赵女士 (中介)', 'assets/avatar4.jpg')">
+                <div class="message-avatar">
+                    <img src="https://via.placeholder.com/50" alt="中介头像">
+                </div>
+                <div class="message-content">
+                    <div class="message-name">
+                        <span>赵女士 (中介)<span class="unread-badge">2</span></span>
+                        <span class="message-time">上周</span>
+                    </div>
+                    <div class="message-preview">我刚刚上架了一套符合您要求的新房源</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 聊天界面 -->
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <div class="back-button" onclick="backToList()">←</div>
+                <div class="chat-title" id="chatTitle">张女士 (房东)</div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="date-divider">
+                    <span>昨天</span>
+                </div>
+                
+                <div class="message-bubble message-received">
+                    您好，我是张公寓的房东。很高兴收到您的咨询。
+                </div>
+                <div class="message-time-small" style="margin-left: 12px;">10:23</div>
+                
+                <div class="message-bubble message-sent">
+                    您好！我对您的公寓很感兴趣，想问一下空调是否正常工作？我看评论说有问题。
+                </div>
+                <div class="message-time-small" style="text-align: right; margin-right: 12px;">10:25</div>
+                
+                <div class="message-bubble message-received">
+                    感谢您的询问。是的，之前空调确实有些问题，但现在已经修好了。我们刚刚完成了全面的设备检查，一切都工作正常。
+                </div>
+                <div class="message-time-small" style="margin-left: 12px;">10:30</div>
+                
+                <div class="message-bubble message-sent">
+                    太好了！那我还想了解一下入住时间的灵活性，我可能需要提前几天入住。
+                </div>
+                <div class="message-time-small" style="text-align: right; margin-right: 12px;">10:32</div>
+                
+                <div class="message-bubble message-received">
+                    没问题，我们可以安排提前入住。请告诉我您希望的具体日期，我会查看是否有空档。
+                </div>
+                <div class="message-time-small" style="margin-left: 12px;">10:35</div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" placeholder="输入消息...">
+                <div class="send-button">→</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-text">首页</div>
+        </a>
+        <a href="space_list.html" class="nav-item">
+            <div class="nav-icon">🔍</div>
+            <div class="nav-text">搜索</div>
+        </a>
+        <a href="messages.html" class="nav-item active">
+            <div class="nav-icon">💬</div>
+            <div class="nav-text">消息</div>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div class="nav-text">我的</div>
+        </a>
+    </div>
+
+    <script>
+        // 打开聊天界面
+        function openChat(userId, name, avatar) {
+            document.getElementById('messageList').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('chatTitle').textContent = name;
+            
+            // 这里可以添加加载特定用户聊天记录的逻辑
+            // loadChatHistory(userId);
+        }
+        
+        // 返回消息列表
+        function backToList() {
+            document.getElementById('messageList').style.display = 'block';
+            document.getElementById('chatContainer').style.display = 'none';
+        }
+        
+        // 发送消息的事件监听（模拟）
+        document.querySelector('.send-button').addEventListener('click', function() {
+            const input = document.querySelector('.chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                // 创建新消息元素
+                const messageContainer = document.getElementById('chatMessages');
+                
+                const messageBubble = document.createElement('div');
+                messageBubble.className = 'message-bubble message-sent';
+                messageBubble.textContent = message;
+                messageContainer.appendChild(messageBubble);
+                
+                const messageTime = document.createElement('div');
+                messageTime.className = 'message-time-small';
+                messageTime.style.textAlign = 'right';
+                messageTime.style.marginRight = '12px';
+                messageTime.textContent = time;
+                messageContainer.appendChild(messageTime);
+                
+                // 滚动到底部
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+                
+                // 清空输入框
+                input.value = '';
+                
+                // 模拟回复
+                setTimeout(() => {
+                    const replyBubble = document.createElement('div');
+                    replyBubble.className = 'message-bubble message-received';
+                    replyBubble.textContent = '好的，我已收到您的消息，稍后会详细回复您。';
+                    messageContainer.appendChild(replyBubble);
+                    
+                    const replyTime = document.createElement('div');
+                    replyTime.className = 'message-time-small';
+                    replyTime.style.marginLeft = '12px';
+                    replyTime.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    messageContainer.appendChild(replyTime);
+                    
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }, 1000);
+            }
+        });
+        
+        // 键盘回车发送消息
+        document.querySelector('.chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.send-button').click();
+            }
+        });
+    </script>
+</body>
+</html> 

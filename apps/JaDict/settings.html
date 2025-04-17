@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 设置</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content" style="padding-top: 124px;">
+      <!-- 应用头部 -->
+      <div class="app-header">
+        <h1 style="font-size: 24px; font-weight: 700; color: var(--primary-color);">
+          设置
+        </h1>
+      </div>
+
+      <!-- 个人信息 -->
+      <div class="profile-header">
+        <div class="avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">小灵同学</div>
+          <div class="profile-level">学习等级: N4 初级</div>
+        </div>
+        <button class="icon-button">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- 会员信息 -->
+      <div class="card" style="background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: white; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -15px; right: -15px; width: 80px; height: 80px; background-color: rgba(255,255,255,0.1); border-radius: 40px;"></div>
+        <div style="position: absolute; bottom: -20px; left: -20px; width: 100px; height: 100px; background-color: rgba(255,255,255,0.05); border-radius: 50px;"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+          <div>
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">悦灵辞书会员</div>
+            <div style="font-size: 14px; opacity: 0.9;">解锁全部 AI 辅助功能和学习内容</div>
+          </div>
+          <button style="background-color: var(--accent-color); color: white; border: none; border-radius: 16px; padding: 6px 16px; font-size: 14px;">
+            升级
+          </button>
+        </div>
+      </div>
+
+      <!-- 设置列表 -->
+      <div class="settings-list">
+        <!-- 学习设置 -->
+        <div class="section-title" style="margin-top: 0;">学习设置</div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="settings-item-title">学习目标</div>
+          </div>
+          <div class="settings-item-right">
+            每日30词 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <div class="settings-item-title">学习提醒</div>
+          </div>
+          <div class="settings-item-right">
+            每天 20:00 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="settings-item-title">学习词库</div>
+          </div>
+          <div class="settings-item-right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <!-- AI设置 -->
+        <div class="section-title">AI 助手设置</div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color);">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="settings-item-title">AI 查询次数</div>
+          </div>
+          <div class="settings-item-right">
+            剩余 20 次 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color);">
+              <i class="fas fa-cog"></i>
+            </div>
+            <div class="settings-item-title">AI 解释风格</div>
+          </div>
+          <div class="settings-item-right">
+            详细 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color);">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="settings-item-title">AI 历史记录</div>
+          </div>
+          <div class="settings-item-right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <!-- 应用设置 -->
+        <div class="section-title">应用设置</div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(78, 205, 196, 0.1); color: var(--success-color);">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div class="settings-item-title">深色模式</div>
+          </div>
+          <div class="settings-item-right">
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(78, 205, 196, 0.1); color: var(--success-color);">
+              <i class="fas fa-font"></i>
+            </div>
+            <div class="settings-item-title">字体大小</div>
+          </div>
+          <div class="settings-item-right">
+            标准 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(78, 205, 196, 0.1); color: var(--success-color);">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="settings-item-title">语言</div>
+          </div>
+          <div class="settings-item-right">
+            简体中文 <i class="fas fa-chevron-right ml-2"></i>
+          </div>
+        </div>
+
+        <!-- 其他设置 -->
+        <div class="section-title">其他</div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(255, 107, 107, 0.1); color: var(--error-color);">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="settings-item-title">帮助与反馈</div>
+          </div>
+          <div class="settings-item-right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(255, 107, 107, 0.1); color: var(--error-color);">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="settings-item-title">关于我们</div>
+          </div>
+          <div class="settings-item-right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <div class="settings-item" style="margin-bottom: 24px;">
+          <div class="settings-item-left">
+            <div class="settings-item-icon" style="background-color: rgba(255, 107, 107, 0.1); color: var(--error-color);">
+              <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <div class="settings-item-title">退出登录</div>
+          </div>
+          <div class="settings-item-right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 版本信息 -->
+      <div style="text-align: center; color: var(--light-text); font-size: 12px; margin-bottom: 24px;">
+        悦灵辞书 v1.0.0 © 2023
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-book"></i>
+        <span>词典</span>
+      </div>
+      <div class="tab-item">
+        <div style="position: relative;">
+          <i class="fas fa-robot"></i>
+          <span class="badge">新</span>
+        </div>
+        <span>AI助手</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-chart-line"></i>
+        <span>学习</span>
+      </div>
+      <div class="tab-item active">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 开关样式 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px var(--primary-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .slider.round {
+      border-radius: 26px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .ml-2 {
+      margin-left: 8px;
+    }
+  </style>
+</body>
+</html>

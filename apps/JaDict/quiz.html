@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 词汇测验</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content" style="padding-top: 124px; padding-bottom: 160px;">
+      <!-- 导航头部 -->
+      <div class="ai-chat-header">
+        <button class="back-button">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div style="font-weight: 600;">单词测验</div>
+        <button class="icon-button" style="position: absolute; right: 16px;">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+
+      <!-- 测验进度 -->
+      <div style="padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 16px; font-weight: 600;">问题 <span style="color: var(--primary-color);">3</span>/10</div>
+        <div style="display: flex; gap: 8px;">
+          <div style="width: 20px; height: 6px; background-color: var(--primary-color); border-radius: 3px;"></div>
+          <div style="width: 20px; height: 6px; background-color: var(--primary-color); border-radius: 3px;"></div>
+          <div style="width: 20px; height: 6px; background-color: var(--primary-color); border-radius: 3px;"></div>
+          <div style="width: 20px; height: 6px; background-color: rgba(0,0,0,0.1); border-radius: 3px;"></div>
+          <div style="width: 20px; height: 6px; background-color: rgba(0,0,0,0.1); border-radius: 3px;"></div>
+        </div>
+        <div style="font-size: 14px; color: var(--light-text);">
+          <i class="fas fa-clock"></i> 00:45
+        </div>
+      </div>
+
+      <!-- 测验问题 -->
+      <div class="card">
+        <h2 style="font-weight: 600; margin-bottom: 16px; text-align: center; color: var(--text-color);">
+          "桜"的正确读音是？
+        </h2>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span style="font-size: 48px; font-weight: 700; color: var(--primary-color);">桜</span>
+          <button class="audio-button" style="margin-left: 12px; vertical-align: middle;">
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>
+
+        <!-- 选项 -->
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+          <button style="width: 100%; padding: 16px; border: 2px solid rgba(0,0,0,0.1); background-color: white; border-radius: var(--radius); text-align: left; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+            <span>A. はな (hana)</span>
+          </button>
+
+          <button style="width: 100%; padding: 16px; border: 2px solid var(--primary-color); background-color: rgba(255, 107, 158, 0.05); border-radius: var(--radius); text-align: left; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+            <span>B. さくら (sakura)</span>
+            <i class="fas fa-check" style="color: var(--primary-color);"></i>
+          </button>
+
+          <button style="width: 100%; padding: 16px; border: 2px solid rgba(0,0,0,0.1); background-color: white; border-radius: var(--radius); text-align: left; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+            <span>C. きのう (kinou)</span>
+          </button>
+
+          <button style="width: 100%; padding: 16px; border: 2px solid rgba(0,0,0,0.1); background-color: white; border-radius: var(--radius); text-align: left; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+            <span>D. あめ (ame)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 答案解释 -->
+      <div class="card" style="margin-top: 16px; background-color: rgba(78, 205, 196, 0.05); border: 1px solid rgba(78, 205, 196, 0.2);">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <div style="width: 32px; height: 32px; background-color: var(--success-color); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-right: 12px; color: white;">
+            <i class="fas fa-check"></i>
+          </div>
+          <h3 style="font-weight: 600; margin: 0;">正确！</h3>
+        </div>
+
+        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+          "桜"的正确读音是"さくら (sakura)"，意思是樱花或樱桃树。这是日本的国花，在春季开放。
+        </p>
+
+        <div class="example-text">
+          桜の花がとても綺麗です。<br>
+          <span style="color: var(--text-color);">樱花非常漂亮。</span>
+        </div>
+      </div>
+
+      <!-- 下一题按钮 -->
+      <div style="padding: 20px 16px;">
+        <button class="button-primary" style="width: 100%;">
+          下一题
+        </button>
+      </div>
+    </div>
+
+    <!-- 底部提示 -->
+    <div style="position: fixed; bottom: 16px; left: 0; width: 100%; padding: 0 16px; z-index: 10;">
+      <div style="background-color: rgba(255, 107, 158, 0.1); border: 1px dashed var(--primary-color); padding: 12px; border-radius: var(--radius); display: flex; align-items: center;">
+        <div style="width: 32px; height: 32px; border-radius: 16px; background-color: var(--primary-color); display: flex; align-items: center; justify-content: center; margin-right: 12px; color: white;">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <div style="flex: 1;">
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">
+            小提示：点击单词可以查看详细解释，点击发音按钮可以听到正确读音~
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

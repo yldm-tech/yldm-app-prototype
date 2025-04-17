@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的收藏 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序导航栏 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 84px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px;
+        }
+
+        /* 房源卡片 */
+        .house-card {
+            background-color: #fff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .house-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+        }
+
+        .house-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .house-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .house-favorite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .house-content {
+            padding: 15px;
+        }
+
+        .house-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .house-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .house-info i {
+            width: 16px;
+            margin-right: 4px;
+            text-align: center;
+        }
+
+        .house-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .price-amount {
+            color: #ff5a5f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .price-unit {
+            font-size: 12px;
+            color: #999;
+            margin-left: 4px;
+        }
+
+        .house-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .house-action {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        .action-primary {
+            background-color: #1989fa;
+            color: #fff;
+        }
+
+        .action-default {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-button {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* 编辑模式 */
+        .edit-mode .house-card {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .edit-checkbox {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: none;
+        }
+
+        .edit-mode .edit-checkbox {
+            display: block;
+        }
+
+        .edit-checkbox.checked {
+            background-color: #1989fa;
+            border-color: #1989fa;
+        }
+
+        .edit-checkbox.checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 3px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* 底部操作栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            border-top: 1px solid #f0f0f0;
+            display: none;
+        }
+
+        .edit-mode .bottom-bar {
+            display: flex;
+        }
+
+        .select-all {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .select-all input {
+            margin-right: 5px;
+        }
+
+        .delete-btn {
+            padding: 6px 16px;
+            background-color: #ff5a5f;
+            color: #fff;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        /* 底部标签栏 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">我的收藏</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 房源列表 -->
+        <div class="house-list">
+            <!-- 房源卡片1 -->
+            <div class="house-card">
+                <div class="edit-checkbox"></div>
+                <div class="house-image">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="房源图片">
+                    <div class="house-tag">整租</div>
+                    <div class="house-favorite">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+                <div class="house-content">
+                    <div class="house-title">阳光城市花园 精装修两居室 南北通透 拎包入住</div>
+                    <div class="house-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>朝阳区 望京 阳光城市花园</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-home"></i>
+                        <span>89㎡ · 2室1厅 · 南北</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-building"></i>
+                        <span>中层/33层 · 精装修</span>
+                    </div>
+                    <div class="house-price">
+                        <div>
+                            <span class="price-amount">4500</span>
+                            <span class="price-unit">元/月</span>
+                        </div>
+                        <div class="house-actions">
+                            <div class="house-action action-primary">预约看房</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 房源卡片2 -->
+            <div class="house-card">
+                <div class="edit-checkbox"></div>
+                <div class="house-image">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858" alt="房源图片">
+                    <div class="house-tag">合租</div>
+                    <div class="house-favorite">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+                <div class="house-content">
+                    <div class="house-title">城市公馆 精装一居室 近地铁 家电齐全</div>
+                    <div class="house-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>海淀区 中关村 城市公馆</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-home"></i>
+                        <span>45㎡ · 1室1厅 · 朝南</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-building"></i>
+                        <span>高层/28层 · 精装修</span>
+                    </div>
+                    <div class="house-price">
+                        <div>
+                            <span class="price-amount">3800</span>
+                            <span class="price-unit">元/月</span>
+                        </div>
+                        <div class="house-actions">
+                            <div class="house-action action-primary">预约看房</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 房源卡片3 -->
+            <div class="house-card">
+                <div class="edit-checkbox"></div>
+                <div class="house-image">
+                    <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="房源图片">
+                    <div class="house-tag">整租</div>
+                    <div class="house-favorite">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+                <div class="house-content">
+                    <div class="house-title">保利心语 舒适三居室 采光好 环境优美</div>
+                    <div class="house-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>东城区 东直门 保利心语</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-home"></i>
+                        <span>120㎡ · 3室2厅 · 南北</span>
+                    </div>
+                    <div class="house-info">
+                        <i class="fas fa-building"></i>
+                        <span>中层/25层 · 精装修</span>
+                    </div>
+                    <div class="house-price">
+                        <div>
+                            <span class="price-amount">6800</span>
+                            <span class="price-unit">元/月</span>
+                        </div>
+                        <div class="house-actions">
+                            <div class="house-action action-primary">预约看房</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="far fa-heart"></i>
+            <div class="empty-state-text">暂无收藏房源</div>
+            <div class="empty-state-button">去找房</div>
+        </div>
+
+        <!-- 底部操作栏 -->
+        <div class="bottom-bar">
+            <div class="select-all">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll">全选</label>
+            </div>
+            <div class="delete-btn">删除</div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script>
+        // 编辑模式切换
+        let isEditMode = false;
+        document.querySelector('.capsule-button').addEventListener('click', () => {
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode');
+        });
+
+        // 收藏按钮点击事件
+        const favoriteButtons = document.querySelectorAll('.house-favorite');
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const icon = button.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+                // 这里添加取消收藏的逻辑
+                console.log('取消收藏');
+            });
+        });
+
+        // 房源卡片点击事件
+        const houseCards = document.querySelectorAll('.house-card');
+        houseCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (isEditMode) {
+                    const checkbox = card.querySelector('.edit-checkbox');
+                    checkbox.classList.toggle('checked');
+                    updateBottomBar();
+                } else {
+                    if (!e.target.closest('.house-actions')) {
+                        const title = card.querySelector('.house-title').textContent;
+                        // 这里添加查看房源详情的逻辑
+                        console.log('查看房源详情：', title);
+                    }
+                }
+            });
+        });
+
+        // 操作按钮点击事件
+        const actionButtons = document.querySelectorAll('.house-action');
+        actionButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const action = button.textContent;
+                const card = button.closest('.house-card');
+                const title = card.querySelector('.house-title').textContent;
+                // 这里添加相应的操作逻辑
+                console.log('执行操作：', action, title);
+            });
+        });
+
+        // 全选功能
+        const selectAllCheckbox = document.getElementById('selectAll');
+        selectAllCheckbox.addEventListener('change', () => {
+            const checkboxes = document.querySelectorAll('.edit-checkbox');
+            checkboxes.forEach(checkbox => {
+                if (selectAllCheckbox.checked) {
+                    checkbox.classList.add('checked');
+                } else {
+                    checkbox.classList.remove('checked');
+                }
+            });
+            updateBottomBar();
+        });
+
+        // 删除按钮点击事件
+        document.querySelector('.delete-btn').addEventListener('click', () => {
+            const selectedCards = document.querySelectorAll('.edit-checkbox.checked');
+            // 这里添加删除收藏的逻辑
+            console.log('删除选中的收藏：', selectedCards.length, '个');
+        });
+
+        // 更新底部操作栏状态
+        function updateBottomBar() {
+            const totalCheckboxes = document.querySelectorAll('.edit-checkbox').length;
+            const checkedCheckboxes = document.querySelectorAll('.edit-checkbox.checked').length;
+            selectAllCheckbox.checked = checkedCheckboxes === totalCheckboxes;
+            document.querySelector('.delete-btn').style.opacity = checkedCheckboxes > 0 ? '1' : '0.5';
+        }
+    </script>
+</body>
+</html> 

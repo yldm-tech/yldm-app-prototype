@@ -1,0 +1,27 @@
+{
+  "name": "yldm-app-prototype",
+  "version": "1.0.0",
+  "description": "集合多个应用原型的工作空间项目，包括租房小程序、排班系统和日语词典应用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx http-server -p 3000",
+    "list:apps": "ls -la apps/",
+    "update:deps": "pnpm -r update",
+    "check:versions": "pnpm -r ls --depth 0"
+  },
+  "keywords": [
+    "prototype",
+    "rental",
+    "shift-management",
+    "japanese-dictionary",
+    "pnpm-workspace"
+  ],
+  "author": "YLDM Team",
+  "license": "ISC",
+  "packageManager": "pnpm@10.5.2",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "serve": "^14.2.4"
+  }
+}

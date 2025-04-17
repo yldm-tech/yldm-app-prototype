@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>租房小程序原型</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .module-section {
+            margin-bottom: 60px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .module-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-title i {
+            margin-right: 10px;
+            color: #1989fa;
+            font-size: 24px;
+        }
+
+        .module-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .module-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .module-nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .module-nav-item:hover {
+            background: #f5f7fa;
+            color: #1989fa;
+        }
+
+        .module-nav-item.active {
+            background: #e6f7ff;
+            color: #1989fa;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 375px);
+            gap: 50px 40px;
+            justify-content: center;
+        }
+
+        .page-card {
+            width: 375px;
+            transition: all 0.3s;
+        }
+
+        .page-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .page-header {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #eee;
+            border-bottom: none;
+        }
+
+        .page-header i {
+            color: #1989fa;
+            margin-right: 6px;
+        }
+
+        .page-frame {
+            width: 100%;
+            height: 667px;
+            border: none;
+        }
+
+        .device-frame {
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        /* iPhone 外壳样式 */
+        .iphone-frame {
+            width: 375px;
+            height: 812px;
+            background: #1a1a1a;
+            border-radius: 50px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 38px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .dynamic-island:hover {
+            width: 200px;
+            height: 45px;
+        }
+
+        .dynamic-island .island-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .island-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .page-card {
+            width: 375px;
+            margin: 0 auto;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 375px);
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        /* 音量按钮 */
+        .volume-buttons {
+            position: absolute;
+            left: -2px;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .volume-button {
+            width: 4px;
+            height: 30px;
+            background: #2a2a2a;
+            border-radius: 2px;
+        }
+
+        /* 电源按钮 */
+        .power-button {
+            position: absolute;
+            right: -2px;
+            top: 120px;
+            width: 4px;
+            height: 40px;
+            background: #2a2a2a;
+            border-radius: 2px;
+        }
+
+        /* 静音开关 */
+        .mute-switch {
+            position: absolute;
+            left: -2px;
+            top: 50px;
+            width: 4px;
+            height: 20px;
+            background: #2a2a2a;
+            border-radius: 2px;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1989fa;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">租房小程序原型展示</h1>
+
+        <!-- 首页模块 -->
+        <section class="module-section" id="home">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-home"></i>
+                        首页
+                    </h2>
+                    <div class="module-desc">
+                        展示系统轮播广告（图片/视频）、最新资讯、优惠券、推荐空间信息。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-home"></i>首页</span>
+                        <span>home.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-home fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="home.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 空间信息模块 -->
+        <section class="module-section" id="spaces">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-building"></i>
+                        空间信息
+                    </h2>
+                    <div class="module-desc">
+                        展示系统内的所有空间信息，包括空间列表、详情和预约功能。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-list"></i>空间列表</span>
+                        <span>space_list.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-list fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="space_list.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-info-circle"></i>空间详情</span>
+                        <span>space_detail.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-building fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="space_detail.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-calendar-alt"></i>空间预约</span>
+                        <span>book_space.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-calendar-alt fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="book_space.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 房间信息模块 -->
+        <section class="module-section" id="rooms">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-home"></i>
+                        房间信息
+                    </h2>
+                    <div class="module-desc">
+                        展示园区内的户型信息、房间详情和预约功能。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-building"></i>户型列表</span>
+                        <span>unit_list.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-list fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="unit_list.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-door-open"></i>房间详情</span>
+                        <span>room_detail.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-door-open fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="room_detail.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-calendar-alt"></i>房间预约</span>
+                        <span>book_room.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-calendar-alt fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="book_room.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 资讯与消息模块 -->
+        <section class="module-section" id="news">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-newspaper"></i>
+                        资讯与消息
+                    </h2>
+                    <div class="module-desc">
+                        平台资讯及消息通知功能。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-newspaper"></i>分类资讯</span>
+                        <span>news_center.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-newspaper fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="news_center.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-bell"></i>消息中心</span>
+                        <span>message_center.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-bell fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="message_center.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人中心模块 -->
+        <section class="module-section" id="profile">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-user"></i>
+                        个人中心
+                    </h2>
+                    <div class="module-desc">
+                        个人信息管理、订单管理、优惠福利、关于平台等功能。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-user-edit"></i>个人信息</span>
+                        <span>profile.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-user-edit fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="profile.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-ticket-alt"></i>我的优惠券</span>
+                        <span>my_coupons.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-ticket-alt fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="my_coupons.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-heart"></i>我的收藏</span>
+                        <span>my_favorites.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-heart fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="my_favorites.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-file-alt"></i>我的订单</span>
+                        <span>my_orders.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-file-alt fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="my_orders.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-calendar-check"></i>我的预约</span>
+                        <span>my_appointments.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-calendar-check fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="my_appointments.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-info-circle"></i>关于我们</span>
+                        <span>about_us.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-info-circle fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="about_us.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 物业服务模块 -->
+        <section class="module-section" id="property">
+            <div class="module-header">
+                <div>
+                    <h2 class="module-title">
+                        <i class="fas fa-tools"></i>
+                        物业服务
+                    </h2>
+                    <div class="module-desc">
+                        物业报修、车辆管理等服务功能。
+                    </div>
+                </div>
+            </div>
+            <div class="page-grid">
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-wrench"></i>物业报修</span>
+                        <span>maintenance_request.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-wrench fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="maintenance_request.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-card">
+                    <div class="page-header">
+                        <span><i class="fas fa-car"></i>租户车辆</span>
+                        <span>my_vehicles.html</span>
+                    </div>
+                    <div class="iphone-frame">
+                        <div class="volume-buttons">
+                            <div class="volume-button"></div>
+                            <div class="volume-button"></div>
+                        </div>
+                        <div class="power-button"></div>
+                        <div class="mute-switch"></div>
+                        <div class="iphone-screen">
+                            <div class="dynamic-island">
+                                <div class="island-content">
+                                    <div class="island-icon">
+                                        <i class="fas fa-car fa-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <iframe src="my_vehicles.html" class="page-frame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 返回顶部按钮 -->
+        <div class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <script>
+        // 返回顶部按钮逻辑
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 模块导航逻辑
+        document.querySelectorAll('.module-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const nav = item.closest('.module-nav');
+                nav.querySelectorAll('.module-nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html> 

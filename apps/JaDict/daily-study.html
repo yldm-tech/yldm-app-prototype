@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 每日学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content" style="padding-top: 124px; padding-bottom: 160px;">
+      <!-- 导航头部 -->
+      <div class="ai-chat-header">
+        <button class="back-button">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div style="font-weight: 600;">每日学习</div>
+        <button class="icon-button" style="position: absolute; right: 16px;">
+          <i class="fas fa-calendar-alt"></i>
+        </button>
+      </div>
+
+      <!-- 学习进度卡片 -->
+      <div class="card" style="background-color: var(--primary-color); color: white; margin: 16px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -15px; right: -15px; width: 80px; height: 80px; background-color: rgba(255,255,255,0.1); border-radius: 40px;"></div>
+        <div style="position: absolute; bottom: -20px; left: -20px; width: 100px; height: 100px; background-color: rgba(255,255,255,0.05); border-radius: 50px;"></div>
+
+        <h2 style="font-weight: 600; margin-bottom: 12px; position: relative;">今日学习计划</h2>
+        <p style="font-size: 14px; margin-bottom: 16px; position: relative; opacity: 0.9;">
+          2023年11月15日 星期三
+        </p>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 16px; position: relative;">
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">30</div>
+            <div style="font-size: 12px; opacity: 0.8;">新词目标</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">15</div>
+            <div style="font-size: 12px; opacity: 0.8;">复习单词</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">8/30</div>
+            <div style="font-size: 12px; opacity: 0.8;">已完成</div>
+          </div>
+        </div>
+
+        <div style="position: relative;">
+          <div style="height: 8px; background-color: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 26.6%; background-color: white; border-radius: 4px;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 6px;">
+            <div>今日进度: 26.6%</div>
+            <div>还有22个单词</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 切换选项卡 -->
+      <div style="display: flex; border-bottom: 1px solid rgba(0,0,0,0.05); margin: 0 16px;">
+        <button style="flex: 1; padding: 12px 0; text-align: center; font-weight: 600; color: var(--primary-color); border-bottom: 2px solid var(--primary-color);">
+          新词学习
+        </button>
+        <button style="flex: 1; padding: 12px 0; text-align: center; font-weight: 500; color: var(--light-text); border-bottom: 2px solid transparent;">
+          复习单词
+        </button>
+      </div>
+
+      <!-- 学习列表 -->
+      <div class="section-title" style="margin-left: 16px; margin-right: 16px;">今日新词 <span class="kawaii-text">✨</span></div>
+
+      <div style="padding: 0 16px;">
+        <!-- 单词卡片 -->
+        <div class="word-card" style="background-color: rgba(255, 107, 158, 0.05); border: 1px solid rgba(255, 107, 158, 0.2);">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">美味しい (おいしい)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">好吃的, 美味的</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">形容词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+              <span style="background-color: rgba(255, 209, 102, 0.1); color: var(--accent-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">JLPT必考</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="icon-button">
+              <i class="fas fa-check" style="color: var(--primary-color);"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">行く (いく)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">去，前往</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">动词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="icon-button">
+              <i class="far fa-circle"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">食べる (たべる)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">吃</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">动词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="icon-button">
+              <i class="far fa-circle"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">飲む (のむ)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">喝</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">动词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="icon-button">
+              <i class="far fa-circle"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="word-card">
+          <div>
+            <h3 style="font-weight: 600; font-size: 18px;">見る (みる)</h3>
+            <p style="color: var(--light-text); font-size: 14px;">看，观看</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+              <span style="background-color: rgba(255, 107, 158, 0.1); color: var(--primary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">动词</span>
+              <span style="background-color: rgba(161, 119, 255, 0.1); color: var(--secondary-color); border-radius: 4px; padding: 2px 6px; font-size: 10px;">N5</span>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <button class="audio-button">
+              <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="icon-button">
+              <i class="far fa-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI学习建议 -->
+      <div class="card" style="margin: 20px 16px; background-color: rgba(161, 119, 255, 0.05); border: 1px solid rgba(161, 119, 255, 0.2);">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <span class="ai-chip"><i class="fas fa-robot"></i> AI</span>
+          <span style="font-weight: 600; margin-left: 8px;">学习建议</span>
+        </div>
+        <p style="font-size: 14px; line-height: 1.6;">
+          小灵同学，今天的单词大多是常用动词和形容词，建议你可以尝试用这些词造简单的句子来加深记忆。例如："美味しい食べ物を食べる"（吃好吃的食物）。
+        </p>
+        <div style="padding-top: 12px; margin-top: 12px; border-top: 1px solid rgba(0,0,0,0.05);">
+          <button class="button-secondary" style="width: 100%; font-size: 14px;">
+            生成例句练习
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部学习按钮 -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background-color: white; border-top: 1px solid rgba(0,0,0,0.05); display: flex; gap: 12px;">
+      <button style="flex: 1; padding: 12px 0; background-color: rgba(0,0,0,0.05); color: var(--text-color); border: none; border-radius: 24px; font-size: 16px; font-weight: 500;">
+        暂停学习
+      </button>
+      <button class="button-primary" style="flex: 2; padding: 12px 0; font-size: 16px; font-weight: 500;">
+        开始测验
+      </button>
+    </div>
+  </div>
+</body>
+</html>

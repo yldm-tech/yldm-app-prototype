@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空间预约 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .time {
+            font-weight: bold;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-icons i {
+            margin-left: 5px;
+        }
+
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+
+        /* 页面内容区 */
+        .page-content {
+            padding: 15px;
+        }
+
+        /* 空间信息卡片 */
+        .space-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .space-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .space-info {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .space-info i {
+            margin-right: 5px;
+            color: #1989fa;
+        }
+
+        /* 预约表单 */
+        .booking-form {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #333;
+            background: #f8f8f8;
+        }
+
+        .form-input:focus {
+            border-color: #1989fa;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-textarea {
+            height: 100px;
+            padding: 12px;
+            resize: none;
+        }
+
+        /* 时间选择器 */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .time-slot.selected {
+            background: #e6f7ff;
+            border-color: #1989fa;
+            color: #1989fa;
+        }
+
+        .time-slot.disabled {
+            background: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        /* 底部操作栏 */
+        .action-bar {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 10px 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding-bottom: 10px;
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 44px;
+            background: #1989fa;
+            color: #fff;
+            border: none;
+            border-radius: 22px;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submit-button:disabled {
+            background: #ccc;
+        }
+
+        /* 日期选择器样式 */
+        .date-picker {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin: 0 -15px;
+            padding: 0 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .date-item {
+            flex: 0 0 60px;
+            height: 70px;
+            margin-right: 10px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: #f8f8f8;
+        }
+
+        .date-item.selected {
+            background: #e6f7ff;
+            border-color: #1989fa;
+        }
+
+        .date-weekday {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .date-day {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .selected .date-weekday,
+        .selected .date-day {
+            color: #1989fa;
+        }
+
+        /* 底部标签栏样式 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">空间预约</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 空间信息 -->
+        <div class="space-card">
+            <div class="space-title">创意工作室 A103</div>
+            <div class="space-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>科技园区3号楼1层</span>
+            </div>
+            <div class="space-info">
+                <i class="fas fa-users"></i>
+                <span>可容纳4-8人</span>
+            </div>
+            <div class="space-info">
+                <i class="fas fa-clock"></i>
+                <span>营业时间：09:00-22:00</span>
+            </div>
+        </div>
+
+        <!-- 预约表单 -->
+        <div class="booking-form">
+            <div class="form-title">选择日期</div>
+            <div class="date-picker">
+                <div class="date-item">
+                    <span class="date-weekday">今天</span>
+                    <span class="date-day">12/20</span>
+                </div>
+                <div class="date-item selected">
+                    <span class="date-weekday">明天</span>
+                    <span class="date-day">12/21</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-weekday">周三</span>
+                    <span class="date-day">12/22</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-weekday">周四</span>
+                    <span class="date-day">12/23</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-weekday">周五</span>
+                    <span class="date-day">12/24</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-weekday">周六</span>
+                    <span class="date-day">12/25</span>
+                </div>
+                <div class="date-item">
+                    <span class="date-weekday">周日</span>
+                    <span class="date-day">12/26</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <div class="form-title">选择时间段</div>
+            <div class="time-slots">
+                <div class="time-slot">09:00</div>
+                <div class="time-slot selected">10:00</div>
+                <div class="time-slot">11:00</div>
+                <div class="time-slot disabled">12:00</div>
+                <div class="time-slot">13:00</div>
+                <div class="time-slot">14:00</div>
+                <div class="time-slot">15:00</div>
+                <div class="time-slot">16:00</div>
+                <div class="time-slot">17:00</div>
+                <div class="time-slot">18:00</div>
+                <div class="time-slot">19:00</div>
+                <div class="time-slot">20:00</div>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <div class="form-title">预约信息</div>
+            <div class="form-group">
+                <label class="form-label">使用人数</label>
+                <input type="number" class="form-input" placeholder="请输入使用人数" min="1" max="8">
+            </div>
+            <div class="form-group">
+                <label class="form-label">联系人</label>
+                <input type="text" class="form-input" placeholder="请输入联系人姓名">
+            </div>
+            <div class="form-group">
+                <label class="form-label">联系电话</label>
+                <input type="tel" class="form-input" placeholder="请输入联系电话">
+            </div>
+            <div class="form-group">
+                <label class="form-label">用途说明</label>
+                <textarea class="form-input form-textarea" placeholder="请简要说明使用用途"></textarea>
+            </div>
+        </div>
+
+        <!-- 底部操作栏 -->
+        <div style="height: 64px;"></div>
+        <div class="action-bar">
+            <button class="submit-button">
+                确认预约
+            </button>
+        </div>
+
+        <!-- 底部标签栏 -->
+        <div class="tab-bar">
+            <a href="home.html" class="tab-item">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </a>
+            <a href="space_list.html" class="tab-item active">
+                <i class="fas fa-building"></i>
+                <span>空间</span>
+            </a>
+            <a href="unit_list.html" class="tab-item">
+                <i class="fas fa-door-open"></i>
+                <span>房间</span>
+            </a>
+            <a href="news_center.html" class="tab-item">
+                <i class="fas fa-newspaper"></i>
+                <span>资讯</span>
+            </a>
+            <a href="profile.html" class="tab-item">
+                <i class="fas fa-user"></i>
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 日期选择
+        document.querySelectorAll('.date-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.date-item').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+            });
+        });
+
+        // 时间段选择
+        document.querySelectorAll('.time-slot:not(.disabled)').forEach(slot => {
+            slot.addEventListener('click', () => {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                slot.classList.add('selected');
+            });
+        });
+
+        // 表单提交
+        document.querySelector('.submit-button').addEventListener('click', () => {
+            // 这里添加表单验证和提交逻辑
+            alert('预约成功！');
+        });
+    </script>
+</body>
+</html> 

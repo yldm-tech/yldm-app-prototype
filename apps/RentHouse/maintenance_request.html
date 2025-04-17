@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物业报修 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序导航栏 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-back {
+            font-size: 16px;
+            color: #1989fa;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .header-submit {
+            font-size: 16px;
+            color: #1989fa;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 84px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        /* 表单区域 */
+        .form-section {
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .form-item {
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .form-item:last-child {
+            border-bottom: none;
+        }
+
+        .form-label {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            border: none;
+            font-size: 15px;
+            color: #333;
+            padding: 0;
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .form-textarea {
+            width: 100%;
+            border: none;
+            font-size: 15px;
+            color: #333;
+            padding: 0;
+            resize: none;
+            height: 100px;
+        }
+
+        /* 报修类型选择 */
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .type-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .type-item.selected {
+            background-color: #f0f7ff;
+            border-color: #1989fa;
+            color: #1989fa;
+        }
+
+        .type-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .type-name {
+            font-size: 12px;
+        }
+
+        /* 图片上传区域 */
+        .upload-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .upload-item {
+            aspect-ratio: 1;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .upload-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 24px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .upload-text {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* 提示文本 */
+        .tip-text {
+            font-size: 12px;
+            color: #999;
+            padding: 0 15px;
+            margin-top: 5px;
+        }
+
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-back">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="header-title">物业报修</div>
+        <div class="header-submit">提交</div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 报修类型 -->
+        <div class="form-section">
+            <div class="form-item">
+                <div class="form-label">报修类型</div>
+                <div class="type-grid">
+                    <div class="type-item selected">
+                        <i class="fas fa-wrench type-icon"></i>
+                        <span class="type-name">水电维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-couch type-icon"></i>
+                        <span class="type-name">家具维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-door-closed type-icon"></i>
+                        <span class="type-name">门窗维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-fan type-icon"></i>
+                        <span class="type-name">空调维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-toilet type-icon"></i>
+                        <span class="type-name">卫浴维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-network-wired type-icon"></i>
+                        <span class="type-name">网络维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-paint-roller type-icon"></i>
+                        <span class="type-name">墙面维修</span>
+                    </div>
+                    <div class="type-item">
+                        <i class="fas fa-ellipsis-h type-icon"></i>
+                        <span class="type-name">其他</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 报修信息 -->
+        <div class="form-section">
+            <div class="form-item">
+                <div class="form-label">报修标题</div>
+                <input type="text" class="form-input" placeholder="请简要描述问题">
+            </div>
+            <div class="form-item">
+                <div class="form-label">详细描述</div>
+                <textarea class="form-textarea" placeholder="请详细描述问题，以便维修人员更好地了解情况"></textarea>
+            </div>
+        </div>
+
+        <!-- 图片上传 -->
+        <div class="form-section">
+            <div class="form-item">
+                <div class="form-label">问题照片</div>
+                <div class="upload-section">
+                    <div class="upload-item">
+                        <img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b" alt="问题照片">
+                        <div class="delete-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                    <div class="upload-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a" alt="问题照片">
+                        <div class="delete-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                    <div class="upload-item">
+                        <i class="fas fa-plus upload-icon"></i>
+                        <span class="upload-text">上传照片</span>
+                        <input type="file" class="upload-input" accept="image/*" multiple>
+                    </div>
+                </div>
+                <div class="tip-text">最多上传9张照片，单张不超过5MB</div>
+            </div>
+        </div>
+
+        <!-- 联系信息 -->
+        <div class="form-section">
+            <div class="form-item">
+                <div class="form-label">联系人</div>
+                <input type="text" class="form-input" placeholder="请输入联系人姓名" value="张三">
+            </div>
+            <div class="form-item">
+                <div class="form-label">联系电话</div>
+                <input type="tel" class="form-input" placeholder="请输入联系电话" value="13800138000">
+            </div>
+            <div class="form-item">
+                <div class="form-label">地址</div>
+                <input type="text" class="form-input" placeholder="请输入详细地址" value="阳光城市花园 2号楼 1单元 801">
+            </div>
+        </div>
+
+        <!-- 预约时间 -->
+        <div class="form-section">
+            <div class="form-item">
+                <div class="form-label">预约时间</div>
+                <input type="datetime-local" class="form-input">
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script>
+        // 报修类型选择
+        const typeItems = document.querySelectorAll('.type-item');
+        typeItems.forEach(item => {
+            item.addEventListener('click', () => {
+                typeItems.forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+            });
+        });
+
+        // 图片上传预览
+        const uploadInput = document.querySelector('.upload-input');
+        const uploadSection = document.querySelector('.upload-section');
+
+        uploadInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            for (let file of files) {
+                if (uploadSection.children.length >= 9) {
+                    alert('最多上传9张照片');
+                    break;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const uploadItem = document.createElement('div');
+                    uploadItem.className = 'upload-item';
+                    uploadItem.innerHTML = `
+                        <img src="${e.target.result}" alt="问题照片">
+                        <div class="delete-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    uploadSection.insertBefore(uploadItem, uploadSection.lastElementChild);
+                    
+                    // 添加删除事件
+                    uploadItem.querySelector('.delete-icon').addEventListener('click', () => {
+                        uploadItem.remove();
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 删除已上传图片
+        document.querySelectorAll('.delete-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+                icon.parentElement.remove();
+            });
+        });
+
+        // 提交按钮点击事件
+        document.querySelector('.header-submit').addEventListener('click', () => {
+            // 这里添加提交逻辑
+            console.log('提交报修申请');
+            // 模拟提交成功
+            alert('提交成功！');
+            // 返回上一页
+            history.back();
+        });
+
+        // 返回按钮点击事件
+        document.querySelector('.header-back').addEventListener('click', () => {
+            history.back();
+        });
+    </script>
+</body>
+</html> 

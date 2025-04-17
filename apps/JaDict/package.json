@@ -1,0 +1,21 @@
+{
+  "name": "jadict-prototype",
+  "version": "1.0.0",
+  "description": "日语学习词典应用原型",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s .",
+    "build": "echo 'No build step needed'"
+  },
+  "keywords": [
+    "japanese",
+    "dictionary",
+    "language-learning",
+    "prototype"
+  ],
+  "author": "YLDM Team",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+} 

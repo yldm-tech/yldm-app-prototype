@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .iphone-frame {
+            width: 430px;
+            height: 932px;
+            border-radius: 55px;
+            padding: 20px;
+            background: #f8f8f8;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 20px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 35px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+        .status-bar {
+            height: 44px;
+            background: #fff;
+            position: relative;
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 34px;
+            background: #000;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+        iframe {
+            width: 100%;
+            height: calc(100% - 44px);
+            border: none;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin: 40px 20px 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- 用户认证页面 -->
+    <h2 class="category-title">用户认证</h2>
+    <div class="flex flex-wrap justify-start">
+        <!-- 登录页面 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/login.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 注册页面 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/register.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 忘记密码页面 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/forgot-password.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要功能页面 -->
+    <h2 class="category-title">主要功能</h2>
+    <div class="flex flex-wrap justify-start">
+        <!-- 导航首页 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/home.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 首页 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/schedule.html"></iframe>
+            </div>
+        </div>
+        
+        <!-- 排班表 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/schedule_detail.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 班次详情 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/shift-detail.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 排班规则 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/schedule-rules.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 调班 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/swap.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 请假 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/leave.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 团队管理页面 -->
+    <h2 class="category-title">团队管理</h2>
+    <div class="flex flex-wrap justify-start">
+        <!-- 团队 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/team.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 成员详情 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/member-detail.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 成员编辑 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/member-edit.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 统计 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/statistics.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知与日志 -->
+    <h2 class="category-title">通知与日志</h2>
+    <div class="flex flex-wrap justify-start">
+        <!-- 消息列表 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/message-list.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 聊天详情 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/chat.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 审批列表 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/approval-list.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 审批详情 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/approval-detail.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 通知 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/notifications.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 工作日志 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/worklog.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人与设置 -->
+    <h2 class="category-title">个人与设置</h2>
+    <div class="flex flex-wrap justify-start">
+        <!-- 个人中心 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/profile.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 设置页面 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/settings.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 意见反馈 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/feedback.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 帮助中心 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/help-center.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 公告通知 -->
+        <div class="iphone-frame">
+            <div class="screen">
+                <div class="status-bar">
+                    <div class="notch"></div>
+                    <span>9:41</span>
+                    <div class="flex gap-2">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                <iframe src="pages/announcement.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面迁移关系图 -->
+    <div class="mt-20 mb-20 px-4">
+        <h2 class="category-title">页面迁移关系图</h2>
+        <div class="bg-white rounded-xl p-8 overflow-x-auto">
+            <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+            <script>mermaid.initialize({startOnLoad:true, theme:'neutral'});</script>
+            <div class="mermaid">
+graph TD
+    登录[登录页面] --> Tabs
+    注册 --> 登录
+    忘记密码 --> 登录
+    
+    Tabs --> 首页
+    Tabs --> 排班
+    Tabs --> 消息
+    Tabs --> 我的
+    
+    首页 --> 团队
+    团队 --> 成员详情
+    团队 --> 成员编辑
+    团队 --> 统计
+    
+    排班 --> 班次详情
+    排班 --> 排班规则
+    排班 --> 调班申请
+    排班 --> 请假申请
+    
+    消息 --> 聊天详情
+    消息 --> 审批列表
+    消息 --> 审批详情
+    消息 --> 通知中心
+    消息 --> 工作日志
+    
+    我的 --> 个人资料
+    我的 --> 系统设置
+    我的 --> 意见反馈
+    我的 --> 帮助中心
+    我的 --> 公告通知
+    
+    classDef primary fill:#FFE4E6,stroke:#F43F5E,stroke-width:2px;
+    classDef secondary fill:#F0F9FF,stroke:#0EA5E9,stroke-width:2px;
+    classDef tab fill:#E0F2FE,stroke:#0284C7,stroke-width:3px;
+    class 登录,注册,忘记密码 primary;
+    class Tabs tab;
+    class 首页,排班,消息,我的 secondary;
+            </div>
+        </div>
+        <div class="text-sm text-gray-500 mt-4 text-center">
+            提示：图中展示了主要页面之间的跳转关系，粉色节点为认证相关页面，深蓝色节点为Tab导航栏，浅蓝色节点为主要功能入口
+        </div>
+    </div>
+</body>
+</html> 

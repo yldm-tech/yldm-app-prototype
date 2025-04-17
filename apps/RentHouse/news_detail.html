@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资讯详情 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background-color: #fff;
+        }
+
+        /* 文章内容样式 */
+        .article-header {
+            padding: 20px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .article-title {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .article-info {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .article-author {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            margin-right: 6px;
+        }
+
+        .article-stats {
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .stat-item i {
+            margin-right: 4px;
+        }
+
+        .article-content {
+            padding: 20px 15px;
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .article-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .article-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px 0 15px;
+        }
+
+        /* 相关推荐 */
+        .related-section {
+            padding: 20px 15px;
+            background-color: #f7f7f7;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .related-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .related-image {
+            width: 80px;
+            height: 60px;
+            border-radius: 4px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .related-info {
+            flex: 1;
+        }
+
+        .related-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .related-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 底部工具栏 */
+        .toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: #fff;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .tool-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 25px;
+            color: #666;
+        }
+
+        .tool-item i {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        .tool-text {
+            font-size: 10px;
+        }
+
+        .share-button {
+            flex: 1;
+            height: 36px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .share-button i {
+            margin-right: 5px;
+        }
+
+        /* 标签样式 */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background-color: #f0f7ff;
+            color: #1989fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">资讯详情</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 文章头部 -->
+        <div class="article-header">
+            <h1 class="article-title">2023年最新租房政策解读：这些变化租房者必须知道</h1>
+            <div class="article-info">
+                <div class="article-author">
+                    <img src="https://via.placeholder.com/24" alt="作者头像" class="author-avatar">
+                    <span>好家租房</span>
+                </div>
+                <div class="article-stats">
+                    <div class="stat-item">
+                        <i class="far fa-clock"></i>
+                        <span>2023-06-15</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="far fa-eye"></i>
+                        <span>2,358</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tag-list">
+                <div class="tag">政策解读</div>
+                <div class="tag">租房指南</div>
+                <div class="tag">实用攻略</div>
+            </div>
+        </div>
+
+        <!-- 文章内容 -->
+        <div class="article-content">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" alt="文章配图" class="article-image">
+            
+            <p class="article-text">
+                近日，多个城市相继出台新的租房政策，为规范租房市场、保护租房者权益提供了更多保障。本文将为您详细解读这些政策变化，帮助您了解自己的权益。
+            </p>
+
+            <h2 class="article-subtitle">一、租金管控政策</h2>
+            <p class="article-text">
+                新政策规定，房东每年租金涨幅不得超过5%，这一规定将有效遏制租金过快上涨。同时，中介费用也将实行"明码标价"，避免各种名目的额外收费。
+            </p>
+
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="租房图片" class="article-image">
+
+            <h2 class="article-subtitle">二、租房合同规范</h2>
+            <p class="article-text">
+                新版租房合同示范文本已经发布，增加了多项保护租客权益的条款。比如，明确规定了房东不得随意涨价、不得随意收取押金等。
+            </p>
+
+            <h2 class="article-subtitle">三、押金管理新规</h2>
+            <p class="article-text">
+                押金退还时限明确规定为租约到期后7个工作日内，超期将产生违约金。同时，推行押金监管制度，第三方平台代收代付，避免押金纠纷。
+            </p>
+
+            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858" alt="签约图片" class="article-image">
+
+            <h2 class="article-subtitle">四、租客权益保护</h2>
+            <p class="article-text">
+                新政策加强了对租客的权益保护，包括优先续租权、装修补偿权等多项权益。同时，也明确了房东的维修义务和时限要求。
+            </p>
+
+            <p class="article-text">
+                以上就是本次租房政策的主要变化，建议租房者仔细了解这些规定，在租房过程中注意维护自己的合法权益。如果遇到问题，可以通过相关渠道进行投诉和维权。
+            </p>
+        </div>
+
+        <!-- 相关推荐 -->
+        <div class="related-section">
+            <div class="section-title">相关推荐</div>
+            
+            <div class="related-card">
+                <div class="related-image">
+                    <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="相关文章">
+                </div>
+                <div class="related-info">
+                    <div class="related-title">租房合同签订指南：条款审查全攻略</div>
+                    <div class="related-meta">
+                        <span>2023-06-14</span>
+                        <span>·</span>
+                        <span>1,892次阅读</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-card">
+                <div class="related-image">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" alt="相关文章">
+                </div>
+                <div class="related-info">
+                    <div class="related-title">租房押金纠纷如何解决？法律维权全指南</div>
+                    <div class="related-meta">
+                        <span>2023-06-13</span>
+                        <span>·</span>
+                        <span>2,156次阅读</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-card">
+                <div class="related-image">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750" alt="相关文章">
+                </div>
+                <div class="related-info">
+                    <div class="related-title">2023年各大城市租房补贴政策汇总</div>
+                    <div class="related-meta">
+                        <span>2023-06-12</span>
+                        <span>·</span>
+                        <span>3,245次阅读</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部工具栏 -->
+    <div class="toolbar">
+        <div class="tool-item">
+            <i class="far fa-heart"></i>
+            <span class="tool-text">收藏</span>
+        </div>
+        <div class="tool-item">
+            <i class="far fa-thumbs-up"></i>
+            <span class="tool-text">点赞</span>
+        </div>
+        <div class="tool-item">
+            <i class="far fa-comment"></i>
+            <span class="tool-text">评论</span>
+        </div>
+        <div class="share-button">
+            <i class="fas fa-share-alt"></i>
+            分享文章
+        </div>
+    </div>
+
+    <script>
+        // 工具栏交互
+        const toolItems = document.querySelectorAll('.tool-item');
+        toolItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const icon = item.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            });
+        });
+
+        // 分享按钮
+        const shareButton = document.querySelector('.share-button');
+        shareButton.addEventListener('click', () => {
+            // 这里可以添加分享功能
+            console.log('分享文章');
+        });
+
+        // 相关文章点击
+        const relatedCards = document.querySelectorAll('.related-card');
+        relatedCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.related-title').textContent;
+                // 这里可以添加跳转逻辑
+                console.log('查看相关文章：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

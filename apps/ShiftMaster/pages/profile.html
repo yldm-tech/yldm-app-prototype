@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 pb-16">
+    <!-- 个人信息 -->
+    <div class="bg-white px-4 pt-12 pb-6">
+        <div class="flex items-center">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" 
+                 alt="头像" class="w-20 h-20 rounded-full object-cover">
+            <div class="ml-4 flex-1">
+                <h1 class="text-xl font-semibold">张护士</h1>
+                <p class="text-sm text-gray-500 mt-1">儿科护理部 / 护士长</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-xs bg-pink-100 text-pink-500 px-2 py-0.5 rounded-full">5年经验</span>
+                    <span class="text-xs bg-blue-100 text-blue-500 px-2 py-0.5 rounded-full ml-2">优秀员工</span>
+                </div>
+            </div>
+            <a href="settings.html" class="text-gray-400">
+                <i class="fas fa-cog text-xl"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- 工作概览 -->
+    <div class="px-4 py-6">
+        <div class="grid grid-cols-3 gap-4">
+            <a href="schedule.html" class="bg-white rounded-xl p-4 text-center">
+                <div class="text-2xl font-semibold text-pink-500">21</div>
+                <div class="text-sm text-gray-500 mt-1">本月排班</div>
+            </a>
+            <a href="statistics.html" class="bg-white rounded-xl p-4 text-center">
+                <div class="text-2xl font-semibold text-blue-500">98%</div>
+                <div class="text-sm text-gray-500 mt-1">出勤率</div>
+            </a>
+            <a href="statistics.html" class="bg-white rounded-xl p-4 text-center">
+                <div class="text-2xl font-semibold text-green-500">4.9</div>
+                <div class="text-sm text-gray-500 mt-1">评分</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 功能列表 -->
+    <div class="px-4">
+        <div class="bg-white rounded-xl">
+            <a href="worklog.html" class="flex items-center px-4 py-4 border-b">
+                <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-clipboard-list text-pink-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">工作日志</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+            <a href="approval-list.html" class="flex items-center px-4 py-4 border-b">
+                <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-clipboard-check text-purple-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">我的审批</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+            <a href="team.html" class="flex items-center px-4 py-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-users text-blue-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">团队管理</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- 系统功能 -->
+    <div class="px-4 mt-6">
+        <div class="bg-white rounded-xl">
+            <a href="help-center.html" class="flex items-center px-4 py-4 border-b">
+                <div class="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-question-circle text-yellow-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">帮助中心</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+            <a href="feedback.html" class="flex items-center px-4 py-4 border-b">
+                <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-comment-dots text-green-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">意见反馈</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+            <a href="announcement.html" class="flex items-center px-4 py-4">
+                <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-bullhorn text-red-500"></i>
+                </div>
+                <span class="text-sm font-medium ml-3 flex-1">公告通知</span>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+        <div class="flex justify-around py-2">
+            <a href="home.html" class="flex flex-col items-center text-gray-400">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs mt-1">首页</span>
+            </a>
+            <a href="schedule.html" class="flex flex-col items-center text-gray-400">
+                <i class="fas fa-calendar-alt text-xl"></i>
+                <span class="text-xs mt-1">排班</span>
+            </a>
+            <a href="message-list.html" class="flex flex-col items-center text-gray-400">
+                <i class="fas fa-comment-alt text-xl"></i>
+                <span class="text-xs mt-1">消息</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center text-pink-500">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs mt-1">我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

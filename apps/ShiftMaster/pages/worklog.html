@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作日志 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-6">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-semibold">工作日志</h1>
+            <button class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-plus text-pink-500"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="p-6">
+        <!-- 今日工作 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">今日工作</h3>
+                <span class="text-sm text-gray-500">3月15日 周五</span>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-user-nurse text-pink-500"></i>
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-sm font-medium">早班护理工作</div>
+                        <div class="text-xs text-gray-500">07:00-15:00</div>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">已完成</span>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-clipboard-check text-purple-500"></i>
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-sm font-medium">交接班记录</div>
+                        <div class="text-xs text-gray-500">15:00</div>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">待完成</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm">
+            <h3 class="text-lg font-semibold mb-4">历史记录</h3>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm text-gray-500">3月14日 周四</span>
+                        <span class="text-xs text-pink-500">查看详情</span>
+                    </div>
+                    <div class="bg-gray-50 rounded-2xl p-4">
+                        <div class="text-sm">
+                            <div class="font-medium">下午班工作记录</div>
+                            <div class="text-gray-500 mt-1 text-xs">
+                                完成了5号床患者的换药处理，记录生命体征12次，
+                                完成医嘱执行8项。病房交接顺利完成。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm text-gray-500">3月13日 周三</span>
+                        <span class="text-xs text-pink-500">查看详情</span>
+                    </div>
+                    <div class="bg-gray-50 rounded-2xl p-4">
+                        <div class="text-sm">
+                            <div class="font-medium">夜班工作记录</div>
+                            <div class="text-gray-500 mt-1 text-xs">
+                                夜间病房巡查4次，处理紧急呼叫2次，
+                                完成常规护理工作，患者情况稳定。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+        <div class="flex justify-around">
+            <button class="flex flex-col items-center">
+                <i class="fas fa-home text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">首页</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-calendar text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">排班</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center -mt-6">
+                    <i class="fas fa-plus text-white text-xl"></i>
+                </div>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-clock text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">统计</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <i class="fas fa-user text-gray-400 text-xl"></i>
+                <span class="text-xs mt-1 text-gray-400">我的</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html> 

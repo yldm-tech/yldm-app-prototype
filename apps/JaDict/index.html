@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - Cursor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .prototype-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 80px 60px; /* 垂直间距更大，水平间距适中 */
+      justify-content: center;
+      margin-top: 60px; /* 增加顶部空间 */
+    }
+    .prototype-item {
+      position: relative;
+      margin-bottom: 40px; /* 增加底部空间 */
+    }
+    .prototype-label {
+      position: absolute;
+      top: -50px; /* 增加标题与预览的距离 */
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #333;
+      background-color: rgba(255, 107, 158, 0.1);
+      padding: 8px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 107, 158, 0.2);
+    }
+    .iphone-wrapper {
+      width: 420px;
+      height: 872px;
+      background-color: #1a1a1a;
+      border-radius: 50px;
+      padding: 14px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+      overflow: hidden; /* 确保内容不会超出边界 */
+    }
+    .iphone-wrapper:hover {
+      transform: scale(1.03);
+    }
+    iframe {
+      border: none;
+      border-radius: 40px;
+      overflow: hidden;
+      width: 390px; /* 确保宽度匹配 */
+      height: 844px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 36px;
+      font-weight: 800;
+      color: #FF6B9E;
+    }
+    .header-subtitle {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #666;
+      font-size: 18px;
+    }
+    .page-separator {
+      width: 100%;
+      height: 2px;
+      background-color: rgba(255, 107, 158, 0.2);
+      margin: 20px 0 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 悦灵辞书 - 高保真原型设计 🌸</h1>
+  <p class="header-subtitle">为喜欢日本文化和动漫的年轻人设计的日语词典应用</p>
+
+  <div class="prototype-container">
+    <!-- 登录页面 -->
+    <div class="frame-container">
+      <h3 class="frame-title">登录</h3>
+      <div class="iphone-frame">
+        <iframe src="login.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 首页（搜索） -->
+    <div class="frame-container">
+      <h3 class="frame-title">首页（搜索）</h3>
+      <div class="iphone-frame">
+        <iframe src="home.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 词典页面 -->
+    <div class="frame-container">
+      <h3 class="frame-title">词典</h3>
+      <div class="iphone-frame">
+        <iframe src="dictionary.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 单词详情 -->
+    <div class="frame-container">
+      <h3 class="frame-title">单词详情</h3>
+      <div class="iphone-frame">
+        <iframe src="word-detail.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- AI查词 -->
+    <div class="frame-container">
+      <h3 class="frame-title">AI查词</h3>
+      <div class="iphone-frame">
+        <iframe src="ai-search.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 每日学习 -->
+    <div class="frame-container">
+      <h3 class="frame-title">每日学习</h3>
+      <div class="iphone-frame">
+        <iframe src="daily-study.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 单词测验 -->
+    <div class="frame-container">
+      <h3 class="frame-title">单词测验</h3>
+      <div class="iphone-frame">
+        <iframe src="quiz.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 收藏夹 -->
+    <div class="frame-container">
+      <h3 class="frame-title">收藏夹</h3>
+      <div class="iphone-frame">
+        <iframe src="favorites.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 学习进度 -->
+    <div class="frame-container">
+      <h3 class="frame-title">学习进度</h3>
+      <div class="iphone-frame">
+        <iframe src="progress.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+
+    <!-- 设置 -->
+    <div class="frame-container">
+      <h3 class="frame-title">设置</h3>
+      <div class="iphone-frame">
+        <iframe src="settings.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

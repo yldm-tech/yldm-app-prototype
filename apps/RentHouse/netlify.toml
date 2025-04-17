@@ -1,0 +1,8 @@
+[build]
+  publish = "/"
+
+# 重定向设置，确保单页应用的路由正常工作
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑成员 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-6">
+        <div class="flex items-center">
+            <button class="w-10 h-10 flex items-center justify-center" onclick="history.back()">
+                <i class="fas fa-chevron-left text-gray-500"></i>
+            </button>
+            <h1 class="flex-1 text-center text-xl font-semibold">编辑成员</h1>
+            <button class="w-10 h-10 flex items-center justify-center text-pink-500">
+                保存
+            </button>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="p-6">
+        <!-- 头像上传 -->
+        <div class="flex justify-center mb-8">
+            <div class="relative">
+                <div class="w-24 h-24 bg-gray-200 rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+                        class="w-full h-full object-cover">
+                </div>
+                <button class="absolute bottom-0 right-0 w-8 h-8 bg-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <i class="fas fa-camera text-white text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 基本信息 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <h3 class="text-sm text-gray-500 mb-4">基本信息</h3>
+            <div class="space-y-4">
+                <!-- 姓名 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">姓名</label>
+                    <div class="relative">
+                        <i class="fas fa-user absolute left-4 top-3.5 text-gray-400"></i>
+                        <input type="text" value="张护士"
+                            class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            placeholder="请输入姓名">
+                    </div>
+                </div>
+
+                <!-- 工号 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">工号</label>
+                    <div class="relative">
+                        <i class="fas fa-id-card absolute left-4 top-3.5 text-gray-400"></i>
+                        <input type="text" value="N20190315"
+                            class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            placeholder="请输入工号">
+                    </div>
+                </div>
+
+                <!-- 职位 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">职位</label>
+                    <div class="relative">
+                        <i class="fas fa-user-md absolute left-4 top-3.5 text-gray-400"></i>
+                        <select class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none">
+                            <option value="head_nurse">护士长</option>
+                            <option value="nurse">护士</option>
+                            <option value="intern">实习护士</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-3.5 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- 科室 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">科室</label>
+                    <div class="relative">
+                        <i class="fas fa-hospital absolute left-4 top-3.5 text-gray-400"></i>
+                        <select class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none">
+                            <option value="pediatrics">儿科</option>
+                            <option value="internal">内科</option>
+                            <option value="surgery">外科</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-3.5 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- 入职时间 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">入职时间</label>
+                    <div class="relative">
+                        <i class="fas fa-calendar absolute left-4 top-3.5 text-gray-400"></i>
+                        <input type="date" value="2019-03-15"
+                            class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <h3 class="text-sm text-gray-500 mb-4">联系方式</h3>
+            <div class="space-y-4">
+                <!-- 手机号 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">手机号</label>
+                    <div class="relative">
+                        <i class="fas fa-mobile-alt absolute left-4 top-3.5 text-gray-400"></i>
+                        <input type="tel" value="13888888888"
+                            class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            placeholder="请输入手机号">
+                    </div>
+                </div>
+
+                <!-- 邮箱 -->
+                <div>
+                    <label class="text-sm text-gray-500 mb-2 block">邮箱</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-4 top-3.5 text-gray-400"></i>
+                        <input type="email" value="zhang@hospital.com"
+                            class="w-full bg-gray-50 rounded-xl py-3 px-12 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                            placeholder="请输入邮箱">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 排班设置 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm">
+            <h3 class="text-sm text-gray-500 mb-4">排班设置</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm">可排夜班</p>
+                        <p class="text-xs text-gray-500 mt-1">是否可以安排夜班</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-500"></div>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm">节假日值班</p>
+                        <p class="text-xs text-gray-500 mt-1">是否可以安排节假日值班</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-500"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

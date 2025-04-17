@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员积分 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .points-card {
+            background: linear-gradient(135deg, #4a90e2, #1976d2);
+            border-radius: 16px;
+            margin: 15px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .points-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .points-value {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .points-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .points-action-btn {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .points-tabs {
+            background: #fff;
+            display: flex;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .points-tab {
+            padding: 6px 16px;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+        }
+
+        .points-tab.active {
+            color: #1989fa;
+            font-weight: 500;
+        }
+
+        .points-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: #1989fa;
+            border-radius: 1px;
+        }
+
+        .points-item {
+            background: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .points-item-info {
+            flex: 1;
+        }
+
+        .points-item-title {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .points-item-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .points-item-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .points-item-value.plus {
+            color: #07c160;
+        }
+
+        .points-item-value.minus {
+            color: #ee0a24;
+        }
+
+        .points-rules {
+            margin: 15px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .points-rules-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .points-rule-item {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .points-rule-item i {
+            color: #1989fa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">会员积分</div>
+    </div>
+
+    <!-- 积分卡片 -->
+    <div class="points-card">
+        <div class="points-title">当前积分</div>
+        <div class="points-value">3,280</div>
+        <div class="points-actions">
+            <div class="points-action-btn">
+                <i class="fas fa-exchange-alt"></i>
+                <span>兑换商品</span>
+            </div>
+            <div class="points-action-btn">
+                <i class="fas fa-gift"></i>
+                <span>积分任务</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分明细标签 -->
+    <div class="points-tabs">
+        <div class="points-tab active">积分明细</div>
+        <div class="points-tab">积分规则</div>
+    </div>
+
+    <!-- 积分明细列表 -->
+    <div class="points-list">
+        <div class="points-item">
+            <div class="points-item-info">
+                <div class="points-item-title">签到奖励</div>
+                <div class="points-item-time">2024-03-15 09:30</div>
+            </div>
+            <div class="points-item-value plus">+10</div>
+        </div>
+        <div class="points-item">
+            <div class="points-item-info">
+                <div class="points-item-title">兑换优惠券</div>
+                <div class="points-item-time">2024-03-14 15:20</div>
+            </div>
+            <div class="points-item-value minus">-500</div>
+        </div>
+        <div class="points-item">
+            <div class="points-item-info">
+                <div class="points-item-title">完成房源评价</div>
+                <div class="points-item-time">2024-03-13 18:45</div>
+            </div>
+            <div class="points-item-value plus">+100</div>
+        </div>
+        <div class="points-item">
+            <div class="points-item-info">
+                <div class="points-item-title">分享房源</div>
+                <div class="points-item-time">2024-03-12 14:15</div>
+            </div>
+            <div class="points-item-value plus">+20</div>
+        </div>
+    </div>
+
+    <!-- 积分规则说明 -->
+    <div class="points-rules" style="display: none;">
+        <div class="points-rules-title">
+            <i class="fas fa-info-circle"></i>
+            <span>积分获取规则</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>每日签到：+10积分</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>完成房源评价：+100积分</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>分享房源：+20积分/次（每日上限3次）</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>成功预约看房：+50积分</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>完成租房交易：+500积分</span>
+        </div>
+        
+        <div class="points-rules-title" style="margin-top: 20px;">
+            <i class="fas fa-info-circle"></i>
+            <span>积分使用规则</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>500积分可兑换10元优惠券</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>1000积分可兑换25元优惠券</span>
+        </div>
+        <div class="points-rule-item">
+            <i class="fas fa-circle"></i>
+            <span>2000积分可兑换60元优惠券</span>
+        </div>
+    </div>
+
+    <script>
+        // 标签切换
+        const tabs = document.querySelectorAll('.points-tab');
+        const pointsList = document.querySelector('.points-list');
+        const pointsRules = document.querySelector('.points-rules');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                if (index === 0) {
+                    pointsList.style.display = 'block';
+                    pointsRules.style.display = 'none';
+                } else {
+                    pointsList.style.display = 'none';
+                    pointsRules.style.display = 'block';
+                }
+            });
+        });
+
+        // 积分操作按钮点击事件
+        const actionButtons = document.querySelectorAll('.points-action-btn');
+        actionButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.querySelector('span').textContent;
+                console.log('点击操作：', action);
+                // 这里添加对应的操作逻辑
+            });
+        });
+
+        // 积分明细项点击事件
+        const pointsItems = document.querySelectorAll('.points-item');
+        pointsItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('.points-item-title').textContent;
+                console.log('查看积分详情：', title);
+                // 这里添加查看详情的逻辑
+            });
+        });
+    </script>
+</body>
+</html> 

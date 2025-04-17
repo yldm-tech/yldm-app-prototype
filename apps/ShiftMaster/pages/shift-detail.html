@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班次详情 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-6">
+        <div class="flex items-center">
+            <button class="w-10 h-10 flex items-center justify-center" onclick="history.back()">
+                <i class="fas fa-chevron-left text-gray-500"></i>
+            </button>
+            <h1 class="flex-1 text-center text-xl font-semibold">班次详情</h1>
+            <button class="w-10 h-10 flex items-center justify-center">
+                <i class="fas fa-ellipsis-h text-gray-500"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="p-6">
+        <!-- 班次基本信息 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-lg font-semibold">早班</h2>
+                    <p class="text-sm text-gray-500 mt-1">2024年3月15日</p>
+                </div>
+                <div class="bg-blue-100 text-blue-500 px-3 py-1 rounded-full text-sm">
+                    进行中
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                    <i class="fas fa-clock mr-2"></i>
+                    <span>07:00 - 15:00</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-user-friends mr-2"></i>
+                    <span>5人</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 值班人员 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <h3 class="text-sm text-gray-500 mb-4">值班人员</h3>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+                        class="w-10 h-10 rounded-xl object-cover">
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium">张护士</span>
+                            <span class="ml-2 text-xs bg-pink-100 text-pink-500 px-2 py-0.5 rounded-full">护士长</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-0.5">儿科 / 5年经验</p>
+                    </div>
+                    <div class="bg-green-100 w-2 h-2 rounded-full"></div>
+                </div>
+
+                <div class="flex items-center">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+                        class="w-10 h-10 rounded-xl object-cover">
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium">李护士</span>
+                            <span class="ml-2 text-xs bg-blue-100 text-blue-500 px-2 py-0.5 rounded-full">护士</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-0.5">儿科 / 3年经验</p>
+                    </div>
+                    <div class="bg-green-100 w-2 h-2 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工作内容 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6">
+            <h3 class="text-sm text-gray-500 mb-4">工作内容</h3>
+            <div class="space-y-3 text-sm">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>查房和基础护理</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>药物分发和注射</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="far fa-circle text-gray-300 mr-3"></i>
+                    <span>病历记录更新</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="far fa-circle text-gray-300 mr-3"></i>
+                    <span>交接班准备</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 备注信息 -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm">
+            <h3 class="text-sm text-gray-500 mb-4">备注信息</h3>
+            <p class="text-sm text-gray-600">
+                今日重点关注3号床病人，需要每2小时测量体温。同时准备下午的家属探视工作。
+            </p>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="fixed bottom-6 left-6 right-6 flex gap-3">
+            <button class="flex-1 bg-pink-500 text-white py-3 rounded-xl text-sm font-medium">
+                申请调班
+            </button>
+            <button class="flex-1 bg-white text-pink-500 py-3 rounded-xl text-sm font-medium border border-pink-500">
+                请假申请
+            </button>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-4 fixed top-0 left-0 right-0 z-10">
+        <div class="flex items-center">
+            <a href="message-list.html" class="mr-4">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </a>
+            <div class="flex-1">
+                <h1 class="text-lg font-semibold">护士长张主任</h1>
+                <p class="text-xs text-gray-500">在线</p>
+            </div>
+            <button class="w-8 h-8 flex items-center justify-center">
+                <i class="fas fa-ellipsis-v text-gray-600"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 聊天内容 -->
+    <div class="mt-20 mb-20 px-4">
+        <!-- 时间分割线 -->
+        <div class="flex justify-center mb-6">
+            <span class="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">今天 10:30</span>
+        </div>
+
+        <!-- 对方消息 -->
+        <div class="flex mb-4">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" 
+                 class="w-10 h-10 rounded-full" alt="头像">
+            <div class="ml-3 max-w-[70%]">
+                <div class="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm">
+                    <p class="text-sm">下周的排班表已经发布，请查看确认，如有问题及时反馈。</p>
+                </div>
+                <span class="text-xs text-gray-400 mt-1 block">10:30</span>
+            </div>
+        </div>
+
+        <!-- 我的消息 -->
+        <div class="flex flex-row-reverse mb-4">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" 
+                 class="w-10 h-10 rounded-full" alt="我的头像">
+            <div class="mr-3 max-w-[70%]">
+                <div class="bg-pink-500 text-white rounded-2xl rounded-tr-sm p-3">
+                    <p class="text-sm">好的，我马上查看</p>
+                </div>
+                <span class="text-xs text-gray-400 mt-1 block text-right">10:31</span>
+            </div>
+        </div>
+
+        <!-- 对方消息 -->
+        <div class="flex mb-4">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" 
+                 class="w-10 h-10 rounded-full" alt="头像">
+            <div class="ml-3 max-w-[70%]">
+                <div class="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm">
+                    <p class="text-sm">另外，本周五下午3点有护理部会议，请准时参加。</p>
+                </div>
+                <span class="text-xs text-gray-400 mt-1 block">10:32</span>
+            </div>
+        </div>
+
+        <!-- 我的消息 -->
+        <div class="flex flex-row-reverse mb-4">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" 
+                 class="w-10 h-10 rounded-full" alt="我的头像">
+            <div class="mr-3 max-w-[70%]">
+                <div class="bg-pink-500 text-white rounded-2xl rounded-tr-sm p-3">
+                    <p class="text-sm">收到，我会准时参加的</p>
+                </div>
+                <span class="text-xs text-gray-400 mt-1 block text-right">10:33</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部输入框 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+        <div class="flex items-center">
+            <button class="w-8 h-8 flex items-center justify-center text-gray-500">
+                <i class="fas fa-plus"></i>
+            </button>
+            <div class="flex-1 mx-2">
+                <input type="text" placeholder="发送消息..." 
+                       class="w-full px-4 py-2 bg-gray-100 rounded-full text-sm focus:outline-none">
+            </div>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-500">
+                <i class="far fa-smile"></i>
+            </button>
+            <button class="w-8 h-8 flex items-center justify-center ml-2 text-gray-500">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html> 

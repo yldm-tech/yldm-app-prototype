@@ -1,0 +1,20 @@
+{
+  "name": "rent-miniapp-prototype",
+  "version": "1.0.0",
+  "description": "租房小程序高保真原型",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s .",
+    "build": "echo 'No build step needed'"
+  },
+  "keywords": [
+    "rental",
+    "prototype",
+    "miniapp"
+  ],
+  "author": "YLDM Team",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}

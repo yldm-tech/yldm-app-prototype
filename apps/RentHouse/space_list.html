@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空间列表 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        
+        /* 底部导航栏 */
+        .tab-bar {
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+        
+        /* 空间列表特定样式 */
+        .search-bar {
+            background-color: #f2f2f2;
+            margin: 10px;
+            border-radius: 20px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar i {
+            color: #999;
+            margin-right: 10px;
+        }
+        
+        .search-placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+        
+        .filter-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-item i {
+            font-size: 12px;
+            margin-left: 3px;
+            color: #999;
+        }
+        
+        .filter-active {
+            color: #1989fa;
+        }
+        
+        .property-list {
+            padding: 10px;
+        }
+        
+        .property-card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .property-image {
+            height: 180px;
+            position: relative;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(25, 137, 250, 0.8);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .property-info {
+            padding: 12px;
+        }
+        
+        .property-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .property-location {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .property-location i {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+        
+        .property-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        
+        .property-tag-item {
+            font-size: 12px;
+            color: #1989fa;
+            background-color: #f0f7ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .property-price {
+            color: #ff5a5f;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .property-price span {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .filter-dropdown {
+            position: fixed;
+            top: 93px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            z-index: 40;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .filter-dropdown.active {
+            display: block;
+        }
+        
+        .filter-dropdown-content {
+            padding: 15px;
+        }
+        
+        .filter-section-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .filter-option {
+            font-size: 13px;
+            padding: 5px 12px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .filter-option.selected {
+            background-color: #e1f0ff;
+            color: #1989fa;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .filter-reset {
+            font-size: 14px;
+            color: #999;
+            background-color: #f5f5f5;
+            padding: 8px 25px;
+            border-radius: 20px;
+        }
+        
+        .filter-confirm {
+            font-size: 14px;
+            color: #fff;
+            background-color: #1989fa;
+            padding: 8px 25px;
+            border-radius: 20px;
+        }
+        
+        .price-range {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .price-input {
+            width: 80px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .price-separator {
+            margin: 0 10px;
+            color: #999;
+        }
+        
+        .room-filter {
+            margin-bottom: 15px;
+        }
+        
+        .mask {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 30;
+            display: none;
+        }
+        
+        .mask.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">空间列表</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 筛选栏 -->
+        <div class="filter-bar">
+            <div class="filter-item" id="filter-area">
+                区域 <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="filter-item" id="filter-price">
+                价格 <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="filter-item" id="filter-room">
+                户型 <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="filter-item" id="filter-more">
+                更多 <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        
+        <!-- 空间列表 -->
+        <div class="property-list">
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="精品公寓">
+                    <div class="property-tag">精选</div>
+                </div>
+                <div class="property-info">
+                    <div class="property-title">阳光城市花园 温馨两居室 南北通透</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 朝阳区 · 望京
+                    </div>
+                    <div class="property-tags">
+                        <div class="property-tag-item">近地铁</div>
+                        <div class="property-tag-item">精装修</div>
+                        <div class="property-tag-item">采光好</div>
+                    </div>
+                    <div class="property-price">4500<span>/月</span></div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="精品公寓">
+                    <div class="property-tag">新上</div>
+                </div>
+                <div class="property-info">
+                    <div class="property-title">城市公馆 精装一居 配套齐全</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 海淀区 · 中关村
+                    </div>
+                    <div class="property-tags">
+                        <div class="property-tag-item">独立卫浴</div>
+                        <div class="property-tag-item">家电齐全</div>
+                        <div class="property-tag-item">拎包入住</div>
+                    </div>
+                    <div class="property-price">3800<span>/月</span></div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="高端公寓">
+                </div>
+                <div class="property-info">
+                    <div class="property-title">金茂府 豪华三居室 品质小区</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 海淀区 · 上地
+                    </div>
+                    <div class="property-tags">
+                        <div class="property-tag-item">安静社区</div>
+                        <div class="property-tag-item">花园洋房</div>
+                        <div class="property-tag-item">物业好</div>
+                    </div>
+                    <div class="property-price">7800<span>/月</span></div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="温馨单间">
+                </div>
+                <div class="property-info">
+                    <div class="property-title">保利心语 精致一室户 地铁直达</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 东城区 · 东直门
+                    </div>
+                    <div class="property-tags">
+                        <div class="property-tag-item">地铁5号线</div>
+                        <div class="property-tag-item">商圈周边</div>
+                        <div class="property-tag-item">首次出租</div>
+                    </div>
+                    <div class="property-price">3200<span>/月</span></div>
+                </div>
+            </div>
+            
+            <div class="property-card">
+                <div class="property-image">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="整洁公寓">
+                </div>
+                <div class="property-info">
+                    <div class="property-title">合生国际 两室一厅 临近公园</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> 朝阳区 · 双井
+                    </div>
+                    <div class="property-tags">
+                        <div class="property-tag-item">临近公园</div>
+                        <div class="property-tag-item">环境优美</div>
+                        <div class="property-tag-item">配套成熟</div>
+                    </div>
+                    <div class="property-price">5500<span>/月</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选下拉菜单 - 区域 -->
+    <div class="filter-dropdown" id="area-dropdown">
+        <div class="filter-dropdown-content">
+            <div class="filter-section-title">区域</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">朝阳区</div>
+                <div class="filter-option">海淀区</div>
+                <div class="filter-option">东城区</div>
+                <div class="filter-option">西城区</div>
+                <div class="filter-option">丰台区</div>
+                <div class="filter-option">石景山区</div>
+                <div class="filter-option">通州区</div>
+            </div>
+            
+            <div class="filter-section-title">地铁</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">1号线</div>
+                <div class="filter-option">2号线</div>
+                <div class="filter-option">4号线</div>
+                <div class="filter-option">5号线</div>
+                <div class="filter-option">6号线</div>
+                <div class="filter-option">8号线</div>
+                <div class="filter-option">10号线</div>
+            </div>
+            
+            <div class="filter-buttons">
+                <div class="filter-reset">重置</div>
+                <div class="filter-confirm">确定</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选下拉菜单 - 价格 -->
+    <div class="filter-dropdown" id="price-dropdown">
+        <div class="filter-dropdown-content">
+            <div class="filter-section-title">价格区间</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">1500以下</div>
+                <div class="filter-option">1500-2500</div>
+                <div class="filter-option">2500-3500</div>
+                <div class="filter-option">3500-5000</div>
+                <div class="filter-option">5000-8000</div>
+                <div class="filter-option">8000以上</div>
+            </div>
+            
+            <div class="filter-section-title">自定义价格区间</div>
+            <div class="price-range">
+                <input type="number" class="price-input" placeholder="最低价">
+                <span class="price-separator">-</span>
+                <input type="number" class="price-input" placeholder="最高价">
+                <span class="price-separator">元/月</span>
+            </div>
+            
+            <div class="filter-buttons">
+                <div class="filter-reset">重置</div>
+                <div class="filter-confirm">确定</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选下拉菜单 - 户型 -->
+    <div class="filter-dropdown" id="room-dropdown">
+        <div class="filter-dropdown-content">
+            <div class="filter-section-title">户型</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">一室</div>
+                <div class="filter-option">两室</div>
+                <div class="filter-option">三室</div>
+                <div class="filter-option">四室及以上</div>
+            </div>
+            
+            <div class="filter-section-title">朝向</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">东</div>
+                <div class="filter-option">南</div>
+                <div class="filter-option">西</div>
+                <div class="filter-option">北</div>
+                <div class="filter-option">南北通透</div>
+            </div>
+            
+            <div class="filter-buttons">
+                <div class="filter-reset">重置</div>
+                <div class="filter-confirm">确定</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选下拉菜单 - 更多 -->
+    <div class="filter-dropdown" id="more-dropdown">
+        <div class="filter-dropdown-content">
+            <div class="filter-section-title">装修</div>
+            <div class="filter-options">
+                <div class="filter-option selected">不限</div>
+                <div class="filter-option">精装</div>
+                <div class="filter-option">简装</div>
+                <div class="filter-option">毛坯</div>
+            </div>
+            
+            <div class="filter-section-title">特色</div>
+            <div class="filter-options">
+                <div class="filter-option">近地铁</div>
+                <div class="filter-option">独立卫浴</div>
+                <div class="filter-option">拎包入住</div>
+                <div class="filter-option">家电齐全</div>
+                <div class="filter-option">采光好</div>
+                <div class="filter-option">安静</div>
+                <div class="filter-option">可养宠物</div>
+            </div>
+            
+            <div class="filter-section-title">房间设施</div>
+            <div class="filter-options">
+                <div class="filter-option">空调</div>
+                <div class="filter-option">衣柜</div>
+                <div class="filter-option">电视</div>
+                <div class="filter-option">洗衣机</div>
+                <div class="filter-option">冰箱</div>
+                <div class="filter-option">热水器</div>
+                <div class="filter-option">宽带</div>
+            </div>
+            
+            <div class="filter-buttons">
+                <div class="filter-reset">重置</div>
+                <div class="filter-confirm">确定</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div class="mask" id="filter-mask"></div>
+    
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item active">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+    
+    <script>
+        // 筛选功能交互
+        const filterItems = {
+            'filter-area': 'area-dropdown',
+            'filter-price': 'price-dropdown',
+            'filter-room': 'room-dropdown',
+            'filter-more': 'more-dropdown'
+        };
+        
+        const mask = document.getElementById('filter-mask');
+        let activeDropdown = null;
+        
+        // 点击筛选项
+        for (const [filterId, dropdownId] of Object.entries(filterItems)) {
+            const filterEl = document.getElementById(filterId);
+            const dropdownEl = document.getElementById(dropdownId);
+            
+            filterEl.addEventListener('click', () => {
+                // 如果当前下拉框已经激活，则关闭
+                if (activeDropdown === dropdownEl && dropdownEl.classList.contains('active')) {
+                    closeDropdown();
+                    return;
+                }
+                
+                // 关闭已经打开的下拉框
+                if (activeDropdown) {
+                    activeDropdown.classList.remove('active');
+                }
+                
+                // 打开新的下拉框
+                dropdownEl.classList.add('active');
+                mask.classList.add('active');
+                activeDropdown = dropdownEl;
+                
+                // 激活筛选项样式
+                resetFilterStyles();
+                filterEl.classList.add('filter-active');
+            });
+        }
+        
+        // 点击遮罩层关闭下拉框
+        mask.addEventListener('click', closeDropdown);
+        
+        // 关闭下拉框函数
+        function closeDropdown() {
+            if (activeDropdown) {
+                activeDropdown.classList.remove('active');
+                activeDropdown = null;
+            }
+            mask.classList.remove('active');
+            resetFilterStyles();
+        }
+        
+        // 重置筛选项样式
+        function resetFilterStyles() {
+            document.getElementById('filter-area').classList.remove('filter-active');
+            document.getElementById('filter-price').classList.remove('filter-active');
+            document.getElementById('filter-room').classList.remove('filter-active');
+            document.getElementById('filter-more').classList.remove('filter-active');
+        }
+        
+        // 选择筛选选项
+        const filterOptions = document.querySelectorAll('.filter-option');
+        filterOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // 如果是单选筛选项(如区域、价格区间)
+                const parent = option.parentElement;
+                if (!option.classList.contains('filter-section-title')) {
+                    const siblings = parent.querySelectorAll('.filter-option');
+                    siblings.forEach(sib => {
+                        if (parent.previousElementSibling && parent.previousElementSibling.textContent === '特色' || 
+                            parent.previousElementSibling && parent.previousElementSibling.textContent === '房间设施') {
+                            // 多选项不移除其他选中
+                        } else {
+                            sib.classList.remove('selected');
+                        }
+                    });
+                }
+                option.classList.toggle('selected');
+            });
+        });
+        
+        // 筛选确定按钮
+        const confirmButtons = document.querySelectorAll('.filter-confirm');
+        confirmButtons.forEach(button => {
+            button.addEventListener('click', closeDropdown);
+        });
+        
+        // 筛选重置按钮
+        const resetButtons = document.querySelectorAll('.filter-reset');
+        resetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const dropdown = button.closest('.filter-dropdown');
+                const options = dropdown.querySelectorAll('.filter-option');
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.textContent === '不限') {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                // 重置价格输入框
+                const priceInputs = dropdown.querySelectorAll('.price-input');
+                priceInputs.forEach(input => {
+                    input.value = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息中心 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        /* 消息分类 */
+        .message-categories {
+            display: flex;
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .category-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #f0f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: #1989fa;
+            font-size: 20px;
+        }
+
+        .category-name {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            background-color: #ff5a5f;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        /* 消息列表 */
+        .message-list {
+            background-color: #fff;
+        }
+
+        .message-item {
+            display: flex;
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+            position: relative;
+        }
+
+        .message-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .icon-system {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+
+        .icon-activity {
+            background-color: #fff7e6;
+            color: #ffa940;
+        }
+
+        .icon-notice {
+            background-color: #f6ffed;
+            color: #52c41a;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            padding-right: 20px;
+        }
+
+        .message-desc {
+            font-size: 13px;
+            color: #999;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #999;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .unread-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background-color: #ff5a5f;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* 底部导航栏 */
+        .tab-bar {
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            padding: 5px 0;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">消息中心</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 消息列表 -->
+        <div class="message-list">
+            <!-- 系统通知 -->
+            <div class="message-item">
+                <div class="message-icon icon-system">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">预约看房提醒</div>
+                    <div class="message-desc">您预约的阳光城市花园看房时间为今天下午2点，请准时到达。</div>
+                </div>
+                <div class="message-time">10分钟前</div>
+                <div class="unread-dot"></div>
+            </div>
+
+            <!-- 活动消息 -->
+            <div class="message-item">
+                <div class="message-icon icon-activity">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">新人专享优惠</div>
+                    <div class="message-desc">恭喜您获得新人专享优惠券，最高可减1000元租金，请尽快使用。</div>
+                </div>
+                <div class="message-time">30分钟前</div>
+                <div class="unread-dot"></div>
+            </div>
+
+            <!-- 系统通知 -->
+            <div class="message-item">
+                <div class="message-icon icon-system">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">租金缴纳提醒</div>
+                    <div class="message-desc">您的本月租金将于3天后自动扣款，请确保账户余额充足。</div>
+                </div>
+                <div class="message-time">1小时前</div>
+                <div class="unread-dot"></div>
+            </div>
+
+            <!-- 公告 -->
+            <div class="message-item">
+                <div class="message-icon icon-notice">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">平台公告</div>
+                    <div class="message-desc">为了提供更好的服务，平台将于本周六凌晨2:00-4:00进行系统升级维护。</div>
+                </div>
+                <div class="message-time">2小时前</div>
+            </div>
+
+            <!-- 活动消息 -->
+            <div class="message-item">
+                <div class="message-icon icon-activity">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">618租房节</div>
+                    <div class="message-desc">618租房节活动开启，多重优惠等你来领，更有iPhone 14等好礼等你来抽！</div>
+                </div>
+                <div class="message-time">昨天</div>
+            </div>
+
+            <!-- 系统通知 -->
+            <div class="message-item">
+                <div class="message-icon icon-system">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-title">实名认证通过</div>
+                    <div class="message-desc">恭喜您通过实名认证，现在可以享受更多租房服务啦！</div>
+                </div>
+                <div class="message-time">昨天</div>
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="far fa-bell"></i>
+            <div class="empty-state-text">暂无消息通知</div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+        <div class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </div>
+        <div class="tab-item active">
+            <i class="fas fa-comment"></i>
+            <span>消息</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script>
+        // 消息分类点击事件
+        const categoryItems = document.querySelectorAll('.category-item');
+        categoryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const categoryName = item.querySelector('.category-name').textContent;
+                // 这里可以添加分类筛选逻辑
+                console.log('查看分类：', categoryName);
+            });
+        });
+
+        // 消息点击事件
+        const messageItems = document.querySelectorAll('.message-item');
+        messageItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // 移除未读标记
+                const unreadDot = item.querySelector('.unread-dot');
+                if (unreadDot) {
+                    unreadDot.remove();
+                }
+                
+                const title = item.querySelector('.message-title').textContent;
+                // 这里可以添加消息详情查看逻辑
+                console.log('查看消息：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

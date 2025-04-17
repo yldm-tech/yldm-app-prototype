@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资讯列表 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        /* 搜索栏 */
+        .search-bar {
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            height: 36px;
+            background-color: #f5f5f5;
+            border-radius: 18px;
+            padding: 0 15px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+        }
+
+        /* 分类标签栏 */
+        .category-tabs {
+            background-color: #fff;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-tab {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-right: 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #666;
+            background-color: #f5f5f5;
+        }
+
+        .category-tab.active {
+            background-color: #1989fa;
+            color: #fff;
+        }
+
+        /* 资讯卡片 */
+        .news-card {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+
+        .news-header {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+        .news-image {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-info {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .news-tag {
+            background-color: #f0f7ff;
+            color: #1989fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .news-time {
+            margin-right: 8px;
+        }
+
+        .news-views {
+            display: flex;
+            align-items: center;
+        }
+
+        .news-views i {
+            margin-right: 2px;
+            font-size: 12px;
+        }
+
+        /* 底部导航栏 */
+        .tab-bar {
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            padding: 5px 0;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+
+        /* 加载更多 */
+        .load-more {
+            text-align: center;
+            padding: 15px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .load-more i {
+            margin-right: 5px;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">租房资讯</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 搜索栏 -->
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="搜索资讯">
+        </div>
+
+        <!-- 分类标签栏 -->
+        <div class="category-tabs">
+            <div class="category-tab active">全部</div>
+            <div class="category-tab">政策解读</div>
+            <div class="category-tab">市场动态</div>
+            <div class="category-tab">租房攻略</div>
+            <div class="category-tab">装修设计</div>
+            <div class="category-tab">生活服务</div>
+        </div>
+
+        <!-- 资讯列表 -->
+        <div class="news-list">
+            <!-- 资讯卡片1 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" alt="资讯图片">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">2023年最新租房政策解读：这些变化租房者必须知道</div>
+                        <div class="news-info">
+                            <div class="news-tag">政策解读</div>
+                            <div class="news-time">2023-06-15</div>
+                            <div class="news-views">
+                                <i class="far fa-eye"></i>
+                                2,358
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资讯卡片2 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="资讯图片">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">北京租房市场5月报告：租金环比上涨2.3%，这些区域最受欢迎</div>
+                        <div class="news-info">
+                            <div class="news-tag">市场动态</div>
+                            <div class="news-time">2023-06-14</div>
+                            <div class="news-views">
+                                <i class="far fa-eye"></i>
+                                1,892
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资讯卡片3 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858" alt="资讯图片">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">租房避坑指南：签约前必须注意这10个细节</div>
+                        <div class="news-info">
+                            <div class="news-tag">租房攻略</div>
+                            <div class="news-time">2023-06-13</div>
+                            <div class="news-views">
+                                <i class="far fa-eye"></i>
+                                3,567
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资讯卡片4 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="资讯图片">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">小户型装修技巧：让你的租房空间瞬间变大</div>
+                        <div class="news-info">
+                            <div class="news-tag">装修设计</div>
+                            <div class="news-time">2023-06-12</div>
+                            <div class="news-views">
+                                <i class="far fa-eye"></i>
+                                2,845
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资讯卡片5 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" alt="资讯图片">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">租房生活必备：周边配套设施全攻略</div>
+                        <div class="news-info">
+                            <div class="news-tag">生活服务</div>
+                            <div class="news-time">2023-06-11</div>
+                            <div class="news-views">
+                                <i class="far fa-eye"></i>
+                                1,756
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 加载更多 -->
+            <div class="load-more">
+                <i class="fas fa-spinner fa-spin"></i>
+                加载更多
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="far fa-newspaper"></i>
+            <div class="empty-state-text">暂无相关资讯</div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+        <div class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </div>
+        <div class="tab-item active">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-comment"></i>
+            <span>消息</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script>
+        // 分类标签切换
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // 这里可以添加分类筛选逻辑
+            });
+        });
+
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchText = e.target.value.trim();
+            // 这里可以添加搜索逻辑
+            console.log('搜索：', searchText);
+        });
+
+        // 加载更多
+        const loadMore = document.querySelector('.load-more');
+        loadMore.addEventListener('click', () => {
+            // 这里可以添加加载更多逻辑
+            console.log('加载更多资讯');
+        });
+
+        // 资讯点击事件
+        const newsCards = document.querySelectorAll('.news-card');
+        newsCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.news-title').textContent;
+                // 这里可以添加跳转到资讯详情的逻辑
+                console.log('查看资讯：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

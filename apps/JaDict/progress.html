@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悦灵辞书 - 学习进度</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="iphone-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi ml-2"></i>
+        <i class="fas fa-battery-full ml-2"></i>
+      </div>
+    </div>
+
+    <!-- 应用内容 -->
+    <div class="app-content page-transition" style="padding-top: 124px;">
+      <!-- 应用头部 -->
+      <div class="app-header">
+        <h1 style="font-size: 24px; font-weight: 700; color: var(--primary-color);">
+          学习进度
+        </h1>
+        <button class="icon-button">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+
+      <!-- 进度概览 -->
+      <div class="profile-header">
+        <div class="avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">小灵同学</div>
+          <div class="profile-level">学习等级: N4 初级</div>
+        </div>
+      </div>
+
+      <!-- 今日统计卡片 -->
+      <div class="card" style="background-color: var(--primary-color); color: white; margin-top: 8px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -15px; right: -15px; width: 80px; height: 80px; background-color: rgba(255,255,255,0.1); border-radius: 40px;"></div>
+        <div style="position: absolute; bottom: -20px; left: -20px; width: 100px; height: 100px; background-color: rgba(255,255,255,0.05); border-radius: 50px;"></div>
+
+        <h2 style="font-weight: 600; margin-bottom: 16px; position: relative;">今日学习</h2>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 16px; position: relative;">
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">28</div>
+            <div style="font-size: 12px; opacity: 0.8;">学习单词</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">45</div>
+            <div style="font-size: 12px; opacity: 0.8;">分钟用时</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 24px; font-weight: 700;">4</div>
+            <div style="font-size: 12px; opacity: 0.8;">连续天数</div>
+          </div>
+        </div>
+
+        <div style="position: relative;">
+          <div style="height: 8px; background-color: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 80%; background-color: white; border-radius: 4px;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 6px;">
+            <div>今日目标: 80%</div>
+            <div>还需6个单词</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 学习计划 -->
+      <div class="section-title">学习计划 <span class="kawaii-text">✏️</span></div>
+
+      <div class="progress-section">
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">N5 基础词汇</div>
+            <div style="color: var(--primary-color); font-weight: 600; font-size: 14px;">85%</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%;"></div>
+          </div>
+          <div class="progress-stats">
+            <div>已学习: 850/1000</div>
+            <div>剩余: 150</div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">N4 核心词汇</div>
+            <div style="color: var(--primary-color); font-weight: 600; font-size: 14px;">42%</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 42%;"></div>
+          </div>
+          <div class="progress-stats">
+            <div>已学习: 336/800</div>
+            <div>剩余: 464</div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">常用动词</div>
+            <div style="color: var(--primary-color); font-weight: 600; font-size: 14px;">60%</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%;"></div>
+          </div>
+          <div class="progress-stats">
+            <div>已学习: 180/300</div>
+            <div>剩余: 120</div>
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">动漫常用语</div>
+            <div style="color: var(--primary-color); font-weight: 600; font-size: 14px;">25%</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 25%;"></div>
+          </div>
+          <div class="progress-stats">
+            <div>已学习: 50/200</div>
+            <div>剩余: 150</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 学习图表 -->
+      <div class="card">
+        <h2 style="font-weight: 600; margin-bottom: 16px; color: var(--primary-color);">每周学习统计</h2>
+
+        <div style="height: 160px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 10px; position: relative;">
+          <!-- 参考线 -->
+          <div style="position: absolute; left: 0; right: 0; height: 1px; background-color: rgba(0,0,0,0.1); top: 0;"></div>
+          <div style="position: absolute; left: 0; right: 0; height: 1px; background-color: rgba(0,0,0,0.1); top: 40px;"></div>
+          <div style="position: absolute; left: 0; right: 0; height: 1px; background-color: rgba(0,0,0,0.1); top: 80px;"></div>
+          <div style="position: absolute; left: 0; right: 0; height: 1px; background-color: rgba(0,0,0,0.1); top: 120px;"></div>
+
+          <!-- 柱状图 -->
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 80px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">一</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 120px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">二</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 60px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">三</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 100px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">四</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 40px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">五</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 140px; width: 12px; background-color: var(--primary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">六</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; width: 32px;">
+            <div style="height: 110px; width: 12px; background-color: var(--secondary-color); border-radius: 6px;"></div>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--light-text);">日</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.05);">
+          <div style="text-align: center;">
+            <div style="font-size: 20px; font-weight: 600; color: var(--primary-color);">196</div>
+            <div style="font-size: 12px; color: var(--light-text);">本周学习单词</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 20px; font-weight: 600; color: var(--primary-color);">7</div>
+            <div style="font-size: 12px; color: var(--light-text);">连续学习天数</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 20px; font-weight: 600; color: var(--primary-color);">28</div>
+            <div style="font-size: 12px; color: var(--light-text);">平均每日单词</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 成就和勋章 -->
+      <div class="section-title">成就勋章 <span class="kawaii-text">🏆</span></div>
+
+      <div style="padding: 0 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-bottom: 20px;">
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: var(--card-bg); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(255, 107, 158, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 24px;">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; font-weight: 500;">连续学习7天</div>
+        </div>
+
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: var(--card-bg); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(161, 119, 255, 0.1); display: flex; align-items: center; justify-content: center; color: var(--secondary-color); font-size: 24px;">
+            <i class="fas fa-crown"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; font-weight: 500;">单词达人</div>
+        </div>
+
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: var(--card-bg); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(255, 209, 102, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-color); font-size: 24px;">
+            <i class="fas fa-book"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; font-weight: 500;">N5达成</div>
+        </div>
+
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: var(--card-bg); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(78, 205, 196, 0.1); display: flex; align-items: center; justify-content: center; color: var(--success-color); font-size: 24px;">
+            <i class="fas fa-star"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; font-weight: 500;">首次测验满分</div>
+        </div>
+
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: var(--card-bg); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+          <div style="width: 48px; height: 48px; border-radius: 24px; background-color: rgba(255, 107, 107, 0.1); display: flex; align-items: center; justify-content: center; color: var(--error-color); font-size: 24px;">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; font-weight: 500;">收藏100词</div>
+        </div>
+
+        <div style="width: calc(33.33% - 8px); aspect-ratio: 1/1; background-color: rgba(0,0,0,0.05); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed rgba(0,0,0,0.1);">
+          <div style="font-size: 24px; color: var(--light-text);">
+            <i class="fas fa-plus"></i>
+          </div>
+          <div style="font-size: 12px; margin-top: 8px; color: var(--light-text);">更多成就</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-book"></i>
+        <span>词典</span>
+      </div>
+      <div class="tab-item">
+        <div style="position: relative;">
+          <i class="fas fa-robot"></i>
+          <span class="badge">新</span>
+        </div>
+        <span>AI助手</span>
+      </div>
+      <div class="tab-item active">
+        <i class="fas fa-chart-line"></i>
+        <span>学习</span>
+      </div>
+      <div class="tab-item">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

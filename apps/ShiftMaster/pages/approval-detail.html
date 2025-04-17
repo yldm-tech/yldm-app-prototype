@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>审批详情 - 排班大师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white px-4 py-4 fixed top-0 left-0 right-0 z-10">
+        <div class="flex items-center">
+            <a href="approval-list.html" class="mr-4">
+                <i class="fas fa-chevron-left text-gray-600"></i>
+            </a>
+            <h1 class="text-lg font-semibold flex-1">审批详情</h1>
+            <button class="text-gray-500">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 审批内容 -->
+    <div class="mt-16 px-4">
+        <!-- 申请人信息 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+            <div class="flex items-center mb-4">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" 
+                     class="w-12 h-12 rounded-full" alt="头像">
+                <div class="ml-3">
+                    <h3 class="font-medium">李护士</h3>
+                    <p class="text-xs text-gray-500">儿科护理部 - 护士</p>
+                </div>
+            </div>
+            <div class="bg-pink-50 rounded-lg p-3">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium">请假申请</span>
+                    <span class="text-xs text-orange-500 px-2 py-1 bg-orange-50 rounded-full">待审批</span>
+                </div>
+                <p class="text-sm text-gray-600">因家中有事，申请3月20日请假一天。</p>
+            </div>
+        </div>
+
+        <!-- 申请详情 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+            <h3 class="text-sm font-medium mb-3">申请详情</h3>
+            <div class="space-y-3 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">请假类型</span>
+                    <span>事假</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">开始时间</span>
+                    <span>2024-03-20 08:00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">结束时间</span>
+                    <span>2024-03-20 20:00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">请假时长</span>
+                    <span>12小时</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">提交时间</span>
+                    <span>2024-03-15 10:30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 审批流程 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+            <h3 class="text-sm font-medium mb-3">审批流程</h3>
+            <div class="relative">
+                <div class="absolute left-2 top-0 bottom-0 w-0.5 bg-gray-100"></div>
+                
+                <!-- 发起申请 -->
+                <div class="relative flex items-start mb-6">
+                    <div class="w-4 h-4 rounded-full bg-green-500 z-10"></div>
+                    <div class="ml-4">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium">李护士</span>
+                            <span class="text-xs text-gray-400 ml-2">发起申请</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">2024-03-15 10:30</p>
+                    </div>
+                </div>
+
+                <!-- 当前审批 -->
+                <div class="relative flex items-start mb-6">
+                    <div class="w-4 h-4 rounded-full bg-orange-500 z-10"></div>
+                    <div class="ml-4">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium">张主任</span>
+                            <span class="text-xs text-orange-500 ml-2">审批中</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">护士长</p>
+                    </div>
+                </div>
+
+                <!-- 后续审批 -->
+                <div class="relative flex items-start">
+                    <div class="w-4 h-4 rounded-full bg-gray-200 z-10"></div>
+                    <div class="ml-4">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium">王院长</span>
+                            <span class="text-xs text-gray-400 ml-2">待审批</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">科室主任</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抄送人 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm mb-20">
+            <h3 class="text-sm font-medium mb-3">抄送人</h3>
+            <div class="flex items-center">
+                <div class="flex -space-x-2">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" 
+                         class="w-8 h-8 rounded-full border-2 border-white" alt="头像">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" 
+                         class="w-8 h-8 rounded-full border-2 border-white" alt="头像">
+                </div>
+                <span class="text-sm text-gray-500 ml-3">共2人</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部按钮 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+        <div class="flex space-x-4">
+            <button class="flex-1 py-2 border border-gray-200 rounded-full text-sm">拒绝</button>
+            <button class="flex-1 py-2 bg-pink-500 text-white rounded-full text-sm">同意</button>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空间详情 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 60px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        
+        /* 底部固定操作栏 */
+        .action-bar {
+            height: 60px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* 空间详情特定样式 */
+        .gallery {
+            height: 250px;
+            position: relative;
+            background-color: #000;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-count {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .info-section {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+        
+        .property-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .property-price {
+            color: #ff5a5f;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .property-price span {
+            font-size: 14px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .property-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        
+        .property-tag {
+            font-size: 12px;
+            color: #1989fa;
+            background-color: #f0f7ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            color: #1989fa;
+            margin-right: 5px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #f0f0f0;
+            margin: 10px 0;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            color: #999;
+            font-size: 14px;
+            width: 70px;
+        }
+        
+        .info-value {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .map-container {
+            height: 150px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .map-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff5a5f;
+            font-size: 30px;
+        }
+        
+        .facility-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .facility-item {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+        
+        .facility-item i {
+            color: #1989fa;
+            margin-right: 5px;
+            font-size: 16px;
+        }
+        
+        .description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        .agent-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .agent-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .agent-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .agent-title {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .contact-button {
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: auto;
+            font-size: 14px;
+        }
+        
+        .action-button {
+            flex: 1;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .action-primary {
+            background-color: #1989fa;
+            color: #fff;
+        }
+        
+        .action-secondary {
+            background-color: #ff5a5f;
+            color: #fff;
+            margin-left: 10px;
+        }
+        
+        .action-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .action-icon i {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        
+        .gallery-thumbs {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none; /* 隐藏滚动条 */
+            -ms-overflow-style: none; /* 隐藏滚动条 */
+        }
+        
+        .gallery-thumbs::-webkit-scrollbar {
+            display: none; /* 隐藏滚动条 */
+        }
+        
+        .thumb {
+            width: 90px;
+            height: 70px;
+            flex-shrink: 0;
+            margin-right: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumb.active {
+            border: 2px solid #1989fa;
+        }
+
+        /* 轮播图样式 */
+        .swiper {
+            width: 100%;
+            height: 250px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #fff !important;
+        }
+
+        /* 收藏按钮样式 */
+        .favorite-btn.active {
+            color: #ff5a5f;
+        }
+
+        /* 空间信息样式 */
+        .space-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1989fa;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        /* 联系电话样式 */
+        .phone-link {
+            color: #1989fa;
+            text-decoration: none;
+        }
+
+        /* 调整五个标签的样式 */
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            text-decoration: none;
+        }
+        
+        .tab-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">空间详情</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 轮播图 -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" alt="空间照片1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3" alt="空间照片2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="空间照片3">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1505409859467-3a796fd5798e" alt="空间照片4">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <!-- 基本信息 -->
+        <div class="info-section">
+            <div class="property-title">创意工位 A区 - 独立办公空间</div>
+            <div class="property-price">1200<span>/月</span></div>
+            <div class="property-tags">
+                <div class="property-tag">独立工位</div>
+                <div class="property-tag">24小时</div>
+                <div class="property-tag">可注册</div>
+                <div class="property-tag">高速网络</div>
+            </div>
+            
+            <div class="space-stats">
+                <div class="stat-item">
+                    <div class="stat-value">20人</div>
+                    <div class="stat-label">适合人数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">累计订单</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4.9分</div>
+                    <div class="stat-label">空间评分</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 空间信息 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i> 空间信息
+            </div>
+            <div class="info-item">
+                <div class="info-label">空间类型</div>
+                <div class="info-value">联合办公空间</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">营业时间</div>
+                <div class="info-value">周一至周日 08:00-22:00</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">联系电话</div>
+                <div class="info-value">
+                    <a href="tel:400-888-9999" class="phone-link">400-888-9999</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 配套设施 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-cube"></i> 配套设施
+            </div>
+            <div class="facility-list">
+                <div class="facility-item">
+                    <i class="fas fa-wifi"></i> 高速网络
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-print"></i> 打印服务
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-coffee"></i> 咖啡茶水
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-door-closed"></i> 储物柜
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-phone-volume"></i> 电话间
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-chair"></i> 休息区
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-parking"></i> 停车位
+                </div>
+                <div class="facility-item">
+                    <i class="fas fa-shield-alt"></i> 24h安保
+                </div>
+            </div>
+        </div>
+        
+        <!-- 空间描述 -->
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fas fa-file-alt"></i> 详情介绍
+            </div>
+            <div class="description">
+                <p>【空间介绍】本空间位于市中心商务区，交通便利，环境优雅。独立工位配备人体工学椅，24小时门禁系统，适合创业团队和自由职业者。</p>
+                <p>【空间特色】</p>
+                <p>- 全天候使用：24小时门禁系统，自由进出</p>
+                <p>- 优质网络：千兆光纤接入，WiFi全覆盖</p>
+                <p>- 会议室：可预订使用，配备投影设备</p>
+                <p>- 休闲区：提供免费咖啡、茶水服务</p>
+                <p>【周边配套】</p>
+                <p>- 交通：地铁2号线、4号线步行5分钟</p>
+                <p>- 餐饮：知名连锁餐饮、特色小店一应俱全</p>
+                <p>- 商业：购物中心、银行、便利店环绕</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+        <div class="action-icon favorite-btn" id="favoriteBtn">
+            <i class="far fa-heart"></i>
+            <span>收藏</span>
+        </div>
+        <div class="action-icon">
+            <i class="fas fa-share-alt"></i>
+            <span>分享</span>
+        </div>
+        <div class="action-button action-secondary">立即预订</div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="space_list.html" class="tab-item active">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </a>
+        <a href="unit_list.html" class="tab-item">
+            <i class="fas fa-door-open"></i>
+            <span>房间</span>
+        </a>
+        <a href="news_center.html" class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </a>
+        <a href="profile.html" class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // 初始化轮播图
+        new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+
+        // 收藏功能
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        let isFavorited = false;
+
+        favoriteBtn.addEventListener('click', () => {
+            isFavorited = !isFavorited;
+            if (isFavorited) {
+                favoriteBtn.querySelector('i').classList.remove('far');
+                favoriteBtn.querySelector('i').classList.add('fas');
+                favoriteBtn.classList.add('active');
+                alert('收藏成功！');
+            } else {
+                favoriteBtn.querySelector('i').classList.remove('fas');
+                favoriteBtn.querySelector('i').classList.add('far');
+                favoriteBtn.classList.remove('active');
+                alert('已取消收藏');
+            }
+        });
+
+        // 电话链接点击
+        document.querySelector('.phone-link').addEventListener('click', (e) => {
+            const phone = e.target.href.split(':')[1];
+            console.log('拨打电话：', phone);
+        });
+
+        // 预订按钮点击
+        document.querySelector('.action-secondary').addEventListener('click', () => {
+            console.log('跳转到预订页面');
+        });
+
+        // 在线咨询点击
+        document.querySelector('.action-primary').addEventListener('click', () => {
+            console.log('打开在线咨询');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报修记录 - 租房小程序</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* iOS 状态栏 */
+        .ios-status-bar {
+            height: 44px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .time {
+            font-weight: bold;
+        }
+        
+        .status-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-icons i {
+            margin-left: 5px;
+        }
+        
+        /* 小程序胶囊按钮 */
+        .miniprogram-header {
+            height: 40px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .header-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .capsule {
+            position: absolute;
+            right: 10px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+        
+        .capsule-divider {
+            width: 1px;
+            height: 18px;
+            background-color: rgba(255, 255, 255, 0.4);
+            margin: 0 5px;
+        }
+        
+        .capsule-button {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+        
+        /* 页面内容区 */
+        .page-content {
+            height: calc(100vh - 93px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        /* 状态筛选栏 */
+        .filter-tabs {
+            display: flex;
+            background-color: #fff;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            min-width: 80px;
+        }
+
+        .filter-tab.active {
+            color: #1989fa;
+        }
+
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: #1989fa;
+            border-radius: 1px;
+        }
+
+        /* 报修记录卡片 */
+        .record-card {
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .record-number {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .record-status {
+            font-size: 13px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .status-pending {
+            background-color: #fff7e6;
+            color: #ffa940;
+        }
+
+        .status-processing {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+
+        .status-completed {
+            background-color: #f6ffed;
+            color: #52c41a;
+        }
+
+        .status-cancelled {
+            background-color: #fff1f0;
+            color: #ff4d4f;
+        }
+
+        .record-content {
+            padding: 15px;
+        }
+
+        .record-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .record-info {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .record-info i {
+            margin-right: 5px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .record-images {
+            display: flex;
+            margin-top: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .record-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .record-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .record-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 15px;
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .record-action {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .action-primary {
+            background-color: #1989fa;
+            color: #fff;
+        }
+
+        .action-default {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        /* 底部导航栏 */
+        .tab-bar {
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            padding: 5px 0;
+        }
+        
+        .tab-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        .tab-item.active {
+            color: #1989fa;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-button {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #1989fa;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 小程序导航栏 -->
+    <div class="miniprogram-header">
+        <div class="header-title">报修记录</div>
+        <div class="capsule">
+            <div class="capsule-button">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            <div class="capsule-divider"></div>
+            <div class="capsule-button">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页面内容区 -->
+    <div class="page-content">
+        <!-- 状态筛选栏 -->
+        <div class="filter-tabs">
+            <div class="filter-tab active">全部</div>
+            <div class="filter-tab">待处理</div>
+            <div class="filter-tab">处理中</div>
+            <div class="filter-tab">已完成</div>
+            <div class="filter-tab">已取消</div>
+        </div>
+
+        <!-- 报修记录列表 -->
+        <div class="record-list">
+            <!-- 报修记录1 -->
+            <div class="record-card">
+                <div class="record-header">
+                    <div class="record-number">报修单号：2023061501</div>
+                    <div class="record-status status-processing">处理中</div>
+                </div>
+                <div class="record-content">
+                    <div class="record-title">水龙头漏水维修</div>
+                    <div class="record-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        阳光城市花园 2号楼 1单元 801
+                    </div>
+                    <div class="record-info">
+                        <i class="far fa-clock"></i>
+                        报修时间：2023-06-15 10:30
+                    </div>
+                    <div class="record-info">
+                        <i class="fas fa-tools"></i>
+                        维修类型：水电维修
+                    </div>
+                    <div class="record-images">
+                        <div class="record-image">
+                            <img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b" alt="问题照片">
+                        </div>
+                        <div class="record-image">
+                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a" alt="问题照片">
+                        </div>
+                    </div>
+                </div>
+                <div class="record-footer">
+                    <div class="record-action action-default">取消报修</div>
+                    <div class="record-action action-primary">联系物业</div>
+                </div>
+            </div>
+
+            <!-- 报修记录2 -->
+            <div class="record-card">
+                <div class="record-header">
+                    <div class="record-number">报修单号：2023061502</div>
+                    <div class="record-status status-pending">待处理</div>
+                </div>
+                <div class="record-content">
+                    <div class="record-title">空调不制冷</div>
+                    <div class="record-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        阳光城市花园 2号楼 1单元 801
+                    </div>
+                    <div class="record-info">
+                        <i class="far fa-clock"></i>
+                        报修时间：2023-06-15 14:20
+                    </div>
+                    <div class="record-info">
+                        <i class="fas fa-tools"></i>
+                        维修类型：空调维修
+                    </div>
+                    <div class="record-images">
+                        <div class="record-image">
+                            <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c" alt="问题照片">
+                        </div>
+                    </div>
+                </div>
+                <div class="record-footer">
+                    <div class="record-action action-default">取消报修</div>
+                    <div class="record-action action-primary">催单</div>
+                </div>
+            </div>
+
+            <!-- 报修记录3 -->
+            <div class="record-card">
+                <div class="record-header">
+                    <div class="record-number">报修单号：2023061503</div>
+                    <div class="record-status status-completed">已完成</div>
+                </div>
+                <div class="record-content">
+                    <div class="record-title">门锁更换</div>
+                    <div class="record-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        阳光城市花园 2号楼 1单元 801
+                    </div>
+                    <div class="record-info">
+                        <i class="far fa-clock"></i>
+                        报修时间：2023-06-14 09:15
+                    </div>
+                    <div class="record-info">
+                        <i class="fas fa-tools"></i>
+                        维修类型：门窗维修
+                    </div>
+                    <div class="record-images">
+                        <div class="record-image">
+                            <img src="https://images.unsplash.com/photo-1582649471321-96dde6f35d71" alt="问题照片">
+                        </div>
+                    </div>
+                </div>
+                <div class="record-footer">
+                    <div class="record-action action-default">删除记录</div>
+                    <div class="record-action action-primary">评价</div>
+                </div>
+            </div>
+
+            <!-- 报修记录4 -->
+            <div class="record-card">
+                <div class="record-header">
+                    <div class="record-number">报修单号：2023061504</div>
+                    <div class="record-status status-cancelled">已取消</div>
+                </div>
+                <div class="record-content">
+                    <div class="record-title">墙面修补</div>
+                    <div class="record-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        阳光城市花园 2号楼 1单元 801
+                    </div>
+                    <div class="record-info">
+                        <i class="far fa-clock"></i>
+                        报修时间：2023-06-13 16:40
+                    </div>
+                    <div class="record-info">
+                        <i class="fas fa-tools"></i>
+                        维修类型：墙面维修
+                    </div>
+                </div>
+                <div class="record-footer">
+                    <div class="record-action action-default">删除记录</div>
+                    <div class="record-action action-primary">重新报修</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state">
+            <i class="fas fa-tools"></i>
+            <div class="empty-state-text">暂无报修记录</div>
+            <div class="empty-state-button">去报修</div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+        <div class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-building"></i>
+            <span>空间</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-newspaper"></i>
+            <span>资讯</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-comment"></i>
+            <span>消息</span>
+        </div>
+        <div class="tab-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script>
+        // 状态筛选切换
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // 这里可以添加筛选逻辑
+            });
+        });
+
+        // 记录操作按钮事件
+        const actionButtons = document.querySelectorAll('.record-action');
+        actionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.textContent;
+                // 这里可以添加相应的操作逻辑
+                console.log('执行操作：', action);
+            });
+        });
+
+        // 记录点击事件
+        const recordCards = document.querySelectorAll('.record-card');
+        recordCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // 如果点击的是操作按钮，不进行跳转
+                if (e.target.classList.contains('record-action')) {
+                    return;
+                }
+                const title = card.querySelector('.record-title').textContent;
+                // 这里可以添加查看详情的逻辑
+                console.log('查看报修详情：', title);
+            });
+        });
+    </script>
+</body>
+</html> 

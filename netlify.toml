@@ -1,0 +1,24 @@
+[build]
+  publish = "./"
+  
+# 重定向设置，确保单页应用的路由正常工作
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 为各个应用设置重定向规则
+[[redirects]]
+  from = "/apps/RentHouse/*"
+  to = "/apps/RentHouse/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/apps/ShiftMaster/*"
+  to = "/apps/ShiftMaster/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/apps/JaDict/*"
+  to = "/apps/JaDict/index.html"
+  status = 200 

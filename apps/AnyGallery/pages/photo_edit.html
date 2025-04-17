@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>照片编辑 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-black">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav bg-black text-white">
+        <div>
+            <a href="photo_view.html" class="text-white">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="ios-title">编辑</h1>
+        <div>
+            <button class="text-pink-500 save-btn">
+                保存
+            </button>
+        </div>
+    </div>
+
+    <!-- 编辑区域 -->
+    <div class="edit-container">
+        <div class="photo-wrapper">
+            <img src="../images/photo3.jpg" alt="照片" class="edit-photo" id="editPhoto">
+        </div>
+        
+        <!-- 编辑控制面板 -->
+        <div class="edit-controls">
+            <!-- 编辑工具选项卡 -->
+            <div class="edit-tabs">
+                <button class="edit-tab active" data-target="adjust-panel">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>调整</span>
+                </button>
+                <button class="edit-tab" data-target="filter-panel">
+                    <i class="fas fa-filter"></i>
+                    <span>滤镜</span>
+                </button>
+                <button class="edit-tab" data-target="crop-panel">
+                    <i class="fas fa-crop-alt"></i>
+                    <span>裁剪</span>
+                </button>
+                <button class="edit-tab" data-target="markup-panel">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>标记</span>
+                </button>
+            </div>
+            
+            <!-- 调整面板 -->
+            <div class="edit-panel active" id="adjust-panel">
+                <div class="slider-group">
+                    <div class="slider-item">
+                        <div class="slider-label">亮度</div>
+                        <div class="slider-control">
+                            <i class="fas fa-sun-o fa-sun text-sm"></i>
+                            <input type="range" min="-100" max="100" value="0" class="edit-slider" data-adjust="brightness">
+                            <i class="fas fa-sun text-lg"></i>
+                        </div>
+                        <div class="slider-value">0</div>
+                    </div>
+                    
+                    <div class="slider-item">
+                        <div class="slider-label">对比度</div>
+                        <div class="slider-control">
+                            <i class="fas fa-adjust text-sm"></i>
+                            <input type="range" min="-100" max="100" value="0" class="edit-slider" data-adjust="contrast">
+                            <i class="fas fa-adjust text-lg"></i>
+                        </div>
+                        <div class="slider-value">0</div>
+                    </div>
+                    
+                    <div class="slider-item">
+                        <div class="slider-label">饱和度</div>
+                        <div class="slider-control">
+                            <i class="fas fa-tint text-sm"></i>
+                            <input type="range" min="-100" max="100" value="0" class="edit-slider" data-adjust="saturation">
+                            <i class="fas fa-tint text-lg"></i>
+                        </div>
+                        <div class="slider-value">0</div>
+                    </div>
+                    
+                    <div class="slider-item">
+                        <div class="slider-label">锐度</div>
+                        <div class="slider-control">
+                            <i class="fas fa-star-half-alt text-sm"></i>
+                            <input type="range" min="0" max="100" value="0" class="edit-slider" data-adjust="sharpen">
+                            <i class="fas fa-star-half-alt text-lg"></i>
+                        </div>
+                        <div class="slider-value">0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 滤镜面板 -->
+            <div class="edit-panel" id="filter-panel">
+                <div class="filters-grid">
+                    <div class="filter-item active">
+                        <div class="filter-preview">
+                            <img src="../images/photo3.jpg" alt="原始" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">原始</div>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-preview filter-vintage">
+                            <img src="../images/photo3.jpg" alt="复古" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">复古</div>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-preview filter-chrome">
+                            <img src="../images/photo3.jpg" alt="铬黄" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">铬黄</div>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-preview filter-fade">
+                            <img src="../images/photo3.jpg" alt="褪色" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">褪色</div>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-preview filter-mono">
+                            <img src="../images/photo3.jpg" alt="黑白" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">黑白</div>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <div class="filter-preview filter-vivid">
+                            <img src="../images/photo3.jpg" alt="鲜艳" class="filter-thumb">
+                        </div>
+                        <div class="filter-name">鲜艳</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 裁剪面板 -->
+            <div class="edit-panel" id="crop-panel">
+                <div class="crop-tools">
+                    <div class="crop-ratio-group">
+                        <button class="crop-ratio-btn active" data-ratio="free">
+                            <i class="fas fa-crop-alt"></i>
+                            <span>自由</span>
+                        </button>
+                        <button class="crop-ratio-btn" data-ratio="1:1">
+                            <i class="fas fa-square"></i>
+                            <span>1:1</span>
+                        </button>
+                        <button class="crop-ratio-btn" data-ratio="4:3">
+                            <i class="fas fa-rectangle-landscape"></i>
+                            <span>4:3</span>
+                        </button>
+                        <button class="crop-ratio-btn" data-ratio="16:9">
+                            <i class="fas fa-film"></i>
+                            <span>16:9</span>
+                        </button>
+                    </div>
+                    
+                    <div class="crop-actions">
+                        <button class="crop-action-btn">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button class="crop-action-btn">
+                            <i class="fas fa-rotate"></i>
+                        </button>
+                        <button class="crop-action-btn">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </button>
+                        <button class="crop-action-btn">
+                            <i class="fas fa-arrows-alt-v"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标记面板 -->
+            <div class="edit-panel" id="markup-panel">
+                <div class="markup-tools">
+                    <div class="markup-tool-group">
+                        <button class="markup-tool-btn active" data-tool="pen">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="markup-tool-btn" data-tool="highlighter">
+                            <i class="fas fa-highlighter"></i>
+                        </button>
+                        <button class="markup-tool-btn" data-tool="text">
+                            <i class="fas fa-font"></i>
+                        </button>
+                        <button class="markup-tool-btn" data-tool="shape">
+                            <i class="fas fa-shapes"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="markup-color-palette">
+                        <button class="color-btn active" style="background-color: #ff3b30;"></button>
+                        <button class="color-btn" style="background-color: #ff9500;"></button>
+                        <button class="color-btn" style="background-color: #ffcc00;"></button>
+                        <button class="color-btn" style="background-color: #34c759;"></button>
+                        <button class="color-btn" style="background-color: #5ac8fa;"></button>
+                        <button class="color-btn" style="background-color: #007aff;"></button>
+                        <button class="color-btn" style="background-color: #5856d6;"></button>
+                        <button class="color-btn" style="background-color: #ffffff;"></button>
+                        <button class="color-btn" style="background-color: #8e8e93;"></button>
+                        <button class="color-btn" style="background-color: #000000;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* 编辑容器 */
+        .edit-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 44px);
+            width: 100%;
+            position: relative;
+        }
+        
+        /* 照片区域 */
+        .photo-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: black;
+        }
+        
+        .edit-photo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        /* 编辑控制面板 */
+        .edit-controls {
+            background-color: #1c1c1e;
+            color: white;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        
+        /* 编辑选项卡 */
+        .edit-tabs {
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .edit-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 0;
+            color: #8e8e93;
+            width: 25%;
+            gap: 4px;
+            font-size: 12px;
+        }
+        
+        .edit-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .edit-tab i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        
+        /* 编辑面板 */
+        .edit-panel {
+            display: none;
+            padding: 16px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .edit-panel.active {
+            display: block;
+        }
+        
+        /* 调整面板 */
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .slider-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .slider-label {
+            width: 60px;
+            font-size: 14px;
+            color: #f3f3f3;
+        }
+        
+        .slider-control {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .edit-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .edit-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        .slider-value {
+            width: 30px;
+            text-align: right;
+            font-size: 14px;
+            color: #f3f3f3;
+        }
+        
+        /* 滤镜面板 */
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            padding: 4px 0;
+        }
+        
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-preview {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .filter-item.active .filter-preview {
+            border-color: var(--primary-color);
+        }
+        
+        .filter-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .filter-name {
+            font-size: 12px;
+            color: #f3f3f3;
+        }
+        
+        /* 滤镜效果 */
+        .filter-vintage {
+            filter: sepia(0.5) contrast(1.2);
+        }
+        
+        .filter-chrome {
+            filter: brightness(1.1) contrast(1.3) saturate(1.3);
+        }
+        
+        .filter-fade {
+            filter: brightness(1.1) contrast(0.9) saturate(0.7);
+        }
+        
+        .filter-mono {
+            filter: grayscale(1);
+        }
+        
+        .filter-vivid {
+            filter: contrast(1.4) saturate(1.8) brightness(1.05);
+        }
+        
+        /* 裁剪面板 */
+        .crop-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .crop-ratio-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .crop-ratio-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #8e8e93;
+            font-size: 12px;
+        }
+        
+        .crop-ratio-btn.active {
+            color: var(--primary-color);
+        }
+        
+        .crop-actions {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .crop-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        /* 标记面板 */
+        .markup-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .markup-tool-group {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .markup-tool-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .markup-tool-btn.active {
+            background-color: var(--primary-color);
+        }
+        
+        .markup-color-palette {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .color-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+        
+        .color-btn.active {
+            border-color: white;
+        }
+        
+        /* 保存按钮 */
+        .save-btn {
+            font-weight: 500;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 切换编辑选项卡
+            const editTabs = document.querySelectorAll('.edit-tab');
+            const editPanels = document.querySelectorAll('.edit-panel');
+            
+            editTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 取消所有选项卡的激活状态
+                    editTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // 激活当前选项卡
+                    this.classList.add('active');
+                    
+                    // 隐藏所有面板
+                    editPanels.forEach(panel => panel.classList.remove('active'));
+                    
+                    // 显示对应面板
+                    const targetPanel = this.getAttribute('data-target');
+                    document.getElementById(targetPanel).classList.add('active');
+                });
+            });
+            
+            // 调整滑块值更新
+            const sliders = document.querySelectorAll('.edit-slider');
+            
+            sliders.forEach(slider => {
+                const valueDisplay = slider.closest('.slider-item').querySelector('.slider-value');
+                
+                slider.addEventListener('input', function() {
+                    // 更新显示值
+                    valueDisplay.textContent = this.value;
+                    
+                    // 应用效果到图片
+                    applyFilters();
+                });
+            });
+            
+            // 滤镜选择
+            const filterItems = document.querySelectorAll('.filter-item');
+            const editPhoto = document.getElementById('editPhoto');
+            
+            filterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 取消所有滤镜项的激活状态
+                    filterItems.forEach(i => i.classList.remove('active'));
+                    
+                    // 激活当前滤镜项
+                    this.classList.add('active');
+                    
+                    // 获取滤镜类名
+                    const filterPreview = this.querySelector('.filter-preview');
+                    const filterClasses = filterPreview.className.replace('filter-preview', '').trim();
+                    
+                    // 移除所有滤镜类
+                    editPhoto.className = 'edit-photo';
+                    
+                    // 应用新滤镜
+                    if (filterClasses) {
+                        editPhoto.classList.add(filterClasses);
+                    }
+                });
+            });
+            
+            // 裁剪比例选择
+            const cropRatioBtns = document.querySelectorAll('.crop-ratio-btn');
+            
+            cropRatioBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 取消所有按钮的激活状态
+                    cropRatioBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // 激活当前按钮
+                    this.classList.add('active');
+                });
+            });
+            
+            // 标记工具选择
+            const markupTools = document.querySelectorAll('.markup-tool-btn');
+            const colorBtns = document.querySelectorAll('.color-btn');
+            
+            markupTools.forEach(tool => {
+                tool.addEventListener('click', function() {
+                    // 取消所有工具的激活状态
+                    markupTools.forEach(t => t.classList.remove('active'));
+                    
+                    // 激活当前工具
+                    this.classList.add('active');
+                });
+            });
+            
+            colorBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 取消所有颜色按钮的激活状态
+                    colorBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // 激活当前颜色按钮
+                    this.classList.add('active');
+                });
+            });
+            
+            // 应用滤镜函数
+            function applyFilters() {
+                const brightnessValue = document.querySelector('[data-adjust="brightness"]').value;
+                const contrastValue = document.querySelector('[data-adjust="contrast"]').value;
+                const saturationValue = document.querySelector('[data-adjust="saturation"]').value;
+                
+                // 构建滤镜字符串
+                const filterString = `
+                    brightness(${1 + brightnessValue / 100})
+                    contrast(${1 + contrastValue / 100})
+                    saturate(${1 + saturationValue / 100})
+                `;
+                
+                // 应用滤镜
+                editPhoto.style.filter = filterString;
+            }
+            
+            // 保存按钮点击事件
+            const saveBtn = document.querySelector('.save-btn');
+            
+            saveBtn.addEventListener('click', function() {
+                // 模拟保存操作，这里只是返回上一页
+                window.location.href = 'photo_view.html';
+            });
+        });
+    </script>
+</body>
+</html> 

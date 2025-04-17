@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任意图库 - 原型预览</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main-style.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .phone-frame {
+            width: 430px;
+            height: 932px;
+            background: white;
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 14px solid #000;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+        .iframe-container {
+            width: 100%;
+            height: calc(100% - 44px);
+            margin-top: 44px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .screen-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .phone-container {
+            margin: 20px;
+        }
+        .file-path {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <h1 class="text-3xl font-bold mb-8 text-center">任意图库 App 原型</h1>
+    <p class="text-center mb-8">这是iPhone 16 Pro Max尺寸的iOS风格原型界面预览</p>
+    
+    <div class="flex flex-wrap justify-center">
+        <!-- 引导页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">引导页</h2>
+            <div class="file-path">pages/guide.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/guide.html" title="引导页"></iframe>
+                </div>
+            </div>
+        </div>
+   
+
+           <!-- 添加图库页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">添加图库页</h2>
+            <div class="file-path">pages/add_album.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/add_album.html" title="添加图库页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 文件夹浏览页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">文件夹浏览页</h2>
+            <div class="file-path">pages/folder_browser.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/folder_browser.html" title="文件夹浏览页"></iframe>
+                </div>
+            </div>
+        </div>
+
+             
+        <!-- 主页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">主页</h2>
+            <div class="file-path">pages/home.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/home.html" title="主页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 照片页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">照片页</h2>
+            <div class="file-path">pages/photos.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/photos.html" title="照片页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 照片查看页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">照片查看页</h2>
+            <div class="file-path">pages/photo_view.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/photo_view.html" title="照片查看页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 照片编辑页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">照片编辑页</h2>
+            <div class="file-path">pages/photo_edit.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/photo_edit.html" title="照片编辑页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 收藏页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">收藏页</h2>
+            <div class="file-path">pages/favorites.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/favorites.html" title="收藏页"></iframe>
+                </div>
+            </div>
+        </div>
+        
+     
+        
+        <!-- 设置页 -->
+        <div class="phone-container">
+            <h2 class="screen-title">设置页</h2>
+            <div class="file-path">pages/settings.html</div>
+            <div class="phone-frame">
+                <div class="status-bar">
+                    <div class="time">10:30</div>
+                    <div class="icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi ml-2"></i>
+                        <i class="fas fa-battery-full ml-2"></i>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <iframe src="pages/settings.html" title="设置页"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

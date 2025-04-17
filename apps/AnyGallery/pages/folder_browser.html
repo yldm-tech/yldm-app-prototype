@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件夹浏览 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav">
+        <div>
+            <a href="add_album.html" class="text-pink-500">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="ios-title">选择文件夹</h1>
+        <div>
+            <button class="text-pink-500" id="addBtn" disabled>
+                添加
+            </button>
+        </div>
+    </div>
+    
+    <!-- 路径导航 -->
+    <div class="path-nav">
+        <button class="path-btn">
+            <i class="fas fa-home"></i>
+        </button>
+        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        <button class="path-btn">
+            Documents
+        </button>
+        <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        <button class="path-btn active">
+            Photos
+        </button>
+    </div>
+    
+    <!-- 文件夹列表 -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="folder-list">
+            <!-- 上一级 -->
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-arrow-up text-gray-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">上一级</h3>
+                    <p class="folder-meta">返回上一级目录</p>
+                </div>
+            </div>
+            
+            <!-- 文件夹 -->
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">家庭照片</h3>
+                    <p class="folder-meta">42个项目 · 2023年10月15日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox"></div>
+                </div>
+            </div>
+            
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">旅行</h3>
+                    <p class="folder-meta">128个项目 · 2023年8月2日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox"></div>
+                </div>
+            </div>
+            
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">工作</h3>
+                    <p class="folder-meta">16个项目 · 2023年9月30日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox"></div>
+                </div>
+            </div>
+            
+            <div class="folder-item selected">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">DCIM</h3>
+                    <p class="folder-meta">358个项目 · 2023年10月20日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox checked"></div>
+                </div>
+            </div>
+            
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">Screenshots</h3>
+                    <p class="folder-meta">86个项目 · 2023年10月21日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox"></div>
+                </div>
+            </div>
+            
+            <div class="folder-item">
+                <div class="folder-icon">
+                    <i class="fas fa-folder text-blue-500"></i>
+                </div>
+                <div class="folder-info">
+                    <h3 class="folder-name">备份</h3>
+                    <p class="folder-meta">204个项目 · 2023年6月15日</p>
+                </div>
+                <div class="folder-check">
+                    <div class="ios-checkbox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 文件夹预览 -->
+    <div class="folder-preview">
+        <h3 class="preview-title">文件夹预览</h3>
+        <div class="preview-grid">
+            <div class="preview-img">
+                <img src="../images/photo1.jpg" alt="预览图">
+            </div>
+            <div class="preview-img">
+                <img src="../images/photo2.jpg" alt="预览图">
+            </div>
+            <div class="preview-img">
+                <img src="../images/photo3.jpg" alt="预览图">
+            </div>
+            <div class="preview-img">
+                <img src="../images/photo4.jpg" alt="预览图">
+            </div>
+            <div class="preview-more">
+                <span>+354</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部设置 -->
+    <div class="bottom-settings">
+        <div class="setting-item">
+            <label class="setting-label">创建相册名称</label>
+            <div class="setting-input">
+                <input type="text" placeholder="DCIM (自动)" class="ios-input">
+            </div>
+        </div>
+        
+        <div class="setting-item">
+            <label class="setting-label">自动更新</label>
+            <div class="setting-switch">
+                <div class="ios-switch active">
+                    <div class="switch-handle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部按钮 -->
+    <div class="fixed bottom-8 inset-x-0 px-6">
+        <a href="home.html" class="ios-button w-full">
+            <i class="fas fa-plus mr-2"></i> 添加到图库
+        </a>
+    </div>
+
+    <style>
+        /* 路径导航 */
+        .path-nav {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: white;
+            overflow-x: auto;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .path-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .path-btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 16px;
+            white-space: nowrap;
+            color: #4b5563;
+            background-color: #f3f4f6;
+            margin: 0 4px;
+        }
+        
+        .path-btn:first-child {
+            margin-left: 0;
+        }
+        
+        .path-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 文件夹列表 */
+        .folder-list {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .folder-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .folder-item:last-child {
+            border-bottom: none;
+        }
+        
+        .folder-item.selected {
+            background-color: rgba(236, 72, 153, 0.05);
+        }
+        
+        .folder-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .folder-info {
+            flex: 1;
+        }
+        
+        .folder-name {
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        
+        .folder-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .folder-check {
+            margin-left: 12px;
+        }
+        
+        .ios-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            position: relative;
+        }
+        
+        .ios-checkbox.checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .ios-checkbox.checked::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 11px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* 文件夹预览 */
+        .folder-preview {
+            margin: 24px 16px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .preview-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .preview-grid {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .preview-img, .preview-more {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .preview-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .preview-more {
+            background-color: rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        
+        /* 底部设置 */
+        .bottom-settings {
+            margin: 0 16px 100px;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-label {
+            font-size: 16px;
+            color: #1f2937;
+        }
+        
+        .ios-input {
+            border: none;
+            background-color: transparent;
+            text-align: right;
+            font-size: 16px;
+            color: #6b7280;
+            width: 100%;
+            padding: 0;
+        }
+        
+        .ios-input:focus {
+            outline: none;
+        }
+        
+        .ios-switch {
+            width: 51px;
+            height: 31px;
+            background-color: #d1d5db;
+            border-radius: 16px;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .ios-switch.active {
+            background-color: var(--primary-color);
+        }
+        
+        .switch-handle {
+            width: 27px;
+            height: 27px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .ios-switch.active .switch-handle {
+            left: 22px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选择文件夹
+            const folderItems = document.querySelectorAll('.folder-item');
+            const addBtn = document.getElementById('addBtn');
+            
+            folderItems.forEach(item => {
+                // 跳过"上一级"选项
+                if (!item.querySelector('.folder-check')) return;
+                
+                item.addEventListener('click', function() {
+                    // 取消所有选中状态
+                    folderItems.forEach(i => {
+                        if (i.querySelector('.folder-check')) {
+                            i.classList.remove('selected');
+                            i.querySelector('.ios-checkbox').classList.remove('checked');
+                        }
+                    });
+                    
+                    // 设置当前项选中
+                    this.classList.add('selected');
+                    this.querySelector('.ios-checkbox').classList.add('checked');
+                    
+                    // 启用添加按钮
+                    addBtn.disabled = false;
+                    addBtn.classList.add('text-pink-500');
+                });
+            });
+            
+            // 切换开关
+            const switchElem = document.querySelector('.ios-switch');
+            switchElem.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html> 

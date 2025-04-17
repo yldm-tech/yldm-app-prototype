@@ -9,7 +9,8 @@ yldm-app-prototype/
 ├── apps/                  # 应用集合目录
 │   ├── RentHouse/         # 租房小程序高保真原型
 │   ├── ShiftMaster/       # 排班管理应用
-│   └── JaDict/            # 日语词典应用
+│   ├── JaDict/            # 日语词典应用
+│   └── AnyGallery/        # 任意图库应用
 ├── node_modules/          # 依赖包
 ├── package.json           # 根项目配置
 └── pnpm-workspace.yaml    # 工作空间配置
@@ -44,6 +45,18 @@ yldm-app-prototype/
 - 学习进度跟踪
 - 每日学习
 - 词汇测验
+
+### AnyGallery (任意图库)
+
+iOS风格的图库应用原型，支持浏览任意位置的照片文件夹，以创新的浏览方式展示照片。
+
+**主要功能**:
+- TikTok风格的上下滑动浏览照片
+- 支持添加任意位置的相册（本地、iCloud等）
+- 相册分类和照片管理
+- 可爱风格的iOS界面设计
+- 浏览模式自定义（上下滑动/左右滑动）
+- 图片查看、收藏功能
 
 ## 开发环境设置
 

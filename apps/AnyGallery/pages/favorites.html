@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-gray-50 pb-20">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav">
+        <div></div>
+        <h1 class="ios-title">收藏</h1>
+        <div>
+            <button class="text-pink-500">
+                <i class="fas fa-ellipsis-h text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 分段控制器 -->
+    <div class="segmented-control">
+        <button class="segment-btn active" data-target="photos-section">
+            照片
+        </button>
+        <button class="segment-btn" data-target="albums-section">
+            相册
+        </button>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="container mx-auto px-4 py-4">
+        <!-- 收藏照片部分 -->
+        <div id="photos-section" class="section-content active">
+            <!-- 最近收藏 -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-lg">最近收藏</h2>
+                    <span class="text-sm text-gray-500">48张照片</span>
+                </div>
+                
+                <div class="favorites-grid">
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo1.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">今天</div>
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo2.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">今天</div>
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo3.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">昨天</div>
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo4.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">昨天</div>
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo5.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">上周</div>
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo6.jpg" alt="收藏照片" class="favorite-photo-img">
+                        <div class="favorite-date">上周</div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 按场景收藏 -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-lg">iCloud/Photos</h2>
+                    <span class="text-sm text-gray-500">24张照片</span>
+                </div>
+                
+                <div class="favorites-grid">
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo7.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo8.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo1.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo2.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 按人物收藏 -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-lg">iCloud/Avatars</h2>
+                    <span class="text-sm text-gray-500">16张照片</span>
+                </div>
+                
+                <div class="favorites-grid">
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo3.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo4.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo5.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                    <a href="photo_view.html" class="favorite-photo">
+                        <img src="../images/photo6.jpg" alt="收藏照片" class="favorite-photo-img">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 收藏相册部分 -->
+        <div id="albums-section" class="section-content hidden">
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-lg">收藏相册</h2>
+                    <span class="text-sm text-gray-500">5个相册</span>
+                </div>
+                
+                <div class="favorite-albums">
+                    <a href="album.html" class="favorite-album">
+                        <div class="favorite-album-cover">
+                            <img src="../images/photo1.jpg" alt="相册封面" class="favorite-cover-img">
+                        </div>
+                        <div class="favorite-album-info">
+                            <h3 class="favorite-album-title">旅行记忆</h3>
+                            <p class="favorite-album-count">86张照片</p>
+                        </div>
+                    </a>
+                    
+                    <a href="album.html" class="favorite-album">
+                        <div class="favorite-album-cover">
+                            <img src="../images/photo3.jpg" alt="相册封面" class="favorite-cover-img">
+                        </div>
+                        <div class="favorite-album-info">
+                            <h3 class="favorite-album-title">家庭聚会</h3>
+                            <p class="favorite-album-count">42张照片</p>
+                        </div>
+                    </a>
+                    
+                    <a href="album.html" class="favorite-album">
+                        <div class="favorite-album-cover">
+                            <img src="../images/photo5.jpg" alt="相册封面" class="favorite-cover-img">
+                        </div>
+                        <div class="favorite-album-info">
+                            <h3 class="favorite-album-title">美食记录</h3>
+                            <p class="favorite-album-count">28张照片</p>
+                        </div>
+                    </a>
+                    
+                    <a href="album.html" class="favorite-album">
+                        <div class="favorite-album-cover">
+                            <img src="../images/photo7.jpg" alt="相册封面" class="favorite-cover-img">
+                        </div>
+                        <div class="favorite-album-info">
+                            <h3 class="favorite-album-title">风景摄影</h3>
+                            <p class="favorite-album-count">64张照片</p>
+                        </div>
+                    </a>
+                    
+                    <a href="album.html" class="favorite-album">
+                        <div class="favorite-album-cover">
+                            <img src="../images/photo2.jpg" alt="相册封面" class="favorite-cover-img">
+                        </div>
+                        <div class="favorite-album-info">
+                            <h3 class="favorite-album-title">城市掠影</h3>
+                            <p class="favorite-album-count">36张照片</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- iOS底部标签栏 -->
+    <div class="ios-tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-photo-film"></i>
+            <span>相册</span>
+        </a>
+        <a href="photos.html" class="tab-item">
+            <i class="fas fa-images"></i>
+            <span>照片</span>
+        </a>
+        <a href="favorites.html" class="tab-item active">
+            <i class="fas fa-heart"></i>
+            <span>收藏</span>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <i class="fas fa-cog"></i>
+            <span>设置</span>
+        </a>
+    </div>
+
+    <style>
+        /* 分段控制器样式 */
+        .segmented-control {
+            display: flex;
+            margin: 12px 16px;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 2px;
+        }
+        
+        .segment-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .segment-btn.active {
+            background-color: white;
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* 内容区样式 */
+        .section-content {
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        /* 收藏照片网格 */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .favorite-photo {
+            aspect-ratio: 1/1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .favorite-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorite-date {
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            font-size: 10px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* 收藏相册列表 */
+        .favorite-albums {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .favorite-album {
+            display: flex;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .favorite-album-cover {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+        
+        .favorite-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorite-album-info {
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .favorite-album-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .favorite-album-count {
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+
+    <script>
+        // 分段控制器切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const segmentBtns = document.querySelectorAll('.segment-btn');
+            
+            segmentBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 取消所有按钮的激活状态
+                    segmentBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // 激活当前按钮
+                    this.classList.add('active');
+                    
+                    // 隐藏所有内容区
+                    document.querySelectorAll('.section-content').forEach(section => {
+                        section.classList.remove('active');
+                        section.classList.add('hidden');
+                    });
+                    
+                    // 显示目标内容区
+                    const targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).classList.remove('hidden');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

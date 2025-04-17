@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-gray-100 pb-20">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav">
+        <div></div>
+        <h1 class="ios-title">设置</h1>
+        <div></div>
+    </div>
+
+    <!-- 设置内容 -->
+    <div class="container mx-auto px-4 py-4">
+        <!-- 用户信息卡片 -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex items-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-pink-300 to-purple-400 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                JL
+            </div>
+            <div class="ml-4">
+                <h3 class="font-bold text-lg">用户</h3>
+                <p class="text-gray-500 text-sm">user@example.com</p>
+            </div>
+        </div>
+        
+        <!-- 常规设置 -->
+        <div class="settings-list mb-6">
+            <h3 class="px-4 py-2 text-gray-500 text-sm font-medium">常规设置</h3>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-arrows-alt-v cute-icon"></i>
+                    <span>TikTok风格浏览</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-image cute-icon"></i>
+                    <span>照片质量</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2 text-gray-500 text-sm">高</span>
+                    <i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-moon cute-icon"></i>
+                    <span>深色模式</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-globe cute-icon"></i>
+                    <span>语言</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2 text-gray-500 text-sm">简体中文</span>
+                    <i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 照片设置 -->
+        <div class="settings-list mb-6">
+            <h3 class="px-4 py-2 text-gray-500 text-sm font-medium">照片设置</h3>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-folder-open cute-icon"></i>
+                    <span>默认相册位置</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2 text-gray-500 text-sm">照片库</span>
+                    <i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-heart cute-icon"></i>
+                    <span>自动添加至收藏</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-location-dot cute-icon"></i>
+                    <span>显示照片位置</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- 浏览体验设置 -->
+        <div class="settings-list mb-6">
+            <h3 class="px-4 py-2 text-gray-500 text-sm font-medium">浏览体验</h3>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-photo-film cute-icon"></i>
+                    <span>浏览模式</span>
+                </div>
+                <div class="flex items-center">
+                    <select class="bg-gray-50 border-0 text-gray-500 text-sm rounded-lg focus:ring-pink-300 focus:border-pink-300 block w-24 p-2">
+                        <option>上下滑动</option>
+                        <option>左右滑动</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-sliders cute-icon"></i>
+                    <span>自动播放间隔</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2 text-gray-500 text-sm">3秒</span>
+                    <i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-rotate cute-icon"></i>
+                    <span>自动旋转</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- 存储与备份 -->
+        <div class="settings-list mb-6">
+            <h3 class="px-4 py-2 text-gray-500 text-sm font-medium">存储与备份</h3>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-cloud-upload-alt cute-icon"></i>
+                    <span>iCloud 自动备份</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-database cute-icon"></i>
+                    <span>存储空间管理</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+        </div>
+        
+        <!-- 关于与支持 -->
+        <div class="settings-list mb-6">
+            <h3 class="px-4 py-2 text-gray-500 text-sm font-medium">关于与支持</h3>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-info-circle cute-icon"></i>
+                    <span>关于应用</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-2 text-gray-500 text-sm">v1.0.0</span>
+                    <i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-life-ring cute-icon"></i>
+                    <span>帮助与反馈</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            
+            <div class="settings-item">
+                <div class="settings-label">
+                    <i class="fas fa-lock cute-icon"></i>
+                    <span>隐私政策</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-300"></i>
+            </div>
+        </div>
+        
+        <!-- 退出登录 -->
+        <button class="w-full py-3 text-center bg-white text-red-500 rounded-lg shadow-sm font-medium">
+            退出登录
+        </button>
+    </div>
+
+    <!-- iOS底部标签栏 -->
+    <div class="ios-tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-photo-film"></i>
+            <span>相册</span>
+        </a>
+        <a href="#" class="tab-item">
+            <i class="fas fa-images"></i>
+            <span>照片</span>
+        </a>
+        <a href="#" class="tab-item">
+            <i class="fas fa-heart"></i>
+            <span>收藏</span>
+        </a>
+        <a href="settings.html" class="tab-item active">
+            <i class="fas fa-cog"></i>
+            <span>设置</span>
+        </a>
+    </div>
+</body>
+</html> 

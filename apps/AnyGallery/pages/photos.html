@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>照片 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-gray-50 pb-20">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav">
+        <div></div>
+        <h1 class="ios-title">照片</h1>
+        <div>
+            <button class="text-pink-500">
+                <i class="fas fa-search text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 时间段选择栏 -->
+    <div class="time-filter-bar">
+        <button class="time-filter-btn active">全部</button>
+        <button class="time-filter-btn">今年</button>
+        <button class="time-filter-btn">2022</button>
+        <button class="time-filter-btn">2021</button>
+        <button class="time-filter-btn">更早</button>
+    </div>
+
+    <!-- 照片时间线 -->
+    <div class="container mx-auto px-2 py-4">
+        <!-- 今天 -->
+        <div class="photo-timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">今天</h2>
+                <span class="timeline-count">8张照片</span>
+            </div>
+            <div class="timeline-grid">
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo1.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo2.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo3.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo4.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+            </div>
+        </div>
+
+        <!-- 昨天 -->
+        <div class="photo-timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">昨天</h2>
+                <span class="timeline-count">12张照片</span>
+            </div>
+            <div class="timeline-grid">
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo5.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo6.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo7.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo8.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+            </div>
+        </div>
+
+        <!-- 上周 -->
+        <div class="photo-timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">上周</h2>
+                <span class="timeline-count">24张照片</span>
+            </div>
+            <div class="timeline-grid">
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo1.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo2.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo3.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo4.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo wide-photo">
+                    <img src="../images/photo5.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo6.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo7.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo8.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+            </div>
+        </div>
+
+        <!-- 上个月 -->
+        <div class="photo-timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">上个月</h2>
+                <span class="timeline-count">56张照片</span>
+            </div>
+            <div class="timeline-grid">
+                <a href="photo_view.html" class="timeline-photo wide-photo">
+                    <img src="../images/photo3.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo4.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo5.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo6.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo7.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+                <a href="photo_view.html" class="timeline-photo">
+                    <img src="../images/photo8.jpg" alt="照片" class="timeline-photo-img">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动操作按钮 -->
+    <button class="floating-button">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- iOS底部标签栏 -->
+    <div class="ios-tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-photo-film"></i>
+            <span>相册</span>
+        </a>
+        <a href="photos.html" class="tab-item active">
+            <i class="fas fa-images"></i>
+            <span>照片</span>
+        </a>
+        <a href="favorites.html" class="tab-item">
+            <i class="fas fa-heart"></i>
+            <span>收藏</span>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <i class="fas fa-cog"></i>
+            <span>设置</span>
+        </a>
+    </div>
+
+    <style>
+        /* 时间过滤栏 */
+        .time-filter-bar {
+            display: flex;
+            overflow-x: auto;
+            padding: 12px 16px;
+            background-color: white;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .time-filter-bar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .time-filter-btn {
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            white-space: nowrap;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            transition: all 0.2s;
+        }
+        
+        .time-filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 时间线部分 */
+        .photo-timeline-section {
+            margin-bottom: 24px;
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .timeline-count {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 90px;
+            gap: 2px;
+        }
+        
+        .timeline-photo {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .timeline-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+        
+        .timeline-photo:active .timeline-photo-img {
+            transform: scale(0.97);
+        }
+        
+        .wide-photo {
+            grid-column: span 2;
+        }
+        
+        /* 响应式布局 */
+        @media (max-width: 640px) {
+            .timeline-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 120px;
+            }
+        }
+    </style>
+</body>
+</html> 

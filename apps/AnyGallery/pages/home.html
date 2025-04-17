@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main-style.css">
+</head>
+<body class="bg-gray-50 pb-20">
+    <!-- iOS导航栏 -->
+    <div class="ios-nav">
+        <div></div>
+        <h1 class="ios-title">任意图库</h1>
+        <div>
+            <a href="add_album.html" class="text-pink-500">
+                <i class="fas fa-plus-circle text-xl"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="container mx-auto px-4 py-4">
+        <!-- 搜索框 -->
+        <div class="search-bar">
+            <input type="search" class="search-input" placeholder="搜索照片或相册...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- 最近照片 -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-semibold text-lg">最近照片</h2>
+                <a href="#" class="text-sm text-pink-500 font-medium">查看全部</a>
+            </div>
+            <div class="flex space-x-3 overflow-x-auto pb-3 no-scrollbar">
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo1.jpg" alt="照片1" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo2.jpg" alt="照片2" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo3.jpg" alt="照片3" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo4.jpg" alt="照片4" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo5.jpg" alt="照片5" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden shadow-sm">
+                    <img src="../images/photo6.jpg" alt="照片6" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <div class="grid grid-cols-2 gap-4">
+                <a href="album.html" class="album-card">
+                    <div class="relative w-full" style="height: 160px;">
+                        <img src="../images/photo1.jpg" alt="全部照片" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-3 left-3 text-white">
+                            <div class="text-sm font-semibold">全部照片</div>
+                            <div class="text-xs opacity-80">1,246 张照片</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="album.html" class="album-card">
+                    <div class="relative w-full" style="height: 160px;">
+                        <img src="../images/photo2.jpg" alt="收藏" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-3 left-3 text-white">
+                            <div class="text-sm font-semibold">iCloud/Photos</div>
+                            <div class="text-xs opacity-80">42 张照片</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="album.html" class="album-card">
+                    <div class="relative w-full" style="height: 160px;">
+                        <img src="../images/photo3.jpg" alt="人物" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-3 left-3 text-white">
+                            <div class="text-sm font-semibold">iCloud/Images</div>
+                            <div class="text-xs opacity-80">386 张照片</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="album.html" class="album-card">
+                    <div class="relative w-full" style="height: 160px;">
+                        <img src="../images/photo4.jpg" alt="场景" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-3 left-3 text-white">
+                            <div class="text-sm font-semibold">iCloud/Avatars</div>
+                            <div class="text-xs opacity-80">211 张照片</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动操作按钮 -->
+    <a href="add_album.html" class="floating-button">
+        <i class="fas fa-plus"></i>
+    </a>
+
+    <!-- iOS底部标签栏 -->
+    <div class="ios-tab-bar">
+        <a href="home.html" class="tab-item active">
+            <i class="fas fa-photo-film"></i>
+            <span>相册</span>
+        </a>
+        <a href="photos.html" class="tab-item">
+            <i class="fas fa-images"></i>
+            <span>照片</span>
+        </a>
+        <a href="favorites.html" class="tab-item">
+            <i class="fas fa-heart"></i>
+            <span>收藏</span>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <i class="fas fa-cog"></i>
+            <span>设置</span>
+        </a>
+    </div>
+
+    <style>
+        .no-scrollbar {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</body>
+</html> 

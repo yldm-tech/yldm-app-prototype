@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>照片查看 - 任意图库</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            overscroll-behavior: none;
+            touch-action: none;
+            overflow: hidden;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+        }
+        
+        /* 加载动画 */
+        .loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 图片容器 */
+        .photo-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 主图片 */
+        .main-photo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transform-origin: center;
+            transition: transform 0.1s;
+        }
+        
+        /* 返回按钮 */
+        .back-button {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 100;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 选项按钮 */
+        .options-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 照片信息 */
+        .photo-info {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 16px;
+            color: white;
+        }
+        
+        .photo-date {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .photo-location {
+            font-size: 14px;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* 相关照片 */
+        .related-photos {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.8);
+            padding: 12px;
+        }
+        
+        .related-title {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .photos-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .related-photo {
+            flex: 0 0 auto;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .related-photo.selected {
+            border: 2px solid #fff;
+        }
+        
+        /* 隐藏滚动条 */
+        .photos-scroll::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div class="loading-spinner" id="loading">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- 照片容器 -->
+    <div class="photo-container" id="photoContainer">
+        <img src="../images/photo2.jpg" alt="照片" class="main-photo" id="mainPhoto">
+    </div>
+    
+    <!-- 控制按钮 -->
+    <a href="album.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <button class="options-button" id="optionsButton">
+        <i class="fas fa-ellipsis-v"></i>
+    </button>
+    
+    <!-- 照片信息 -->
+    <div class="photo-info">
+        <div class="photo-date">2023年10月15日 13:24</div>
+        <div class="photo-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>东京，日本</span>
+        </div>
+    </div>
+    
+    <!-- 相关照片 -->
+    <div class="related-photos">
+        <div class="related-title">相关照片</div>
+        <div class="photos-scroll">
+            <img src="../images/photo1.jpg" alt="相关照片1" class="related-photo">
+            <img src="../images/photo2.jpg" alt="相关照片2" class="related-photo selected">
+            <img src="../images/photo3.jpg" alt="相关照片3" class="related-photo">
+            <img src="../images/photo4.jpg" alt="相关照片4" class="related-photo">
+            <img src="../images/photo5.jpg" alt="相关照片5" class="related-photo">
+            <img src="../images/photo6.jpg" alt="相关照片6" class="related-photo">
+            <img src="../images/photo7.jpg" alt="相关照片7" class="related-photo">
+            <img src="../images/photo8.jpg" alt="相关照片8" class="related-photo">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取元素
+            const loadingSpinner = document.getElementById('loading');
+            const photoContainer = document.getElementById('photoContainer');
+            const mainPhoto = document.getElementById('mainPhoto');
+            const optionsButton = document.getElementById('optionsButton');
+            const relatedPhotos = document.querySelectorAll('.related-photo');
+            
+            // 变量初始化
+            let currentScale = 1;
+            let currentX = 0;
+            let currentY = 0;
+            let startX = 0;
+            let startY = 0;
+            let initialDistance = 0;
+            let isDragging = false;
+            let lastTapTime = 0;
+            
+            // 加载图片
+            mainPhoto.onload = function() {
+                // 图片加载完成后隐藏加载动画
+                loadingSpinner.style.display = 'none';
+            };
+            
+            // 防止页面滑动
+            document.body.addEventListener('touchmove', function(e) {
+                if (e.target === mainPhoto) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // 双击缩放
+            photoContainer.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                
+                if (currentScale === 1) {
+                    currentScale = 2;
+                    
+                    // 以点击位置为中心缩放
+                    const rect = photoContainer.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    currentX = (rect.width / 2 - x) * currentScale;
+                    currentY = (rect.height / 2 - y) * currentScale;
+                } else {
+                    currentScale = 1;
+                    currentX = 0;
+                    currentY = 0;
+                }
+                
+                updateTransform();
+            });
+            
+            // 用于移动设备的双击检测
+            photoContainer.addEventListener('touchend', function(e) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTapTime;
+                
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
+                    
+                    if (currentScale === 1) {
+                        currentScale = 2;
+                        
+                        // 以点击位置为中心缩放
+                        const rect = photoContainer.getBoundingClientRect();
+                        const touch = e.changedTouches[0];
+                        const x = touch.clientX - rect.left;
+                        const y = touch.clientY - rect.top;
+                        
+                        currentX = (rect.width / 2 - x) * currentScale;
+                        currentY = (rect.height / 2 - y) * currentScale;
+                    } else {
+                        currentScale = 1;
+                        currentX = 0;
+                        currentY = 0;
+                    }
+                    
+                    updateTransform();
+                }
+                
+                lastTapTime = currentTime;
+            });
+            
+            // 触摸开始
+            photoContainer.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 1) {
+                    // 单指拖动
+                    isDragging = true;
+                    startX = e.touches[0].clientX - currentX;
+                    startY = e.touches[0].clientY - currentY;
+                } else if (e.touches.length === 2) {
+                    // 双指缩放
+                    isDragging = false;
+                    initialDistance = getDistance(
+                        e.touches[0].clientX, e.touches[0].clientY,
+                        e.touches[1].clientX, e.touches[1].clientY
+                    );
+                }
+            });
+            
+            // 触摸移动
+            photoContainer.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 1 && isDragging && currentScale > 1) {
+                    // 单指拖动（仅在放大状态下可拖动）
+                    e.preventDefault();
+                    currentX = e.touches[0].clientX - startX;
+                    currentY = e.touches[0].clientY - startY;
+                    
+                    // 限制拖动范围
+                    limitDragRange();
+                    updateTransform();
+                } else if (e.touches.length === 2) {
+                    // 双指缩放
+                    e.preventDefault();
+                    
+                    const currentDistance = getDistance(
+                        e.touches[0].clientX, e.touches[0].clientY,
+                        e.touches[1].clientX, e.touches[1].clientY
+                    );
+                    
+                    const scale = Math.max(0.5, Math.min(4, currentScale * (currentDistance / initialDistance)));
+                    
+                    // 计算双指中心点
+                    const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                    const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                    
+                    // 设置新的缩放值和位置
+                    currentScale = scale;
+                    
+                    // 限制拖动范围
+                    limitDragRange();
+                    
+                    updateTransform();
+                    initialDistance = currentDistance;
+                }
+            });
+            
+            // 触摸结束
+            photoContainer.addEventListener('touchend', function(e) {
+                isDragging = false;
+                
+                // 如果缩放比例小于一定值，自动复原
+                if (currentScale < 1.1) {
+                    currentScale = 1;
+                    currentX = 0;
+                    currentY = 0;
+                    updateTransform();
+                }
+            });
+            
+            // 相关照片点击事件
+            relatedPhotos.forEach(function(photo) {
+                photo.addEventListener('click', function() {
+                    // 显示加载动画
+                    loadingSpinner.style.display = 'flex';
+                    
+                    // 更换主照片
+                    mainPhoto.src = this.src;
+                    
+                    // 重置缩放和位置
+                    currentScale = 1;
+                    currentX = 0;
+                    currentY = 0;
+                    updateTransform();
+                    
+                    // 更新选中状态
+                    relatedPhotos.forEach(function(p) {
+                        p.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+            
+            // 更新变换
+            function updateTransform() {
+                mainPhoto.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
+            }
+            
+            // 计算两点之间的距离
+            function getDistance(x1, y1, x2, y2) {
+                return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            }
+            
+            // 限制拖动范围，防止图片被拖出视野
+            function limitDragRange() {
+                const rect = photoContainer.getBoundingClientRect();
+                const photoRect = mainPhoto.getBoundingClientRect();
+                
+                // 计算缩放后的图片尺寸
+                const scaledWidth = photoRect.width / currentScale;
+                const scaledHeight = photoRect.height / currentScale;
+                
+                // 计算最大可拖动范围
+                const maxX = (scaledWidth * currentScale - rect.width) / 2;
+                const maxY = (scaledHeight * currentScale - rect.height) / 2;
+                
+                // 限制X轴拖动范围
+                if (maxX > 0) {
+                    currentX = Math.max(-maxX, Math.min(maxX, currentX));
+                } else {
+                    currentX = 0;
+                }
+                
+                // 限制Y轴拖动范围
+                if (maxY > 0) {
+                    currentY = Math.max(-maxY, Math.min(maxY, currentY));
+                } else {
+                    currentY = 0;
+                }
+            }
+            
+            // 初始化
+            updateTransform();
+        });
+    </script>
+</body>
+</html> 
